@@ -50,7 +50,6 @@ if ($conn->connect_error) {
                           <input id='$row[id]' type='radio' value='$row[content]' name='helpDoc' onchange=showDocs(this.value)>
                           <label for id='$row[id]'>".$row['id']."</label>";
                       }
-                      $data = json_encode($rows);
               } else {
                   echo "no results";
               }
@@ -79,22 +78,14 @@ if ($conn->connect_error) {
             alert('Guardado correctamente');
             console.log(contenido);
 
-            const output = document.createElement('div');
-            // output.innerHTML = country.name + " " + country.alpha2Code;
             document.getElementById('output').innerHTML = contenido;
         }
 
         function showDocs(str) {
           console.log(str);
-          if (str == "") {
-            document.getElementById("output").innerHTML = "";
-            return;
-          }
+          
           const xhttp = new XMLHttpRequest();
           xhttp.onload = function() {
-            // let rowData = document.createElement('div');
-            // rowData.innerHTML = str;
-            // document.getElementById('output').appendChild(rowData);
             document.getElementById("output").innerHTML = str;
           }
           xhttp.open("GET", "quill-example.php?q="+str);

@@ -1,3 +1,10 @@
+<?php
+$conn = new mysqli("localhost", "root", "c55h32o5n4Mg", "document");
+
+if ($conn->connect_error) {
+    die("Error: ".$conn->connect_errno ." " .$conn->connect_error);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +37,27 @@
   
     <br>
     <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
+    <br>
+    <hr>
+    <form action="">
+      <?php
+        $query = "SELECT * FROM help";
+        $result = $conn->query($query);
+                  if ($result->num_rows > 0) {
+                      while ($row = $result->fetch_assoc()) {
+                        $rows[]=$row;
+                          echo "
+                          <input id='$row[id]' type='radio' value='$row[content]' name='helpDoc' onchange=showDocs(this.value)>
+                          <label for id='$row[id]'>".$row['id']."</label>";
+                      }
+                      $data = json_encode($rows);
+              } else {
+                  echo "no results";
+              }
+      ?>
+      
+    </form>
+
     <div id="output">
       <p>Resultado</p>
     </div>
@@ -56,7 +84,23 @@
             document.getElementById('output').innerHTML = contenido;
         }
 
-        
+        function showDocs(str) {
+          console.log(str);
+          if (str == "") {
+            document.getElementById("output").innerHTML = "";
+            return;
+          }
+          const xhttp = new XMLHttpRequest();
+          xhttp.onload = function() {
+            // let rowData = document.createElement('div');
+            // rowData.innerHTML = str;
+            // document.getElementById('output').appendChild(rowData);
+            document.getElementById("output").innerHTML = str;
+          }
+          xhttp.open("GET", "quill-example.php?q="+str);
+          xhttp.send();
+        }
+                
       </script>
 
     

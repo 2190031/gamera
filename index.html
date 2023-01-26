@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn" onclick=showCountries()>Show Countries</button>
+    <!-- <button id="btn" onclick=showData()>Show Countries</button> -->
+    <div id="feed">
+        
+    </div>
+    
+    <script>
+        
+        function showCountries() {
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('GET', 'https://restcountries.com/v2/all', true);
+
+            xhr.onload = function(){
+                if (xhr.status == 200) {
+                    console.log('success');
+                    let countries = JSON.parse(this.response);
+                    console.log(countries);
+                    countries.forEach(country => {
+                        const countryCard = document.createElement('div');
+                        countryCard.innerHTML = country.name + " " + country.alpha2Code;
+                        document.getElementById('feed').appendChild(countryCard);
+                    });
+                }
+            }
+            xhr.send();
+        }
+
+        async function getData(){
+            const response = await fetch('https://restcountries.com/v2/all');
+            const data = await response.json();
+            return data;
+        }
+
+        getData().then(data => { console.log(data); 
+        }).then(data => {
+            data.forEach(country => {
+                const countryCard = document.createElement('div');
+                countryCard.innerHTML = country.name;
+                document.getElementById('feed').appendChild(countryCard);
+            })
+        }).catch(error => { 
+            console.log('Errors: ' + error.message);
+        });
+
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+#scroll-nav {
+    max-height: 500px;
+    height: 400px;
+    width: 200px;
+    overflow-y: scroll;
+}

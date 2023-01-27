@@ -13,6 +13,8 @@ if ($conn->connect_error) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link href="style.css" rel="stylesheet">
+
     <!-- Main Quill library -->
     <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -28,8 +30,12 @@ if ($conn->connect_error) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+  <h1 class="h1"></h1>
   <div class="container">
-    <div id="editor">
+    <div id="title">
+
+    </div>
+    <div id="editor" class="container-sm">
         <p>Hello World!</p>
         <p>Some initial <strong>bold</strong> text</p>
         <p><br></p>
@@ -39,24 +45,14 @@ if ($conn->connect_error) {
     <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
     <br>
     <hr>
-    <form action="">
-      <?php
-        $query = "SELECT * FROM help";
-        $result = $conn->query($query);
-                  if ($result->num_rows > 0) {
-                      while ($row = $result->fetch_assoc()) {
-                        $rows[]=$row;
-                          echo "
-                          <input id='$row[id]' type='radio' value='$row[content]' name='helpDoc' onchange=showDocs(this.value)>
-                          <label for id='$row[id]'>".$row['id']."</label>";
-                      }
-              } else {
-                  echo "no results";
-              }
-      ?>
-      
-    </form>
 
+    <div id="scroll-nav">
+      <?php
+        include_once('fill-index.php')
+      ?>
+    </div>
+
+<br><hr><br>
     <div id="output">
       <p>Resultado</p>
     </div>
@@ -65,7 +61,8 @@ if ($conn->connect_error) {
 
       <!-- Include the Quill library -->
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-      
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
       <!-- Initialize Quill editor -->
       <script>
         var quill = new Quill('#editor', {
@@ -73,13 +70,18 @@ if ($conn->connect_error) {
         });
 
         function jsSave(){
+          let titulo = quill.container
             let contenido = quill.container.firstChild.innerHTML;
             fetch('insert.php?contenido=' + contenido);
             alert('Guardado correctamente');
             console.log(contenido);
 
             document.getElementById('output').innerHTML = contenido;
-        }
+            var myVar = setInterval(myFunc, 1000);
+
+            function myFunc() {
+                $("#scroll-nav").load('fill-index.php');
+            }        }
 
         function showDocs(str) {
           console.log(str);

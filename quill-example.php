@@ -30,9 +30,9 @@ if ($conn->connect_error) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
-  <h1 class="h1">Inserte una nueva sección</h1>
   <div class="container">
-    <div id="title">
+    <h1 class="h1">Inserte una nueva sección</h1>
+    <div id="input-title">
 
     </div>
     <div id="editor" class="container-sm">
@@ -55,6 +55,9 @@ if ($conn->connect_error) {
 <br><hr><br>
     <div id="output">
       <p>Resultado</p>
+      <div id="title"></div>
+      
+      <div id="content"></div>
     </div>
   </div>
 
@@ -77,23 +80,42 @@ if ($conn->connect_error) {
             console.log(contenido);
 
             document.getElementById('output').innerHTML = contenido;
-            var myVar = setInterval(myFunc, 1000);
+            
+            var myVar = setInterval(myFunc, 10000);
 
             function myFunc() {
                 $("#scroll-nav").load('fill-index.php');
-            }        }
-
-        function showDocs(str) {
-          console.log(str);
-          
-          const xhttp = new XMLHttpRequest();
-          xhttp.onload = function() {
-            document.getElementById("output").innerHTML = str;
+            }        
           }
-          xhttp.open("GET", "quill-example.php?q="+str);
-          xhttp.send();
-        }
-                
+
+
+          function showTitle(str) {
+            console.log(str);
+            var title = "<h1 class='h1'>" + str + "</h1>";
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+              document.getElementById('title').innerHTML = title;
+            }
+            xhttp.open("GET", "quill-example.php?p="+str);
+            xhttp.send();
+          }
+
+          function showCont(cont) {
+            console.log(cont);
+            
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
+              document.getElementById('content').innerHTML = cont;
+            }
+            xhttp.open("GET", "quill-example.php?p="+cont);
+            xhttp.send();
+          }
+
+          function showTitleAndCont(title, cont) {
+            showTitle(title);
+            showCont(cont);
+          }
+        
       </script>
 
     

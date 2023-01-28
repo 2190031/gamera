@@ -36,7 +36,7 @@ if ($conn->connect_error) {
 
     <div id="input-title" class="mb-3">
       <div id="title-editor" class="ql-container ql-bubble"> 
-        <div class="ql-editor ql-blank" contenteditable="true" data-placeholder="Digite el título de la sección">
+        <div id="" class="ql-editor ql-blank" contenteditable="true" data-placeholder="Digite el título de la sección">
           <p class="h2"><br></p>
         </div>
       </div>
@@ -46,12 +46,16 @@ if ($conn->connect_error) {
         <p><br></p>
     </div>
   
-    <br><button class="btn btn-primary" onclick=jsSave()>Guardar</button><br>
+    <br>
+    <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
+    <button class="btn btn-warning" onclick=updateCont()>Editar</button>
+    <br>
+<p name="id" id="hidden-id" value="$row['id']" hidden></p>
     <hr>
 
     <div id="scroll-nav">
       <?php
-        include_once('fill-index.php')
+        include_once('fill-index.php');
       ?>
     </div>
 

@@ -14,7 +14,9 @@ require('conn.php');
             document.getElementById(".$row['id'].").checked = true;
             var event = new Event(`change`);
             document.getElementById(`$row[id]`).dispatchEvent(event);
-        '>".$row['title']."</a><br>";
+        '>".$row['title']."</a>
+        <button type='button' class='btn btn-primary btn-sm' onclick='editCont(`".$row['id']."`, `".$row['title']."`, `". $row['content']."`)'>Editar</button>
+        <br>";
         }
     } else {
         echo "no results";

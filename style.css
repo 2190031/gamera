@@ -5,6 +5,10 @@
     overflow-y: scroll;
 }
 
+#scroll-nav button {
+    
+}
+
 #title-editor .ql-editor {
     border: 1px solid #ccc;
     border-radius: 3px;

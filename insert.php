@@ -1,7 +1,15 @@
 <?php
-
+  include("conn.php");
+  $titulo = $_REQUEST['titulo'];
   $contenido = $_REQUEST['contenido'];
-  $link = new PDO("mysql:host=localhost;dbname=document","root","c55h32o5n4Mg");
-  $query = $link->prepare("INSERT INTO help(content) VALUES(:contenido)");
-  $query -> execute(['contenido' => $contenido]);      
+
+  $query = "INSERT INTO help(title,content) VALUES('$titulo', '$contenido')";   
+  if ($result = mysqli_query($conn, $query)) {
+    // echo "<p id='query'>$query</p>";
+  } else {
+    echo "Error";
+  }
 ?>
+<script>
+  // console.log(document.getElementById(query).innerText);
+</script>

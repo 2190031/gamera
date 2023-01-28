@@ -33,15 +33,16 @@ if ($conn->connect_error) {
   <div class="container">
     <h1 class="h1">Inserte una nueva sección</h1>
     <h2 class="h2">Título</h2>
-    <div id="input-title" class="mb-3">
-      <div id="title-editor">
-        <p class="h2">lorem ipsum</p>
-      </div>
 
+    <div id="input-title" class="mb-3">
+      <div id="title-editor" class="ql-container ql-bubble"> 
+        <div class="ql-editor ql-blank" contenteditable="true" data-placeholder="Digite el título de la sección">
+          <p class="h2"><br></p>
+        </div>
+      </div>
     </div>
-    <div id="editor" class="container-sm">
-        <p>Hello World!</p>
-        <p>Some initial <strong>bold</strong> text</p>
+
+    <div id="editor" class="container-sm" data-placeholder="Digite el título de la sección">
         <p><br></p>
     </div>
   
@@ -73,15 +74,16 @@ if ($conn->connect_error) {
       <!-- Initialize Quill editor -->
       <script>
         var quill = new Quill('#editor', {
+          placeholder: 'lorem ipsum dolor sit amet',
           theme: 'snow'
         });
         var title = new Quill('#title-editor', {
+          placeholder: 'Digite el título de la sección',
           theme: 'bubble'
         });
 
         function jsSave(){
             let titulo = title.container.firstChild.innerText;
-
             console.log(titulo);
 
             let contenido = quill.container.firstChild.innerHTML;
@@ -89,7 +91,7 @@ if ($conn->connect_error) {
 
             fetch('insert.php?titulo=' + titulo + '&contenido=' + contenido);
 
-            document.getElementById('output').innerHTML = "<h1 class='h1'>" + titulo + "</h1>" + "<br>" + contenido;
+            // document.getElementById('output').innerHTML = "<h1 class='h1'>" + titulo + "</h1>" + "<br>" + contenido;
             
             var myVar = setInterval(myFunc, 1000);
 

@@ -5,37 +5,6 @@
     overflow-y: scroll;
 }
 
-.ql-editor {
-  box-sizing: border-box;
-  line-height: 1.42;
-  height: 100%;
-  outline: none;
-  overflow-y: auto;
-  padding: 12px 15px;
-  tab-size: 4;
-  -moz-tab-size: 4;
-  text-align: left;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.ql-editor > * {
-  cursor: text;
-}
-
-.ql-bubble {
-  box-sizing: border-box;
-}
-
-.ql-container {
-  box-sizing: border-box;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
-  height: 100%;
-  margin: 0px;
-  position: relative;
-}
-
 #title-editor .ql-editor {
     border: 1px solid #ccc;
     border-radius: 3px;

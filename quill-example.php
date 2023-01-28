@@ -46,9 +46,7 @@ if ($conn->connect_error) {
         <p><br></p>
     </div>
   
-    <br>
-    <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
-    <br>
+    <br><button class="btn btn-primary" onclick=jsSave()>Guardar</button><br>
     <hr>
 
     <div id="scroll-nav">
@@ -65,7 +63,6 @@ if ($conn->connect_error) {
       <div id="content"></div>
     </div>
   </div>
-
 
       <!-- Include the Quill library -->
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

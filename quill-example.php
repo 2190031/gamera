@@ -32,7 +32,11 @@ if ($conn->connect_error) {
 <body>
   <div class="container">
     <h1 class="h1">Inserte una nueva sección</h1>
-    <div id="input-title">
+    <h2 class="h2">Título</h2>
+    <div id="input-title" class="mb-3">
+      <div id="title-editor">
+        <p class="h2">lorem ipsum</p>
+      </div>
 
     </div>
     <div id="editor" class="container-sm">
@@ -71,17 +75,23 @@ if ($conn->connect_error) {
         var quill = new Quill('#editor', {
           theme: 'snow'
         });
+        var title = new Quill('#title-editor', {
+          theme: 'bubble'
+        });
 
         function jsSave(){
-          let titulo = quill.container
+            let titulo = title.container.firstChild.innerText;
+
+            console.log(titulo);
+
             let contenido = quill.container.firstChild.innerHTML;
-            fetch('insert.php?contenido=' + contenido);
-            alert('Guardado correctamente');
             console.log(contenido);
 
-            document.getElementById('output').innerHTML = contenido;
+            fetch('insert.php?titulo=' + titulo + '&contenido=' + contenido);
+
+            document.getElementById('output').innerHTML = "<h1 class='h1'>" + titulo + "</h1>" + "<br>" + contenido;
             
-            var myVar = setInterval(myFunc, 10000);
+            var myVar = setInterval(myFunc, 1000);
 
             function myFunc() {
                 $("#scroll-nav").load('fill-index.php');

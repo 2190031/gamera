@@ -33,26 +33,29 @@ if ($conn->connect_error) {
   <div class="container">
     <h1 class="h1">Inserte una nueva sección</h1>
     <h2 class="h2">Título</h2>
-    <div id="input-title" class="mb-3">
-      <div id="title-editor">
-        <p class="h2">lorem ipsum</p>
-      </div>
 
+    <div id="input-title" class="mb-3">
+      <div id="title-editor" class="ql-container ql-bubble"> 
+        <div id="" class="ql-editor ql-blank" contenteditable="true" data-placeholder="Digite el título de la sección">
+          <p class="h2"><br></p>
+        </div>
+      </div>
     </div>
-    <div id="editor" class="container-sm">
-        <p>Hello World!</p>
-        <p>Some initial <strong>bold</strong> text</p>
+
+    <div id="editor" class="container-sm" data-placeholder="Digite el título de la sección">
         <p><br></p>
     </div>
   
     <br>
     <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
+    <button class="btn btn-warning" onclick=updateCont()>Editar</button>
     <br>
+<p name="id" id="hidden-id" value="$row['id']" hidden></p>
     <hr>
 
     <div id="scroll-nav">
       <?php
-        include_once('fill-index.php')
+        include_once('fill-index.php');
       ?>
     </div>
 
@@ -65,69 +68,11 @@ if ($conn->connect_error) {
     </div>
   </div>
 
-
       <!-- Include the Quill library -->
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
       <!-- Initialize Quill editor -->
-      <script>
-        var quill = new Quill('#editor', {
-          theme: 'snow'
-        });
-        var title = new Quill('#title-editor', {
-          theme: 'bubble'
-        });
-
-        function jsSave(){
-            let titulo = title.container.firstChild.innerText;
-
-            console.log(titulo);
-
-            let contenido = quill.container.firstChild.innerHTML;
-            console.log(contenido);
-
-            fetch('insert.php?titulo=' + titulo + '&contenido=' + contenido);
-
-            document.getElementById('output').innerHTML = "<h1 class='h1'>" + titulo + "</h1>" + "<br>" + contenido;
-            
-            var myVar = setInterval(myFunc, 1000);
-
-            function myFunc() {
-                $("#scroll-nav").load('fill-index.php');
-            }        
-          }
-
-
-          function showTitle(str) {
-            console.log(str);
-            var title = "<h1 class='h1'>" + str + "</h1>";
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
-              document.getElementById('title').innerHTML = title;
-            }
-            xhttp.open("GET", "quill-example.php?p="+str);
-            xhttp.send();
-          }
-
-          function showCont(cont) {
-            console.log(cont);
-            
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function() {
-              document.getElementById('content').innerHTML = cont;
-            }
-            xhttp.open("GET", "quill-example.php?p="+cont);
-            xhttp.send();
-          }
-
-          function showTitleAndCont(title, cont) {
-            showTitle(title);
-            showCont(cont);
-          }
-        
-      </script>
-
-    
+      <script src="index-js.js"></script>
 </body>
 </html>

@@ -1,6 +1,15 @@
 #scroll-nav {
     max-height: 500px;
-    height: 400px;
+    height: fit-content;
     width: 500px;
     overflow-y: scroll;
+}
+
+#scroll-nav button {
+    
+}
+
+#title-editor .ql-editor {
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }

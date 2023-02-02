@@ -1,9 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "c55h32o5n4Mg", "document");
-
-if ($conn->connect_error) {
-    die("Error: ".$conn->connect_errno ." " .$conn->connect_error);
-}
+include("conn.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +7,7 @@ if ($conn->connect_error) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FUnciones demo</title>
 
     <link href="style.css" rel="stylesheet">
 
@@ -73,6 +69,6 @@ if ($conn->connect_error) {
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
       <!-- Initialize Quill editor -->
-      <script src="index-js.js"></script>
+      <script src="editor-js.js"></script>
 </body>
 </html>

@@ -63,12 +63,12 @@ include("conn.php");
       <div id="content"></div>
     </div>
   </div>
-
       <!-- Include the Quill library -->
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
       <!-- Initialize Quill editor -->
       <script src="editor-js.js"></script>
+</script>
 </body>
 </html>

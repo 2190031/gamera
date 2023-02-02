@@ -5,8 +5,13 @@
     overflow-y: scroll;
 }
 
-#scroll-nav button {
-    
+#scroll-nav-link {
+    line-height: 40px; 
+    /* margin-bottom: 10px; */
+}
+
+#scroll-nav-btn {
+    float: right;
 }
 
 #title-editor .ql-editor {

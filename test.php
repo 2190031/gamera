@@ -8,6 +8,8 @@
       <p>Write something here...</p>
     </div>
 
+    
+
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
       var toolbarOptions = [

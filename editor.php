@@ -43,8 +43,23 @@ include("conn.php");
     </div>
   
     <br>
-    <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
-    <button class="btn btn-warning" onclick=updateCont()>Editar</button>
+    <div class="row row-cols-lg-auto g-3 align-items-center">
+      <div class="col">
+        <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
+      </div>
+      <div class="col">
+        <button class="btn btn-warning" onclick=updateCont()>Editar</button>
+      </div>
+      <div class="col">
+        <button class="btn btn-danger"  onclick=deleteCont()>Delete</button>
+      </div>
+      <div class="col">
+        <div class="input-group mb-3">
+          <button class="btn btn-secondary" onclick=sendImage()>Insertar</button>
+          <input class="form-control" type="file" id="image">
+        </div>
+      </div>
+    </div>
     <br>
 <p name="id" id="hidden-id" value="$row['id']" hidden></p>
     <hr>

@@ -10,8 +10,8 @@
     /* margin-bottom: 10px; */
 }
 
-button #scroll-nav-btn {
-    float: right;
+p img {
+    max-width: 700px;
 }
 
 #title-editor .ql-editor {

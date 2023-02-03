@@ -7,23 +7,14 @@ var toolbarOptions = [
   [{'list': 'ordered'},{'list': 'bullet'}],
   [{'indent': '-1'}, {'indent': '+1'}],
   [{'align': []}],
-  ['link', 'image', 'video']
+  ['link', 'video'],
 ];
-
-
 var quill = new Quill('#editor', {
   modules: {
     toolbar: toolbarOptions
   },
   theme: 'snow'
 });
-
-var range = quill.getSelection();
-if (range) {
-  var imageUrl = 'https://img2.rtve.es/i/?w=1600&i=1634194794500.jpg';
-  quill.insertEmbed(range.index, 'image', imageUrl, Quill.sources.USER);
-  quill.setSelection(range.index + 1, Quill.sources.SILENT);
-}
 
   var title = new Quill('#title-editor', {
     // placeholder: 'Digite el título de la sección',
@@ -49,8 +40,10 @@ if (range) {
       var myVar = setInterval(myFunc, 1000);
       function myFunc() {
           $("#scroll-nav").load('fill-index.php');
+          console.log(contenido);
       }        
     }
+
     function showTitle(str) {
       console.log(str);
       var title = "<h1 class='h1'>" + str + "</h1>";
@@ -58,22 +51,41 @@ if (range) {
       xhttp.onload = function() {
         document.getElementById('title').innerHTML = title;
       }
-      xhttp.open("GET", "quill-example.php?p="+str);
-      xhttp.send();
+      xhttp.open("POST", "quill-example.php");
+      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhttp.send("p="+str);
     }
+
     function showCont(cont) {
     //   console.log(cont);
       const xhttp = new XMLHttpRequest();
       xhttp.onload = function() {
         document.getElementById('content').innerHTML = cont;
       }
-      xhttp.open("GET", "quill-example.php?p="+cont);
-      xhttp.send();
+      xhttp.open("POST", "quill-example.php");
+      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhttp.send("p="+cont);
     }
+
     function showTitleAndCont(title, cont) {
       showTitle(title);
       showCont(cont);
+      console.log(cont);
     }
+    
+    function deleteCont() {
+      let id = document.getElementById('hidden-id').innerText;
+      console.log(id);
+
+    fetch('delete.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+    body: `id=${id}`
+    });
+    }
+
     function editCont(id, tit, cont) {
         console.log(id);
         console.log(tit);
@@ -86,8 +98,9 @@ if (range) {
             document.getElementById('editor').firstChild.innerHTML = cont;
 
         }
-        xhttp.open("GET", "quill-example.php?r=" + cont);
-        xhttp.send();
+        xhttp.open("POST", "quill-example.php");
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send("p="+cont);
     }
     function updateCont() {
         let id = document.getElementById('hidden-id').innerText;
@@ -100,4 +113,17 @@ if (range) {
       function myFunc() {
           $("#scroll-nav").load('fill-index.php');
       } 
+    }
+    
+    // Function to insert image into Quill editor
+    function sendImage() {
+      let img = document.getElementById('image').files[0];
+      let imgName = img.name;
+      console.log(imgName);
+
+      const relativeUrl = "./img/"+imgName;
+      console.log(relativeUrl);
+
+      var imgTag = '<img src="' + relativeUrl + '">';
+      quill.clipboard.dangerouslyPasteHTML(quill.getLength(), imgTag);
     }

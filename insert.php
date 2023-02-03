@@ -12,6 +12,3 @@
     }
   }
 ?>
-<script>
-  // console.log(document.getElementById(query).innerText);
-</script>

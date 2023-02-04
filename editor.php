@@ -7,7 +7,7 @@ include("conn.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FUnciones demo</title>
+    <title>Funciones demo</title>
 
     <link href="style.css" rel="stylesheet">
 
@@ -36,6 +36,22 @@ include("conn.php");
           <p class="h2"><br></p>
         </div>
       </div>
+    </div>
+    <h2 class="h2">Tipo de articulo</h2>
+    <select class="form-select" id="select-hierarchy">
+      <option selected value="0">Tipo de seccion...</option>
+      <option value="1">Principal</option>
+      <option value="2">Secundario</option>
+      <option value="3">Terciario</option>
+    </select>
+    <br>
+
+    <div id="h" class="d-none">
+      <h2 class="h2">Seccion a la que pertenece</h2>
+      <select class="form-select" id="parent">
+        <?php include('fill-select.php'); ?>
+      </select>
+      <br><br>
     </div>
 
     <div id="editor" class="container-sm" data-placeholder="Digite el título de la sección">

@@ -29,21 +29,22 @@ function jsSave() {
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   
-  if (selectedHierarchy !== "1" && selectedHierarchy !== "0") {
+  
+  if (selectedHierarchy === '1') {
+    fetch('insert.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+    });
+    console.log('Insertado');
+    
+  }
+
+  if (selectedHierarchy == "2" || selectedHierarchy == "3") {
     let parent = document.getElementById("parent");
     let selectedParent = parent.options[parent.selectedIndex].value;
-  
-    if (selectedHierarchy === '1') {
-      fetch('insert.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
-      });
-    console.log('Insertado');
-    } 
-
     if (selectedHierarchy === '2') {
       fetch('insert.php', {
         method: 'POST',
@@ -63,7 +64,7 @@ function jsSave() {
       });
       console.log('Insertado');
     }
-  }
+  } 
 
   var myVar = setInterval(myFunc, 1000);
   function myFunc() {

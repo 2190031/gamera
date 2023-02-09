@@ -12,7 +12,7 @@
 .general {
     border-radius: 5px;
     margin: auto;
-    width: 1584px;
+    width: 1423px;
     height: 2000px;
     background-color: rgb(223, 217, 217);
 }
@@ -27,7 +27,7 @@
 .contenido {
     margin-left: 10px;
     float: right;
-    width: 1184px;
+    width: 1050px;
     height: 2000px;
     background-color: rgb(192, 190, 190);
 }

@@ -44,6 +44,55 @@
     border-radius: 15px;
 }
 
+.desplegable1 {
+    color: white;
+}
+
+.dropdown { 
+    display: inline-block;
+  }
+
+  .lista1 {
+    list-style: none;
+  }
+  
+  .dropdown-btn {
+    cursor: pointer;
+    padding: 0px 30px;
+    border: none;
+    outline: none;
+    background-color: gray;
+    color: white !important;
+    list-style: none !important;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    background-color: gray;
+    width: 200px;
+    line-height: 1.6;
+    list-style: none !important;
+    color: white !important;
+  }
+  
+  .sub-dropdown {
+    position: relative;
+  }
+  
+  .sub-dropdown-btn {
+    cursor: pointer;
+    color: white;
+  }
+  
+  .sub-dropdown-content {
+    background-color: gray;
+    color: white !important;
+    display: none;
+    list-style: none !important;
+  }
+
 /*
 .box-img {
     border-radius: 5%;

@@ -12,24 +12,23 @@
 .general {
     border-radius: 5px;
     margin: auto;
-    margin-top: 50PX;
-    width: 1350px;
-    height: 4000px;
+    width: 1584px;
+    height: 2000px;
     background-color: rgb(223, 217, 217);
 }
 
 .indice {
     margin-right: 10px;
-    width: 300px;
-    height: 4000px;
+    width: 400px;
+    height: 2000px;
     background-color: gray;
 }
 
 .contenido {
     margin-left: 10px;
     float: right;
-    width: 1050px;
-    height: 4000px;
+    width: 1184px;
+    height: 2000px;
     background-color: rgb(192, 190, 190);
 }
 
@@ -92,6 +91,19 @@
     display: none;
     list-style: none !important;
   }
+
+  .box li{
+    text-align: left;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.box h3{
+    text-align: left;
+}
+
+.img{
+    float: left;
+}
 
 /*
 .box-img {

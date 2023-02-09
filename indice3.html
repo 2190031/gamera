@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -30,79 +31,43 @@
             </div>
           </nav>
         </header>
-
-        <br>
-
         <div class="general" >
 
           <div class="contenido">
     
             <section class="box">
     
-            <center><h1>Indice 3</h1></center>
-            <br>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati deserunt
-               hic adipisci vero necessitatibus ipsum delectus ex nemo quae, recusandae 
-               voluptatibus omnis nihil fugiat fugit, nulla tempore totam cumque reiciendis.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel enim culpa qui, 
-              cum voluptates, deserunt hic delectus, error dicta dolorum quo. Libero unde 
-              suscipit quos cupiditate vitae nam quo corrupti.</p>
-    
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati deserunt
-                hic adipisci vero necessitatibus ipsum delectus ex nemo quae, recusandae 
-                voluptatibus omnis nihil fugiat fugit, nulla tempore totam cumque reiciendis.
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel enim culpa qui, 
-               cum voluptates, deserunt hic delectus, error dicta dolorum quo. Libero unde 
-               suscipit quos cupiditate vitae nam quo corrupti.
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati deserunt
-               hic adipisci vero necessitatibus ipsum delectus ex nemo quae, recusandae 
-               voluptatibus omnis nihil fugiat fugit, nulla tempore totam cumque reiciendis.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel enim culpa qui, 
-              cum voluptates, deserunt hic delectus, error dicta dolorum quo. Libero unde 
-              suscipit quos cupiditate vitae nam quo corrupti.</p>
-    
-                <br>
-    
-                <img src="img/Prestamogamera.png" width="900" alt="" class="box-img">
-
-                <br><br>
-
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati deserunt
-                  hic adipisci vero necessitatibus ipsum delectus ex nemo quae, recusandae 
-                  voluptatibus omnis nihil fugiat fugit, nulla tempore totam cumque reiciendis.
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel enim culpa qui, 
-                  cum voluptates, deserunt hic delectus, error dicta dolorum quo. Libero unde 
-                  suscipit quos cupiditate vitae nam quo corrupti.
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati deserunt
-                  hic adipisci vero necessitatibus ipsum delectus ex nemo quae, recusandae 
-                  oluptatibus omnis nihil fugiat fugit, nulla tempore totam cumque reiciendis.
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel enim culpa qui, 
-                  cum voluptates, deserunt hic delectus, error dicta dolorum quo. Libero unde 
-                  suscipit quos cupiditate vitae nam quo corrupti.</p>
-    
-              </section>
-            </div>
+              <center><h1>Ventana de Listado Con Filtro de Datos</h1></center>
+              <br>
+              <p>Cuando el manejo de los datos es un poco más complejo, se utilizan las ventanas de <b>Listado con Filtro de Datos</b>. El Filtro de Datos es un panel que aparece casi siempre a la izquierda de la Rejilla de Datos y posibilita extraer de la Base de Datos el conjunto de los mismos que se pretende utilizar.</p>
+  
+               <p><b>Nota:</b><br>
+                La aplicación CiberPréstamos corre por la WEB aunque se use localmente en el mismo servidor. Es por este motivo que la aplicación debe ajustarse a los protocolos estándares del manejo de la información en dicha plataforma. Uno de esos protocolos consiste en que si la información dura más de un tiempo prudencial en llegar del servidor, los navegadores de Internet lo consideran “fuera de tiempo”. (Time Out). Es por todo esto que se usan los filtros para minimizar la cantidad de datos a viajar por la red y por ende el tiempo de respuesta entre el servidor y la estación donde se está trabajando en el sistema.</p>
       
+                  <br>
+      
+                  <img src="img/ventalistadoconfiltro.jpg" width="900" alt="" class="box-img">
+      
+                </section>
+              </div>
             <div class="indice">
       
               <section class="box-indice">
               
               <center><img class="gamera" src="img/logo.jpg"></center>
-              <br>
-              <center><h1>Gamera Software</h1></center>
-              <br>
-              <a href="indice1.html" class="link-light" id="ef">Indice 1</a>
-              <br>
-              <div class="desplegable">
-                <ul id="tree3" class="lista1">
-                    <li class="branch">
-                        <i class="indicator glyphicon glyphicon-chevron-right"></i>
-                       <div class="dropdown">
-                        <a href="#" class="dropdown-btn">Introduccion</a>
-                        <ul class="dropdown-content">
-                            <li class="">
-                                <a href="#" target="iframe_a" class="desplegable1">
-                                    Funcionamiento general
+        <br>
+        <center><h1>Gamera Software</h1></center>
+          <br>
+          <div class="desplegable">
+            <ul id="tree3" class="lista1">
+                <li class="branch">
+                    <i class="indicator glyphicon glyphicon-chevron-right"></i>
+                   <div class="dropdown">
+                    <a href="#" class="dropdown-btn">Introduccion</a>
+                    <ul class="dropdown-content">
+                        <li class="">
+                            <a href="indice1.html" target="iframe_a" class="desplegable1">
+                                Funcionamiento general
                                 </a>
                             </li>
                             <li class="branch sub-dropdown">
@@ -110,10 +75,16 @@
                                 <a href="#" class="sub-dropdown-btn">Ventanas</a>
                                 <ul class="sub-dropdown-content">
                                     <li>
-                                        <a href="#" target="iframe_a" class="desplegable1">Ventana de listado de tipo simple</a>
+                                      <a href="indice2.html" target="iframe_a" class="desplegable1">Ventana de listado de tipo simple</a>
                                     </li>
                                     <li>
-                                        <a href="#" target="iframe_a" class="desplegable1">Ventana de listado con filtro de datos</a>
+                                      <a href="indice3.html" target="iframe_a" class="desplegable1">Ventana de listado con filtro de datos</a>
+                                    </li>
+                                    <li>
+                                      <a href="indice4.html" target="iframe_a" class="desplegable1">Elementos Comunes de las Ventanas</a>
+                                    </li>
+                                    <li>
+                                      <a href="indice5.html" target="iframe_a" class="desplegable1">Ventana de Reportes</a>
                                     </li>
                                 </ul>
                             </li>

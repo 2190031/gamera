@@ -63,50 +63,39 @@
           <br>
           <center><h1>Gamera Software</h1></center>
           <br>
-          <div class="desplegable">
-            <ul id="tree3" class="lista1">
-                <li class="branch">
-                    <i class="indicator glyphicon glyphicon-chevron-right"></i>
-                   <div class="dropdown">
-                    <a href="#" class="dropdown-btn">Introduccion</a>
-                    <ul class="dropdown-content">
-                        <li class="">
-                            <a href="indice1.html" class="desplegable1">
-                                Funcionamiento general
-                            </a>
-                        </li>
-                        <li class="branch sub-dropdown">
-                            <i class="indicator glyphicon glyphicon-chevron-right"></i>
-                            <a href="#" class="sub-dropdown-btn">Ventanas</a>
-                            <ul class="sub-dropdown-content">
-                              <li>
-                                <a href="indice2.html" class="desplegable1">Ventana de listado de tipo simple</a>
-                              </li>
-                              <li>
-                                <a href="indice3.html" class="desplegable1">Ventana de listado con filtro de datos</a>
-                              </li>
-                              <li>
-                                <a href="indice4.html" class="desplegable1">Elementos Comunes de las Ventanas</a>
-                              </li>
-                              <li>
-                                <a href="indice5.html" class="desplegable1">Ventana de Reportes</a>
-                              </li>
-                            </ul>
-                        </li>
-                    </ul>
-                 </div>
-                </li>
-            </ul>
-
-        </div>
-
-        <br>
+          
+          <ul id="myUL">
+            <li><span class="caret"><a href="#" class="ola">Introduccion</a></span>
+              <ul class="nested">
+                <li><a href="indice1.html" class="ola">Funcionamiento general del sistema</a></li>
+                <li><span class="caret"><a href="#" class="ola">Ventanas</a></span>
+                  <ul class="nested">
+                    <li><a href="indice2.html" class="ola">Ventana de Listado Tipo Simple</a></li>
+                    <li><a href="indice3.html" class="ola">Ventana de listado con filtro de datos</a></li>
+                    <li><a href="indice4.html" class="ola">Elementos Comunes de las Ventanas</a></li>
+                    <li><a href="indice5.html" class="ola">Ventana de Reportes</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>  
+              </ul>
+            </li>
+          </ul>
+          
+          <script>
+          var toggler = document.getElementsByClassName("caret");
+          var i;
+          
+          for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function() {
+              this.parentElement.querySelector(".nested").classList.toggle("active");
+              this.classList.toggle("caret-down");
+            });
+          }
+          </script>
 
       </section> 
       </div>
-
-    <script src="lista_despegable.js"></script>
-
 
     </body>
     <br>

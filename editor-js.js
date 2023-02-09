@@ -29,21 +29,22 @@ function jsSave() {
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   
-  if (selectedHierarchy !== "1" && selectedHierarchy !== "0") {
+  
+  if (selectedHierarchy === '1') {
+    fetch('insert.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+    });
+    console.log('Insertado');
+    
+  }
+
+  if (selectedHierarchy == "2" || selectedHierarchy == "3") {
     let parent = document.getElementById("parent");
     let selectedParent = parent.options[parent.selectedIndex].value;
-  
-    if (selectedHierarchy === '1') {
-      fetch('insert.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
-      });
-    console.log('Insertado');
-    } 
-
     if (selectedHierarchy === '2') {
       fetch('insert.php', {
         method: 'POST',
@@ -63,7 +64,7 @@ function jsSave() {
       });
       console.log('Insertado');
     }
-  }
+  } 
 
   var myVar = setInterval(myFunc, 1000);
   function myFunc() {
@@ -77,17 +78,16 @@ function showTitle(str) {
   xhttp.onload = function () {
     document.getElementById('title').innerHTML = title;
   }
-  xhttp.open("POST", "quill-example.php");
+  xhttp.open("POST", "editor.php");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhttp.send("p=" + str);
 }
 function showCont(cont) {
-  //   console.log(cont);
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     document.getElementById('content').innerHTML = cont;
   }
-  xhttp.open("POST", "quill-example.php");
+  xhttp.open("POST", "editor.php");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   xhttp.send("p=" + cont);
 }
@@ -99,42 +99,52 @@ function showTitleAndCont(title, cont) {
 function deleteCont() {
   let id = document.getElementById('hidden-id').innerText;
   console.log(id);
+  let hierarchy = document.getElementById("select-hierarchy");
+  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
 
   fetch('delete.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `id=${id}`
+    body: `id=${id}&hierarchy=${selectedHierarchy}`
   });
 }
 function editCont(id, tit, cont) {
   console.log(id);
   console.log(tit);
   console.log(cont);
+
+  let hierarchy = document.getElementById("select-hierarchy");
+  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
+
   const xhttp = new XMLHttpRequest();
 
-  xhttp.onload = function () {
-    document.getElementById('hidden-id').innerText = id;
-    document.getElementById('title-editor').firstChild.innerHTML = "<p>" + tit + "</p>";
-    document.getElementById('editor').firstChild.innerHTML = cont;
-
+    xhttp.onload = function () {
+      document.getElementById('hidden-id').innerText = id;
+      document.getElementById('title-editor').firstChild.innerHTML = "<p>" + tit + "</p>";
+      document.getElementById('editor').firstChild.innerHTML = cont;
+    }
+    xhttp.open("POST", "editor.php");
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.send("p=" + cont);
   }
-  xhttp.open("POST", "quill-example.php");
-  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhttp.send("p=" + cont);
-}
 function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = title.container.firstChild.innerText;
   let contenido = quill.container.firstChild.innerHTML;
-  console.log('Editado');
+  
+  let hierarchy = document.getElementById("select-hierarchy");
+  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
 
-  fetch('update.php?id=' + id + '&titulo=' + titulo + '&contenido=' + contenido);
-  var myVar = setInterval(myFunc, 1000);
-  function myFunc() {
-    $("#scroll-nav").load('fill-index.php');
-  }
+  fetch('update.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: `id=${id}&titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+  });
+  console.log('Editado');
 }
 function sendImage() {
   let img = document.getElementById('image').files[0];

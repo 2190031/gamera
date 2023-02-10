@@ -5,7 +5,13 @@
 }
 
 .navbar {
-    background-color: grey !important;
+    background-color: #184A8C !important;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: xx-large;
+    font-family: 'Rowdies', cursive;
 }
 
 .general {
@@ -20,7 +26,7 @@
     margin-right: 10px;
     width: 400px;
     height: 2000px;
-    background-color: gray;
+    background-color: #dfdede;
 }
 
 .contenido {
@@ -28,7 +34,7 @@
     float: right;
     width: 1050px;
     height: 2000px;
-    background-color: rgb(192, 190, 190);
+    background-color: #F2F2F2;
 }
 
 .box {
@@ -118,7 +124,7 @@
 }
 
 body {
-    background-color: beige!important;
+    background-color: rgb(192, 190, 190)!important;
 }
 
 /* TreeView */
@@ -143,8 +149,26 @@ ul, #myUL {
   .ola {
     text-decoration: none;
     color: black;
+    font-family: 'Itim', cursive;
+    font-weight: 100 !important;
+    letter-spacing: normal;
+    font-size: large;
   }
   
+  .ola1 {
+    text-decoration: none;
+    color: #BF2A2A !important;
+    font-family: 'Itim', cursive;
+    font-weight: 300 !important;
+    letter-spacing: normal;
+    font-size: large;
+  }
+
+  .footer {
+    background-color: #184A8C !important;
+    color: white !important;
+  }
+
   /* Create the caret/arrow with a unicode, and style it */
   .caret::before {
     content: "\25B6";

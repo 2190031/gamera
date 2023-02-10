@@ -11,6 +11,11 @@ include("conn.php");
 
     <link href="style.css" rel="stylesheet">
 
+    <!-- Sweet alert -->
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Main Quill library -->
     <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -32,9 +37,7 @@ include("conn.php");
 
     <div id="input-title" class="mb-3">
       <div id="title-editor" class="ql-container ql-bubble"> 
-        <div id="" class="ql-editor ql-blank" contenteditable="true" data-placeholder="Digite el título de la sección">
-          <p class="h2"><br></p>
-        </div>
+
       </div>
     </div>
     <h2 class="h2">Tipo de articulo</h2>
@@ -61,13 +64,13 @@ include("conn.php");
     <br>
     <div class="row row-cols-lg-auto g-3 align-items-center">
       <div class="col">
-        <button class="btn btn-primary" onclick=jsSave()>Guardar</button>
+        <button id="guardar" class="btn btn-primary" onclick=jsSave() onload="enableButton()">Guardar</button>
       </div>
       <div class="col">
-        <button class="btn btn-warning" onclick=updateCont()>Editar</button>
+        <button id="editar" class="btn btn-warning" onclick=updateCont()>Editar</button>
       </div>
       <div class="col">
-        <button class="btn btn-danger"  onclick=deleteCont()>Delete</button>
+        <button id="borrar" class="btn btn-danger"  onclick=deleteCont()>Delete</button>
       </div>
       <div class="col">
         <div class="input-group mb-3">

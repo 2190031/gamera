@@ -1,3 +1,13 @@
+/* 
+  Vairable que inicializa el editor para el titulo en el div title-editor
+*/
+var title = new Quill('#title-editor', {
+  theme: 'bubble'
+});
+
+/*
+  Modulos (opciones de la barra de herramientas) del editor para el cuerpo del articulo
+*/
 var toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],
   [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
@@ -9,6 +19,10 @@ var toolbarOptions = [
   [{ 'align': [] }],
   ['link', 'video'],
 ];
+
+/*
+  Variable que inicializa el editor para el cuerpo del articulo en el div editor
+*/
 var quill = new Quill('#editor', {
   modules: {
     toolbar: toolbarOptions
@@ -16,12 +30,16 @@ var quill = new Quill('#editor', {
   theme: 'snow'
 });
 
-var title = new Quill('#title-editor', {
-  theme: 'bubble'
-});
-
+/*
+  Da enfoque automaticamente al editor de titulo
+*/
 title.focus();
 
+/*
+  Toma el titulo, jerarquia, tabla padre (si aplica) y contenido para insertarlo en la
+  base de datos. Verifica que no haya caracteres especiales en el titulo y ejecuta una
+  funcion para refrescar el indica una sola vez cuando se ejecuta la funcion
+*/
 function jsSave() {
   let titulo = title.container.firstChild.innerText;
   let contenido = quill.container.firstChild.innerHTML;
@@ -117,6 +135,21 @@ xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhttp.send("p=" + str);
 */
 }
+
+/*
+  Funciones para obtener el titulo y contenido como parametros despues de las primeras 2
+  funciones, llamandolas simultaneamente en la tercera
+*/
+function showTitle(str) {
+  var title = "<h1 class='h1'>" + str + "</h1>";
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    document.getElementById('title').innerHTML = title;
+  }
+  xhttp.open("POST", "editor.php");
+  xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhttp.send("p="+str);
+}
 function showCont(cont) {
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
@@ -131,6 +164,11 @@ function showTitleAndCont(title, cont) {
   showCont(cont);
   console.log(cont);
 }
+
+/*
+  (Solo despues de hacer click en su boton para editar) Utiliza el ID oculto del registro
+  para eliminar el archivo y registro
+ */
 function deleteCont() {
   let id = document.getElementById('hidden-id').innerText;
   console.log(id);
@@ -162,6 +200,11 @@ function deleteCont() {
       });
   }
 }
+
+/*
+  Toma los valores del registro (despues de presionar el boton de editar) y los coloca en
+  el editor y en un campo oculto el ID para prepararlo para su edicion
+*/
 function editCont(id, tit, hie, cont) {
   console.log(id);
   console.log(tit);
@@ -184,6 +227,11 @@ function editCont(id, tit, hie, cont) {
   xhttp.send("p=" + cont);
 
 }
+
+/*
+  Verifica si se ha seleccionado un registro del indice (a traves del boton para editar)
+  y ejecuta la consulta para hacer update al registro segun su ID
+*/
 function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = title.container.firstChild.innerText;
@@ -216,6 +264,11 @@ function updateCont() {
       });
   }
 }
+
+/* 
+  Procesa la imagen, toma el nombre del archivo y su extension, verifica si esta o no
+  en la carpeta de imagenes y la inserta en el editor
+*/
 function sendImage() {
   let img = document.getElementById('image').files[0];
   let imgName = img.name;
@@ -228,6 +281,10 @@ function sendImage() {
   quill.clipboard.dangerouslyPasteHTML(quill.getLength(), imgTag);
 }
 
+/* 
+Quita la clase d-none que oculta un select en la pagina mientras el tipo de articulo 
+sea la opcion por defecto o principal, al cambiaro se muestra el select
+*/
 document.getElementById("select-hierarchy").addEventListener("change", showOrHideDiv);
 
 function showOrHideDiv() {
@@ -252,4 +309,24 @@ function showOrHideDiv() {
     xhr.send("hierarchy=" + selectedOption);
 
   }
+}
+
+/* 
+  Imprime el contenido de un archivo en base a su ruta y nombre de archivo y lo coloca
+  en una seccion de la pagina 
+*/
+function printFile(title, folder) {
+  let file = folder + title + '.html';
+  console.log(file);
+  document.getElementById("print-btn").addEventListener("click", function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", file, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
+        document.getElementById("content").innerHTML = xhr.response;
+      }
+    };
+    xhr.send();
+  });
 }

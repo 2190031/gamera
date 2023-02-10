@@ -29,7 +29,7 @@
       ";
     } else {
       if ($hierarchy === '1') {
-        $query = "INSERT INTO help(title,content) VALUES('$titulo', '$contenido')";   
+        $query = "INSERT INTO help(title,content,folder) VALUES('$titulo', '$contenido','$hierarchy')";   
         if ($result = mysqli_query($conn, $query)) {
           echo "Insertado en 1";
   
@@ -41,7 +41,7 @@
           echo "Error";
         }
       } elseif ($hierarchy === '2') {
-        $query = "INSERT INTO help_sec(title,content,prim_parent) VALUES('$titulo', '$contenido', '$parent')";   
+        $query = "INSERT INTO help_sec(title,content,prim_parent,folder) VALUES('$titulo', '$contenido', '$parent','$hierarchy')";   
         if ($result = mysqli_query($conn, $query)) {
           echo "Insertado en 2";
   
@@ -53,7 +53,7 @@
           echo "Error";
         }
       } elseif ($hierarchy === '3') {
-        $query = "INSERT INTO help_ter(title,content,sec_parent) VALUES('$titulo', '$contenido', '$parent')";   
+        $query = "INSERT INTO help_ter(title,content,sec_parent,folder) VALUES('$titulo', '$contenido', '$parent','$hierarchy')";   
         if ($result = mysqli_query($conn, $query)) {
           echo "Insertado en 3";
   

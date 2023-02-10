@@ -99,6 +99,8 @@ function showTitleAndCont(title, cont) {
 function deleteCont() {
   let id = document.getElementById('hidden-id').innerText;
   console.log(id);
+  let titulo = title.container.firstChild.innerText;
+  console.log(titulo);
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
 
@@ -107,16 +109,19 @@ function deleteCont() {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `id=${id}&hierarchy=${selectedHierarchy}`
+    body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
   });
 }
-function editCont(id, tit, cont) {
+function editCont(id, tit, hie, cont) {
   console.log(id);
   console.log(tit);
   console.log(cont);
-
+  console.log(hie);
+  
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
+  console.log(selectedHierarchy);
+  
 
   const xhttp = new XMLHttpRequest();
 
@@ -124,11 +129,12 @@ function editCont(id, tit, cont) {
       document.getElementById('hidden-id').innerText = id;
       document.getElementById('title-editor').firstChild.innerHTML = "<p>" + tit + "</p>";
       document.getElementById('editor').firstChild.innerHTML = cont;
+      hierarchy.options[hie].selected = true
     }
     xhttp.open("POST", "editor.php");
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.send("p=" + cont);
-  }
+}
 function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = title.container.firstChild.innerText;

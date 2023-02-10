@@ -5,12 +5,15 @@
     $contenido = $_POST['contenido'];
 
     $hierarchy = $_POST['hierarchy'];
-    $parent = $_POST['parent'];
+    if (isset($hierarchy) && $hierarchy !=1){
+      $parent = $_POST['parent'];
+    }
 
     if ($hierarchy === '1') {
       $query = "INSERT INTO help(title,content) VALUES('$titulo', '$contenido')";   
       if ($result = mysqli_query($conn, $query)) {
         echo "Insertado en 1";
+
         $folder = "1/";
         $file = $folder . $titulo . '.html';
         $content = $contenido;
@@ -22,6 +25,7 @@
       $query = "INSERT INTO help_sec(title,content,prim_parent) VALUES('$titulo', '$contenido', '$parent')";   
       if ($result = mysqli_query($conn, $query)) {
         echo "Insertado en 2";
+
         $folder = "2/";
         $file = $folder . $titulo . '.html';
         $content = $contenido;
@@ -33,6 +37,7 @@
       $query = "INSERT INTO help_ter(title,content,sec_parent) VALUES('$titulo', '$contenido', '$parent')";   
       if ($result = mysqli_query($conn, $query)) {
         echo "Insertado en 3";
+
         $folder = "3/";
         $file = $folder . $titulo . '.html';
         $content = $contenido;

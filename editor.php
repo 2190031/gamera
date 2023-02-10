@@ -32,9 +32,7 @@ include("conn.php");
 
     <div id="input-title" class="mb-3">
       <div id="title-editor" class="ql-container ql-bubble"> 
-        <div id="" class="ql-editor ql-blank" contenteditable="true" data-placeholder="Digite el título de la sección">
-          <p class="h2"><br></p>
-        </div>
+
       </div>
     </div>
     <h2 class="h2">Tipo de articulo</h2>

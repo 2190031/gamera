@@ -253,3 +253,6 @@ function showOrHideDiv() {
 
   }
 }
+function printFile() {
+  
+}

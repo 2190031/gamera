@@ -164,6 +164,10 @@ ul, #myUL {
     font-size: large;
   }
 
+  .treeview {
+    text-align: left !important;
+  }
+
   .footer {
     background-color: #184A8C !important;
     color: white !important;

@@ -315,18 +315,35 @@ function showOrHideDiv() {
   Imprime el contenido de un archivo en base a su ruta y nombre de archivo y lo coloca
   en una seccion de la pagina 
 */
+// function printFile(title, folder) {
+//   let file = folder + title + '.html';
+//   console.log(file);
+//   document.getElementById("print-btn").addEventListener("click", function() {
+//     var xhr = new XMLHttpRequest();
+//     xhr.open("GET", file, true);
+//     xhr.onreadystatechange = function() {
+//       if (xhr.readyState === 4 && xhr.status === 200) {
+//         document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
+//         document.getElementById("content").innerHTML = xhr.response;
+//       }
+//     };
+//     xhr.send();
+//   });
+// }
+document.getElementById("print-btn").addEventListener("click", function() {
+  printFile(title, folder);
+});
+
 function printFile(title, folder) {
   let file = folder + title + '.html';
   console.log(file);
-  document.getElementById("print-btn").addEventListener("click", function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", file, true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
-        document.getElementById("content").innerHTML = xhr.response;
-      }
-    };
-    xhr.send();
-  });
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", file, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
+      document.getElementById("content").innerHTML = xhr.response;
+    }
+  };
+  xhr.send();
 }

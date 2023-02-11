@@ -37,6 +37,10 @@
     background-color: #F2F2F2;
 }
 
+.gamera {
+  width: 250px !important;
+}
+
 .box {
     width: 1000px;
     background: rgba (0, 0, 0, .4);

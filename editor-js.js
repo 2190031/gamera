@@ -35,7 +35,7 @@ var quill = new Quill('#editor', {
 */
 function jsSave() {
   let titulo = document.getElementById("input-title").value;
-  let contenido = quill.container.firstChild.innerText.trim();
+  let contenido = quill.container.firstChild.innerHTML.trim();
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   let selectedParent = "";

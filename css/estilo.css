@@ -168,6 +168,15 @@ ul, #myUL {
     font-size: large;
   }
 
+  .ola2{
+    text-decoration: none;
+    color: #2a3177 !important;
+    font-family: 'Itim', cursive;
+    font-weight: 300 !important;
+    letter-spacing: normal;
+    font-size: large;
+  }
+
   .treeview {
     text-align: left !important;
   }

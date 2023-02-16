@@ -64,6 +64,18 @@
         } else {
           echo "Error";
         }
+      } elseif ($hierarchy === '4') {
+        $query = "INSERT INTO help_cuat(title,content,ter_parent) VALUES('$titulo', '$contenido', '$parent')";   
+        if ($result = mysqli_query($conn, $query)) {
+          echo "Insertado en 4";
+  
+          $folder = "4/";
+          $file = $folder . $titulo . '.html';
+          $content = $contenido;
+          file_put_contents($file, $contenido);
+        } else {
+          echo "Error";
+        }
       }
     } 
 ?>

@@ -54,6 +54,22 @@ $hierarchy = $_POST['hierarchy'];
     } else {
       echo "Error";
     }
+  } elseif ($hierarchy === "4") {
+    $query = "DELETE FROM help_cuart WHERE id = '$id'";   
+    if ($result = mysqli_query($conn, $query)) {
+      echo "Eliminado en 4";
+
+      $folder = "4/";
+      $file = $folder . $titulo . '.html';
+      if (file_exists($file)) {
+        unlink($file);
+        echo "El archivo ha sido eliminado.";
+      } else {
+        echo "El archivo no existe.";
+      }
+    } else {
+      echo "Error";
+    }
   }
 }
 

@@ -1,10 +1,3 @@
-/* 
-  Vairable que inicializa el editor para el titulo en el div title-editor
-*/
-var title = new Quill('#title-editor', {
-  theme: 'bubble'
-});
-
 /*
   Modulos (opciones de la barra de herramientas) del editor para el cuerpo del articulo
 */
@@ -33,7 +26,7 @@ var quill = new Quill('#editor', {
 /*
   Da enfoque automaticamente al editor de titulo
 */
-title.focus();
+
 
 /*
   Toma el titulo, jerarquia, tabla padre (si aplica) y contenido para insertarlo en la
@@ -41,8 +34,8 @@ title.focus();
   funcion para refrescar el indica una sola vez cuando se ejecuta la funcion
 */
 function jsSave() {
-  let titulo = title.container.firstChild.innerText;
-  let contenido = quill.container.firstChild.innerHTML;
+  let titulo = document.getElementById("input-title").value;
+  let contenido = quill.container.firstChild.innerText.trim();
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   let selectedParent = "";
@@ -53,76 +46,69 @@ function jsSave() {
   
 
   let regex = /^[a-zA-Z0-9_,.;:!¿?ÁÉÍÓÚáéíóúñÑ\s]+$/;
-  if (!regex.test(titulo)) {
-    swal(
-      'Caracteres especiales no permitidos',
-      'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ; : ! ¿ ?',
-      'warning'
-    );
-    return;
-  }
-
-  if (titulo == null || contenido == null || selectedHierarchy == 0) {
+  if (titulo == "") {
     swal(
       'Se han encontrado uno o más campos vacíos',
       'Favor de llenar todos los campos',
       'warning', {
         timer: 5000,
       });
-    } else {
-      if (selectedParent == "") {
-        fetch('insert.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
-        }).then(response => {
-          if (response.ok) {
-            console.log('Insertado');
-            swal(
-              'Insertado correctamente',
-              'Puede cerrar esta ventana',
-              'success', {
-                timer: 5000,
-              });
-            myFunc();
-          }
-        });
-      } else if (selectedParent != "") {
-        fetch('insert.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
-        }).then(response => {
-          if (response.ok) {
-            console.log('Insertado');
-            swal(
-              'Insertado correctamente',
-              'Puede cerrar esta ventana',
-              'success', {
-                timer: 5000,
-              });
-            myFunc();
-          }
-        });
-      }
-     
-      // console.log('Insertado');
-      // swal(
-      //   'Insertado correctamente',
-      //   'Puede cerrar esta ventana',
-      //   'success', {
-      //     timer: 5000,
-      //   });
-      
-      // var myVar = setInterval(myFunc, 1000);
-      function myFunc() {
-        $("#scroll-nav").load('fill-index.php');
-      }
+    return;
+  } else if (!regex.test(titulo)) {
+    swal(
+      'Caracteres especiales no permitidos',
+      'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ; : ! ¿ ?',
+      'warning'
+    );
+    return;
   } 
+  
+  if (selectedParent == "") {
+    fetch('insert.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+    }).then(response => {
+      if (response.ok) {
+        console.log('Insertado');
+        swal(
+          'Insertado correctamente',
+          'Puede cerrar esta ventana',
+          'success', {
+            timer: 5000,
+          });
+        myFunc();
+      }
+    });
+  } else if (selectedParent != "") {
+    fetch('insert.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
+    }).then(response => {
+      if (response.ok) {
+        console.log('Insertado');
+        swal(
+          'Insertado correctamente',
+          'Puede cerrar esta ventana',
+          'success', {
+            timer: 5000,
+          });
+        myFunc();
+      }
+    });
+  }
+   
+  var myVar = setInterval(myFunc, 1000);
+  function myFunc() {
+    $("#scroll-nav").load('fill-index.php');
+  }
+}
+
 /* apendice de codigo
 console.log(str);
 var title = "<h1 class='h1'>" + str + "</h1>";
@@ -134,7 +120,6 @@ xhttp.open("POST", "editor.php");
 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhttp.send("p=" + str);
 */
-}
 
 /*
   Funciones para obtener el titulo y contenido como parametros despues de las primeras 2
@@ -172,12 +157,12 @@ function showTitleAndCont(title, cont) {
 function deleteCont() {
   let id = document.getElementById('hidden-id').innerText;
   console.log(id);
-  let titulo = title.container.firstChild.innerText;
+  let titulo = document.getElementById("input-title").value;
   console.log(titulo);
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
 
-  if (id == null || titulo == null || selectedHierarchy == 0) {
+  if (id == null || titulo == "" || selectedHierarchy == 0) {
     swal(
       'Se han encontrado uno o más campos vacíos',
       'Debe seleccionar uno de los registros',
@@ -218,9 +203,9 @@ function editCont(id, tit, hie, cont) {
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     document.getElementById('hidden-id').innerText = id;
-    document.getElementById('title-editor').firstChild.innerHTML = "<p>" + tit + "</p>";
+    document.getElementById("input-title").value = tit;
     document.getElementById('editor').firstChild.innerHTML = cont;
-    hierarchy.options[hie].selected = true
+    hierarchy.options[hie-1].selected = true
   }
   xhttp.open("POST", "editor.php");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -234,7 +219,7 @@ function editCont(id, tit, hie, cont) {
 */
 function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
-  let titulo = title.container.firstChild.innerText;
+  let titulo = document.getElementById("input-title").value;
   let contenido = quill.container.firstChild.innerHTML;
   
   let hierarchy = document.getElementById("select-hierarchy");

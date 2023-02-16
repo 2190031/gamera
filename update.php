@@ -23,5 +23,10 @@ if ($hierarchy === "1") {
     mysqli_query($conn, $query);
 
     file_put_contents($file, $newContent);
-} 
+} elseif ($hierarchy === "4") {
+    $query = "UPDATE help_cuart SET title='$titulo', content='$contenido' WHERE id='$id'";
+    mysqli_query($conn, $query);
+
+    file_put_contents($file, $newContent);
+}
 ?>

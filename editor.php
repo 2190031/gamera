@@ -35,17 +35,15 @@ include("conn.php");
     <h1 class="h1">Inserte una nueva sección</h1>
     <h2 class="h2">Título</h2>
 
-    <div id="input-title" class="mb-3">
-      <div id="title-editor" class="ql-container ql-bubble"> 
-
-      </div>
+    <div id="" class="mb-3">
+      <input type="text" name="title" id="input-title" class="form-control">
     </div>
     <h2 class="h2">Tipo de articulo</h2>
     <select class="form-select" id="select-hierarchy">
-      <option selected value="0">Tipo de seccion...</option>
-      <option value="1">Principal</option>
+      <option value="1" selected>Principal</option>
       <option value="2">Secundario</option>
       <option value="3">Terciario</option>
+      <option value="4">Cuaternario</option>
     </select>
     <br>
 
@@ -58,7 +56,7 @@ include("conn.php");
     </div>
 
     <div id="editor" class="container-sm" data-placeholder="Digite el título de la sección">
-        <p><br></p>
+        
     </div>
   
     <br>
@@ -83,7 +81,7 @@ include("conn.php");
 <p name="id" id="hidden-id" value="$row['id']" hidden></p>
     <hr>
 
-    <div id="scroll-nav">
+    <div id="scroll-nav card">
       <?php
         include_once('fill-index.php');
       ?>

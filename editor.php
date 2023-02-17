@@ -68,11 +68,14 @@ include("conn.php");
         <button id="editar" class="btn btn-warning" onclick=updateCont()>Editar</button>
       </div>
       <div class="col">
-        <button id="borrar" class="btn btn-danger"  onclick=deleteCont()>Delete</button>
+        <button id="borrar" class="btn btn-danger"  onclick=deleteCont()>Borrar</button>
       </div>
       <div class="col">
+        <button id="limpiar" class="btn btn-info"  onclick=clear()>Limpiar</button>
+      </div>
+      <div class="col ms-auto">
         <div class="input-group mb-3">
-          <button class="btn btn-secondary" onclick=sendImage()>Insertar</button>
+          <button class="btn btn-secondary" onclick=sendImage()>Insertar imagen</button>
           <input class="form-control" type="file" id="image">
         </div>
       </div>
@@ -86,10 +89,20 @@ include("conn.php");
         include_once('fill-index.php');
       ?>
     </div>
+    <br>
+    <button type="button" class="btn btn-outline-primary" id="refresh-index" onclick="refreshIndex()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+      </svg>
+    </button>
 
 <br><hr><br>
+<p>Resultado</p>
+<div id="parent">
+  <small class="fw-light">Este articulo pertenece a: <p id="show-parent"></p></small>
+</div>
     <div id="output">
-      <p>Resultado</p>
       <div id="title"></div>
       
       <div id="content"></div>

@@ -34,7 +34,7 @@ $hierarchy = $_POST['hierarchy'];
       echo "Eliminado en 2";
       
       $folder = "2/";
-      $file = $folder . $titulo . "-PN" . $parName['title'] . '.html';
+      $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";
@@ -54,15 +54,16 @@ $hierarchy = $_POST['hierarchy'];
     $query = "DELETE FROM help_ter WHERE id = '$id'";   
     if ($result = mysqli_query($conn, $query)) {
       echo "Eliminado en 3";
-
+      echo $query;
       $folder = "3/";
-      $file = $folder . $titulo . "-PN" . $parName['title'] . '.html';
+      $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";
       } else {
         echo "El archivo no existe.";
       }
+      echo $file;
     } else {
       echo "Error";
     }
@@ -73,18 +74,19 @@ $hierarchy = $_POST['hierarchy'];
       $parName = $result2->fetch_assoc();
     }
 
-    $query = "DELETE FROM help_cuart WHERE id = '$id'";   
+    $query = "DELETE FROM help_cuat WHERE id = '$id'";   
     if ($result = mysqli_query($conn, $query)) {
       echo "Eliminado en 4";
-
+      echo $query;
       $folder = "4/";
-      $file = $folder . $titulo . " - PN " . $parName['title'] . '.html';
+      $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";
       } else {
         echo "El archivo no existe.";
       }
+      echo $file;
     } else {
       echo "Error";
     }

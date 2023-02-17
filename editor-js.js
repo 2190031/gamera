@@ -47,7 +47,7 @@ function jsSave() {
 
   let regex = /^[a-zA-Z0-9_,.;:!¿?ÁÉÍÓÚáéíóúñÑ\s]+$/;
   if (titulo == "") {
-    swal(
+    Swal(
       'Se han encontrado uno o más campos vacíos',
       'Favor de llenar todos los campos',
       'warning', {
@@ -55,7 +55,7 @@ function jsSave() {
       });
     return;
   } else if (!regex.test(titulo)) {
-    swal(
+    Swal(
       'Caracteres especiales no permitidos',
       'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ; : ! ¿ ?',
       'warning'
@@ -73,7 +73,7 @@ function jsSave() {
     }).then(response => {
       if (response.ok) {
         console.log('Insertado');
-        swal(
+        Swal(
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
@@ -92,7 +92,7 @@ function jsSave() {
     }).then(response => {
       if (response.ok) {
         console.log('Insertado');
-        swal(
+        Swal(
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
@@ -154,37 +154,48 @@ function showTitleAndCont(title, cont) {
   (Solo despues de hacer click en su boton para editar) Utiliza el ID oculto del registro
   para eliminar el archivo y registro
  */
-function deleteCont() {
-  let id = document.getElementById('hidden-id').innerText;
-  console.log(id);
-  let titulo = document.getElementById("input-title").value;
-  console.log(titulo);
-  let hierarchy = document.getElementById("select-hierarchy");
-  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-
-  if (id == null || titulo == "" || selectedHierarchy == 0) {
-    swal(
-      'Se han encontrado uno o más campos vacíos',
-      'Debe seleccionar uno de los registros',
-      'warning', {
-        timer: 5000,
-      });
-  } else {
-    fetch('delete.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
-    });
-    swal(
-      'Eliminado exitosamente',
-      'Puede cerrar esta ventana',
-      'success', {
-        timer: 5000,
-      });
+  function deleteCont() {
+    let id = document.getElementById('hidden-id').innerText;
+    let titulo = document.getElementById("input-title").value;
+    let hierarchy = document.getElementById("select-hierarchy");
+    let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
+  
+    if (id == null || titulo == "" || selectedHierarchy == 0) {
+      Swal(
+        'Se han encontrado uno o más campos vacíos',
+        'Debe seleccionar uno de los registros',
+        'warning', {
+          timer: 5000,
+        });
+    } else {
+      Swal.fire({
+        title: '¿Está seguro de que desea eliminar este registro?',
+        text: "No podrá deshacer esta acción.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch('delete.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
+          });
+          Swal(
+            'Eliminado exitosamente',
+            'Puede cerrar esta ventana',
+            'success', {
+              timer: 5000,
+            });
+        }
+      })
+    }
   }
-}
 
 /*
   Toma los valores del registro (despues de presionar el boton de editar) y los coloca en
@@ -226,27 +237,38 @@ function updateCont() {
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   
   if (id == "") {
-    swal(
+    Swal(
       'No se ha seleccionado un registro',
       'Favor de seleccionar uno',
       'warning', {
         timer: 5000,
       });
   } else {
-    fetch('update.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `id=${id}&titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
-    });
-    console.log('Editado');
-    swal(
-      'Modificado existosamente',
-      'Puede cerrar esta ventana',
-      'success', {
-        timer: 5000,
-      });
+    Swal.fire({
+      title: '¿Estás seguro de querer editar?',
+      text: 'No podrás deshacer esta acción',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, editar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch('update.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id=${id}&titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+        });
+        console.log('Editado');
+        Swal(
+          'Modificado existosamente',
+          'Puede cerrar esta ventana',
+          'success', {
+            timer: 5000,
+          });
+      }
+    })
   }
 }
 
@@ -300,35 +322,54 @@ function showOrHideDiv() {
   Imprime el contenido de un archivo en base a su ruta y nombre de archivo y lo coloca
   en una seccion de la pagina 
 */
-// function printFile(title, folder) {
-//   let file = folder + title + '.html';
-//   console.log(file);
-//   document.getElementById("print-btn").addEventListener("click", function() {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("GET", file, true);
-//     xhr.onreadystatechange = function() {
-//       if (xhr.readyState === 4 && xhr.status === 200) {
-//         document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
-//         document.getElementById("content").innerHTML = xhr.response;
-//       }
-//     };
-//     xhr.send();
-//   });
-// }
 document.getElementById("print-btn").addEventListener("click", function() {
   printFile(title, folder);
 });
 
-function printFile(title, folder) {
-  let file = folder + title + '.html';
+function printFile(filename, folder, title, parent) {
+  let file = folder + filename + ".html";
   console.log(file);
   var xhr = new XMLHttpRequest();
   xhr.open("GET", file, true);
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
+      document.getElementById("show-parent").innerText = parent;
       document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
       document.getElementById("content").innerHTML = xhr.response;
     }
   };
   xhr.send();
+}
+
+function refreshIndex() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("scroll-nav card").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "fill-index.php", true);
+  xhttp.send();
+}
+
+function clearFields() {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esto borrará todos los campos.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      clear();
+    }
+  });
+}
+
+document.getElementById('limpiar').addEventListener('click', clearFields);
+
+function clear() {
+  document.getElementById('input-title').value = '';
+  quill.setText('');
 }

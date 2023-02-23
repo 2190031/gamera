@@ -29,6 +29,7 @@ include("conn.php");
     <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container">
@@ -62,16 +63,16 @@ include("conn.php");
     <br>
     <div class="row row-cols-lg-auto g-3 align-items-center">
       <div class="col">
-        <button id="guardar" class="btn btn-primary" onclick=jsSave() onload="enableButton()">Guardar</button>
+        <button id="guardar" class="btn btn-outline-primary" onclick=jsSave() onload="enableButton()">Guardar</button>
       </div>
       <div class="col">
-        <button id="editar" class="btn btn-warning" onclick=updateCont()>Editar</button>
+        <button id="editar" class="btn btn-outline-warning" onclick=updateCont()>Editar</button>
       </div>
       <div class="col">
-        <button id="borrar" class="btn btn-danger"  onclick=deleteCont()>Borrar</button>
+        <button id="borrar" class="btn btn-outline-danger"  onclick=deleteCont()>Borrar</button>
       </div>
       <div class="col">
-        <button id="limpiar" class="btn btn-info"  onclick=clear()>Limpiar</button>
+        <button id="limpiar" class="btn btn-outline-info"  onclick=clear()>Limpiar</button>
       </div>
       <div class="col ms-auto">
         <div class="input-group mb-3">
@@ -81,33 +82,20 @@ include("conn.php");
       </div>
     </div>
     <br>
-<p name="id" id="hidden-id" value="$row['id']" hidden></p>
+    <p name="id" id="hidden-id" value="$row['id']" hidden></p>
     <hr>
-
-    <div id="scroll-nav card">
-      <?php
-        include_once('fill-index.php');
-      ?>
-    </div>
     <br>
-    <button type="button" class="btn btn-outline-primary" id="refresh-index" onclick="refreshIndex()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-      </svg>
-    </button>
+      <div id="scroll-nav card">
+        <?php
+          include_once('fill-index.php');
+        ?>
+      </div>
+    
 
-<br><hr><br>
-<p>Resultado</p>
-<div id="parent">
-  <small class="fw-light">Este articulo pertenece a: <p id="show-parent"></p></small>
-</div>
-    <div id="output">
-      <div id="title"></div>
       
-      <div id="content"></div>
-    </div>
   </div>
+
+
       <!-- Include the Quill library -->
       <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

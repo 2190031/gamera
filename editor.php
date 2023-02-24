@@ -63,21 +63,21 @@ include("conn.php");
     <br>
     <div class="row row-cols-lg-auto g-3 align-items-center">
       <div class="col">
-        <button id="guardar" class="btn btn-outline-primary" onclick=jsSave() onload="enableButton()">Guardar</button>
+        <button id="guardar" class="btn btn-outline-primary" title='Guardar archivo' onclick=jsSave() onload="enableButton()">Guardar</button>
       </div>
       <div class="col">
-        <button id="editar" class="btn btn-outline-warning" onclick=updateCont()>Editar</button>
+        <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios' onclick=updateCont()>Editar</button>
       </div>
       <div class="col">
-        <button id="borrar" class="btn btn-outline-danger"  onclick=deleteCont()>Borrar</button>
+        <button id="borrar" class="btn btn-outline-danger" title='Eliminar archivo' onclick=deleteCont()>Borrar</button>
       </div>
       <div class="col">
-        <button id="limpiar" class="btn btn-outline-info"  onclick=clear()>Limpiar</button>
+        <button id="limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=clear()>Limpiar</button>
       </div>
-      <div class="col ms-auto">
-        <div class="input-group mb-3">
-          <button class="btn btn-secondary" onclick=sendImage()>Insertar imagen</button>
-          <input class="form-control" type="file" id="image">
+      <div class="ms-auto">
+        <div class="input-group">
+          <button class="btn btn-secondary" type="button" title='Insertar imagen en el artículo' onclick=sendImage()>Insertar imagen</button>
+          <input class="form-control" title='Buscar imagen (debe estar en la carpeta de imágenes)' type="file" id="image">
         </div>
       </div>
     </div>

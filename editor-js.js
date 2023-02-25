@@ -47,7 +47,7 @@ function jsSave() {
 
   let regex = /^[a-zA-Z0-9_,.;:!¿?ÁÉÍÓÚáéíóúñÑ\s]+$/;
   if (titulo == "") {
-    Swal(
+    Swal.fire(
       'Se han encontrado uno o más campos vacíos',
       'Favor de llenar todos los campos',
       'warning', {
@@ -55,7 +55,7 @@ function jsSave() {
       });
     return;
   } else if (!regex.test(titulo)) {
-    Swal(
+    Swal.fire(
       'Caracteres especiales no permitidos',
       'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ; : ! ¿ ?',
       'warning'
@@ -73,7 +73,7 @@ function jsSave() {
     }).then(response => {
       if (response.ok) {
         console.log('Insertado');
-        Swal(
+        Swal.fire(
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
@@ -92,7 +92,7 @@ function jsSave() {
     }).then(response => {
       if (response.ok) {
         console.log('Insertado');
-        Swal(
+        Swal.fire(
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
@@ -102,24 +102,7 @@ function jsSave() {
       }
     });
   }
-   
-  var myVar = setInterval(myFunc, 1000);
-  function myFunc() {
-    $("#scroll-nav").load('fill-index.php');
-  }
 }
-
-/* apendice de codigo
-console.log(str);
-var title = "<h1 class='h1'>" + str + "</h1>";
-const xhttp = new XMLHttpRequest();
-xhttp.onload = function () {
-  document.getElementById('title').innerHTML = title;
-}
-xhttp.open("POST", "editor.php");
-xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-xhttp.send("p=" + str);
-*/
 
 /*
   Funciones para obtener el titulo y contenido como parametros despues de las primeras 2
@@ -147,7 +130,7 @@ function showCont(cont) {
 function showTitleAndCont(title, cont) {
   showTitle(title);
   showCont(cont);
-  console.log(cont);
+  // console.log(cont);
 }
 
 /*
@@ -161,7 +144,7 @@ function showTitleAndCont(title, cont) {
     let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   
     if (id == null || titulo == "" || selectedHierarchy == 0) {
-      Swal(
+      Swal.fire(
         'Se han encontrado uno o más campos vacíos',
         'Debe seleccionar uno de los registros',
         'warning', {
@@ -186,7 +169,7 @@ function showTitleAndCont(title, cont) {
             },
             body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
           });
-          Swal(
+          Swal.fire(
             'Eliminado exitosamente',
             'Puede cerrar esta ventana',
             'success', {
@@ -202,14 +185,14 @@ function showTitleAndCont(title, cont) {
   el editor y en un campo oculto el ID para prepararlo para su edicion
 */
 function editCont(id, tit, hie, cont) {
-  console.log(id);
-  console.log(tit);
-  console.log(cont);
-  console.log(hie);
+  // console.log("id" + id);
+  // console.log("titulo" + tit);
+  // console.log("contenido" + cont);
+  // console.log("jerarquia" + hie);
   
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  console.log(selectedHierarchy);
+  // console.log(selectedHierarchy);
   
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
@@ -237,7 +220,7 @@ function updateCont() {
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   
   if (id == "") {
-    Swal(
+    Swal.fire(
       'No se ha seleccionado un registro',
       'Favor de seleccionar uno',
       'warning', {
@@ -261,7 +244,7 @@ function updateCont() {
           body: `id=${id}&titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
         });
         console.log('Editado');
-        Swal(
+        Swal.fire(
           'Modificado existosamente',
           'Puede cerrar esta ventana',
           'success', {
@@ -311,6 +294,14 @@ function showOrHideDiv() {
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
         let resultSelect = document.getElementById("parent");
         resultSelect.innerHTML = this.responseText;
+      } else if (xhr.status === 404) {
+        Swal.fire(
+          'Error',
+          'Es posible que el archivo haya sido eliminado, cambiado el nombre o de lugar',
+          'error', {
+            timer: 5000,
+          });
+        return;
       }
     };
     xhr.send("hierarchy=" + selectedOption);
@@ -328,16 +319,42 @@ document.getElementById("print-btn").addEventListener("click", function() {
 
 function printFile(filename, folder, title, parent) {
   let file = folder + filename + ".html";
-  console.log(file);
+  console.log("archivo " + file);
   var xhr = new XMLHttpRequest();
   xhr.open("GET", file, true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      document.getElementById("show-parent").innerText = parent;
-      document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
-      document.getElementById("content").innerHTML = xhr.response;
-    }
-  };
+  if (!parent && !title) {
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        document.getElementById("show-parent").innerHTML = "";
+        document.getElementById("title").innerHTML = "<h1>" + filename + "</h1>";
+        document.getElementById("content").innerHTML = xhr.response;
+      } else if (xhr.status === 404) {
+        Swal.fire(
+          'Archivo no encontrado',
+          'Es posible que el archivo haya sido eliminado, cambiado el nombre o de lugar',
+          'error', {
+            timer: 5000,
+          });
+        return;
+      }
+    };
+  } else if (parent && title) {
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        document.getElementById("show-parent").innerText = parent;
+        document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
+        document.getElementById("content").innerHTML = xhr.response;
+      } else if (xhr.status === 404) {
+        Swal.fire(
+          'Archivo no encontrado',
+          'Es posible que el archivo haya sido eliminado, cambiado el nombre o de lugar',
+          'error', {
+            timer: 5000,
+          });
+        return;
+      }
+    };
+  }
   xhr.send();
 }
 
@@ -345,7 +362,7 @@ function refreshIndex() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("scroll-nav card").innerHTML = this.responseText;
+      document.getElementById("scroll-nav").innerHTML = this.responseText;
     }
   };
   xhttp.open("GET", "fill-index.php", true);

@@ -32,7 +32,7 @@
 .contenido {
     margin-left: 10px;
     float: right;
-    width: 1050px;
+    width: 1023px;
     height: 2000px;
     background-color: #F2F2F2;
 }
@@ -208,3 +208,7 @@ ul, #myUL {
   .active {
     display: block;
   }
+
+
+
+  

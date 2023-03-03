@@ -4,6 +4,33 @@
     box-sizing: border-box;
 }
 
+#resultados {
+  list-style: none;
+  background: #e2e2e2;
+  position: absolute;
+  right: 175px;
+  top: 70px;
+  width: 310px;
+  margin: 0;
+  border-radius: 5px;
+}
+
+ol, ul {
+  padding-left: 0 !important;
+}
+
+#resultados li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 7px;
+  margin: 0;
+  
+}
+
+#resultados li:hover {
+  background: #969494;
+}
+
 .navbar {
     background-color: #184A8C !important;
 }
@@ -64,11 +91,6 @@
 .img{
     float: left;
 }
-
-/*
-.box-img {
-    border-radius: 5%;
-} */
 
 .box h1 {
     letter-spacing: 1px;

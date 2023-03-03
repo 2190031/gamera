@@ -63,16 +63,16 @@ include("conn.php");
     <br>
     <div class="row row-cols-lg-auto g-3 align-items-center">
       <div class="col">
-        <button id="guardar" class="btn btn-outline-primary" title='Guardar archivo' onclick=jsSave() onload="enableButton()">Guardar</button>
+        <button id="guardar" class="btn btn-outline-primary" title='Guardar archivo' onclick=jsSave() onload="enableButton()">Guardar archivo</button>
       </div>
       <div class="col">
-        <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios' onclick=updateCont()>Editar</button>
+        <button id="borrar" class="btn btn-outline-danger" title='Eliminar archivo' onclick=deleteCont()>Eliminar archivo</button>
       </div>
       <div class="col">
-        <button id="borrar" class="btn btn-outline-danger" title='Eliminar archivo' onclick=deleteCont()>Borrar</button>
+        <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios. (Debe seleccionar el artículo deseado en el índice)' onclick=updateCont()>Guardar cambios</button>
       </div>
       <div class="col">
-        <button id="limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=clear()>Limpiar</button>
+        <button id="limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=clear()>Limpiar campos</button>
       </div>
       <div class="ms-auto">
         <div class="input-group">

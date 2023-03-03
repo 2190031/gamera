@@ -44,14 +44,14 @@ ol, ul {
 .general {
     border-radius: 5px;
     margin: auto;
-    width: 1423px;
+    width: 100%;
     height: 2000px;
     background-color: rgb(223, 217, 217);
 }
 
 .indice {
     margin-right: 10px;
-    width: 400px;
+    width: 25%;
     height: 2000px;
     background-color: #dfdede;
 }
@@ -59,17 +59,17 @@ ol, ul {
 .contenido {
     margin-left: 10px;
     float: right;
-    width: 1023px;
+    width: 75%;
     height: 2000px;
     background-color: #F2F2F2;
 }
 
 .gamera {
-  width: 250px !important;
+  width: 100% !important;
 }
 
 .box {
-    width: 1000px;
+    width: 100%;
     background: rgba (0, 0, 0, .4);
     margin: 0 auto;
     margin-top: 1%;

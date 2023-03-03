@@ -18,7 +18,7 @@ function cargarHTML(url, exito, error) {
 
 // Array de títulos
 var titulos = ["Funcionamiento general", "Ventana de listado tipo simple", "Ventana de listado con filtro de datos", 
-"Elementos comunes de las ventanas", "Ventana de reportes", "Estaciones"];
+"Elementos comunes de las ventanas", "Ventana de reportes", "Estaciones", "Zonas", "Usuarios", "Permisos"];
 
 // Obtener elementos
 var input = document.getElementById("buscador");

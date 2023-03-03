@@ -24,39 +24,39 @@
     <script>
         $(document).ready(function(){
             $('#1').click(function(){
-                $("#contenido").load("1.1funcionamiento_general.html");
+                $("#contenido").load("funcionamiento_general.html");
             });
 
             $('#1_2').click(function(){
-                $("#contenido").load("1.2vl_simple.html");
+                $("#contenido").load("ventana_de_listado_tipo_simple.html");
             });
 
             $('#1_3').click(function(){
-                $("#contenido").load("1.3vl_filtro.html");
+                $("#contenido").load("ventana_de_listado_con_filtro_de_datos.html");
             });
 
             $('#1_4').click(function(){
-                $("#contenido").load("1.4ve_comunes.html");
+                $("#contenido").load("elementos_comunes_de_las_ventanas.html");
             });
 
             $('#1_5').click(function(){
-                $("#contenido").load("1.5v_reportes.html");
+                $("#contenido").load("ventana_de_reportes.html");
             });
 
             $('#2_1').click(function(){
-                $("#contenido").load("2.1adms_estaciones.html");
+                $("#contenido").load("estaciones.html");
             });
 
             $('#2_2').click(function(){
-                $("#contenido").load("2.2adms_zonas.html");
+                $("#contenido").load("zonas.html");
             });
 
             $('#2_3').click(function(){
-                $("#contenido").load("2.3adms_usuarios.html");
+                $("#contenido").load("usuarios.html");
             });
 
             $('#2_4').click(function(){
-                $("#contenido").load("2.4adms_permisos_sesiones.html");
+                $("#contenido").load("permisos.html");
             });
 
             $('#2_5').click(function(){
@@ -91,11 +91,11 @@
             <span class="navbar-toggler-icon"></span>
           </button>
             <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search">
+              <input class="form-control me-2" type="search" id="buscador" placeholder="Búsqueda" aria-label="Search" style="width: 400px;" autocomplete="off">
               <button type="button" class="btn btn-outline-light">Buscar</button>
             </form>
           </div>
-        </div>
+          <ul id="resultados"></ul>
       </nav>
     </header>
     <div class="general" >
@@ -405,4 +405,5 @@
     </div>
     <!-- Copyright -->
   </footer>
+ <script src="js/test.js"></script>
 </html>

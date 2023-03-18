@@ -65,7 +65,7 @@ ol, ul {
 }
 
 .gamera {
-  width: 100% !important;
+  width: 90% !important;
 }
 
 .box {
@@ -86,6 +86,10 @@ ol, ul {
 
 .box h3{
     text-align: left;
+}
+
+.box-img{
+  width: 85%;
 }
 
 .img{
@@ -231,6 +235,25 @@ ul, #myUL {
     display: block;
   }
 
+  @media (max-width: 800px){
+    .indice a{
+      font-size: 16px;
+    }
+
+    .indice li{
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 500px){
+    .indice a{
+      font-size: 12px;
+    }
+
+    .indice li{
+      font-size: 8px;
+    }
+  }
 
 
   

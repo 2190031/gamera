@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@700&display=swap');
+
 * {
     margin: 0px;
     padding: 0px;
@@ -96,10 +99,10 @@ ol, ul {
     float: left;
 }
 
-.box h1 {
+.box h1, h2, h3 {
     letter-spacing: 1px;
     font-weight: 0;
-    font-family: 'Prata', serif;
+    font-family: 'Tajawal', sans-serif;
 }
 
 .box p {
@@ -160,7 +163,7 @@ body {
 /* TreeView */
 
 /* Remove default bullets */
-ul, #myUL {
+ul, ol, #myUL {
     list-style-type: none;
   }
   
@@ -179,7 +182,7 @@ ul, #myUL {
   .ola {
     text-decoration: none;
     color: black;
-    font-family: 'Itim', cursive;
+    font-family: 'Tajawal', sans-serif;
     font-weight: 100 !important;
     letter-spacing: normal;
     font-size: large;
@@ -188,7 +191,7 @@ ul, #myUL {
   .ola1 {
     text-decoration: none;
     color: #BF2A2A !important;
-    font-family: 'Itim', cursive;
+    font-family: 'Tajawal', sans-serif;
     font-weight: 300 !important;
     letter-spacing: normal;
     font-size: large;
@@ -197,7 +200,7 @@ ul, #myUL {
   .ola2{
     text-decoration: none;
     color: #2a3177 !important;
-    font-family: 'Itim', cursive;
+    font-family: 'Tajawal', sans-serif;
     font-weight: 300 !important;
     letter-spacing: normal;
     font-size: large;

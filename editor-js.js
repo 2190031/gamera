@@ -39,9 +39,11 @@ function jsSave() {
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   let selectedParent = "";
+  let parentTitle = "";
   if (selectedHierarchy > 1) {
     let parent = document.getElementById('parent');
     selectedParent = parent.options[parent.selectedIndex].value;
+    parentTitle = parent.options[parent.selectedIndex].text;
   }
   
 
@@ -79,7 +81,7 @@ function jsSave() {
           'success', {
             timer: 5000,
           });
-        myFunc();
+        primaryToIndex(titulo, 'primary');
       }
     });
   } else if (selectedParent != "") {
@@ -98,7 +100,13 @@ function jsSave() {
           'success', {
             timer: 5000,
           });
-        myFunc();
+          if (selectedHierarchy == 2) {
+            addToIndex(parentTitle, 'secondary', titulo);
+          } else if (selectedHierarchy == 3) {
+            addToIndex(parentTitle, 'terciary', titulo);
+          } else if (selectedHierarchy == 4) {
+            addToIndex(parentTitle, 'cuaternary', titulo);
+          }
       }
     });
   }
@@ -262,15 +270,55 @@ function updateCont() {
 function sendImage() {
   let img = document.getElementById('image').files[0];
   let imgName = img.name;
-  console.log(imgName);
 
-  const relativeUrl = "./img/" + imgName;
+  const relativeUrl = "img/" + imgName;
   console.log(relativeUrl);
 
   var imgTag = '<img src="' + relativeUrl + '">';
   quill.clipboard.dangerouslyPasteHTML(quill.getLength(), imgTag);
 }
 
+function uploadImage() {
+  let img = document.getElementById('image').files[0];
+  
+  if (img == null || img == "" || !img) {
+    Swal.fire(
+      'No se ha seleccionado ninguna imagen',
+      'Favor de seleccionar',
+      'warning', {
+        timer: 5000,
+      });
+  } else {
+    let formData = new FormData();
+    let imgName = img.name;
+    formData.append('image', img);
+    formData.append('imageName', imgName);
+  
+    // Envía el formulario mediante AJAX
+    fetch('upload_image.php', {
+      method: 'POST',
+      body: formData
+    }).then(response => {
+      if (response.ok) {
+        Swal.fire(
+          'Imagen subida existosamente',
+          'Puede cerrar esta ventana',
+          'success', {
+            timer: 5000,
+          });
+        return response.json();
+      } else {
+  
+        throw new Error('Error al subir la imagen');
+      }
+    }).then(data => {
+      console.log(data.message);
+    }).catch(error => {
+      console.error(error.message);
+    });
+  }
+
+}
 /* 
 Quita la clase d-none que oculta un select en la pagina mientras el tipo de articulo 
 sea la opcion por defecto o principal, al cambiaro se muestra el select
@@ -362,7 +410,7 @@ function refreshIndex() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("scroll-nav").innerHTML = this.responseText;
+      document.querySelector("#snav").innerHTML = this.responseText;
     }
   };
   xhttp.open("GET", "fill-index.php", true);
@@ -389,4 +437,77 @@ document.getElementById('limpiar').addEventListener('click', clearFields);
 function clear() {
   document.getElementById('input-title').value = '';
   quill.setText('');
+  document.getElementById('image').value = '';
+}
+
+function cargarIndice(){
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("indice-importado").innerHTML = this.responseText;
+    }
+  }
+  xhr.open("GET", "0.1indice_copy.html");
+  xhr.send();
+}
+
+function primaryToIndex(title, category) {
+  const index = document.querySelector('.indice');
+  const treeview = index.querySelectorAll('.treeview');
+  const parentIndex = document.getElementsByClassName('box-indice');
+  if (category == 'primary') {
+    const ul = document.createElement('ul');
+
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    const template = document.createElement('ul');
+    
+    ul.id = title;
+    ul.className = 'treeview';
+    
+    template.className = 'nested';
+    template.dataset.parent = title;
+    template.dataset.category = 'secondary';
+
+    span.className = 'carret primary';
+
+    ul.dataset.category = 'primary';
+
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = title;
+
+    span.appendChild(a);
+    li.appendChild(span);
+    li.appendChild(template);
+    ul.appendChild(li);
+    document.getElementsByClassName('box-indice')[0].appendChild(ul);
+  }
+}
+function addToIndex(parentId, category, title) {
+  const parentElement = document.querySelector(`[data-category="${category}"][data-parent="${parentId}"]`);
+  const template = document.createElement('ul');
+  if (parentElement) {
+    const newElement = document.createElement("li");
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = title;
+
+    newElement.appendChild(a);
+    if (category == 'secondary') {
+      template.className = 'nested';
+      template.dataset.parent = title;
+      template.dataset.category = 'secondary';
+      
+      newElement.appendChild(template)
+      parentElement.appendChild(newElement)
+      parentElement.querySelector("li").appendChild(newElement).nextSibling;
+    } else if (category == 'terciary') {
+      parentElement.appendChild(newElement)
+      parentElement.querySelector("li").appendChild(newElement).nextSibling;
+    } else if (category == 'quaternary') {
+      parentElement.appendChild(newElement)
+      parentElement.querySelector("li").appendChild(newElement).nextSibling;
+    }
+  } 
 }

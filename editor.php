@@ -30,8 +30,21 @@ include("conn.php");
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-</head>
-<body>
+
+    <script>
+      function getLiElements() {
+        const content = document.getElementById('indice').innerHTML;
+        const lines = content.split('\n');
+        const liElements = lines.filter(line => line.includes('<li><a href="#" id'));
+        document.getElementById('indice').innerHTML = liElements.toString();
+        console.log(liElements);
+        liElements.splice(0, 0, '<li><a href="#" class>Nuevo Link</a></li>');
+        console.log(liElements)
+        document.getElementById('indice2').innerHTML = liElements.toString();
+      }
+    </script>
+  </head>
+<body onload="cargarIndice()">
 <div class="container">
     <h1 class="h1">Inserte una nueva sección</h1>
     <h2 class="h2">Título</h2>
@@ -76,8 +89,9 @@ include("conn.php");
       </div>
       <div class="ms-auto">
         <div class="input-group">
-          <button class="btn btn-secondary" type="button" title='Insertar imagen en el artículo' onclick=sendImage()>Insertar imagen</button>
+          <button class="btn btn-outline-success" type="button" title='Insertar imagen en el artículo' onclick=sendImage()>Insertar imagen</button>
           <input class="form-control" title='Buscar imagen (debe estar en la carpeta de imágenes)' type="file" id="image">
+          <button class="btn btn-outline-secondary" type="button" title='Subir imagen en el artículo' onclick=uploadImage()>Subir imagen</button>
         </div>
       </div>
     </div>
@@ -86,22 +100,82 @@ include("conn.php");
     <hr>
     <br>
       <div id="scroll-nav card">
-        <?php
-          include_once('fill-index.php');
-        ?>
+        <div id="snav">
+          <?php
+            include_once('fill-index.php');
+          ?>
+        </div>
       </div>
     
 
       
   </div>
+  <hr>
+  <button class="btn btn-outline-primary" onclick="primaryToIndex('nuevo','primary')">Cargar</button>
+  <button class="btn btn-outline-primary" onclick="addToIndex('grupo1','secondary','secondary')">Cargar</button>
+  <button class="btn btn-outline-primary" onclick="addToIndex('grupo1','terciary','terciary')">Cargar</button>
+  <button class="btn btn-outline-primary" onclick="addToIndex('grupo1','quaternary','quaternary')">Cargar</button>
+  
+  <button class="btn btn-outline-primary" onclick="cargarIndice()">Cargar</button>
+  
+  <hr>
+  
+  <h1 class="h1">Agregar al índice</h1>
+  <div class='indice'>
+
+  <div id="indice-importado">
+
+  </div>
+
+  <section class='box-indice'>
+    <ul id='grupo1' class='treeview' data-category="primary">
+      <li><span class='carret primary'><a>Articulo principal</a></span>
+        
+        <ul class='nested' data-parent="grupo1" data-category="secondary">
+          <li><a>Articulo secundario (sin hijos)</a></li>
+          <li><span class='carret secondary'><a>Articulo secundario (con hijos)</a></span>
+            
+            <ul class='nested' data-parent="grupo1" data-category="terciary">
+              <li><a>Articulo terciario (sin hijos)</a></li>
+              <li><span class='carret terciary'><a>Articulo terciario (con hijos)</a></span>
+                
+                <ul class='nested' data-parent="grupo1" data-category="quaternary">
+                  <li><a>Articulo cuaternario</a></li>
+                  <li><a>Articulo cuaternario</a></li>
+                </ul>
+
+              </li>
+            </ul>
+
+          </li>
+        </ul>
+
+      </li>
+    </ul>
+  </section> 
 
 
-      <!-- Include the Quill library -->
-      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</div>
+        
 
-      <!-- Initialize Quill editor -->
-      <script src="editor-js.js"></script>
+        <!-- Include the Quill library -->
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+        <!-- Initialize Quill editor -->
+        <script src="editor-js.js"></script>
+  
+        <script>
+            var toggler = document.getElementsByClassName("caret");
+            var i;
+            
+            for (i = 0; i < toggler.length; i++) {
+              toggler[i].addEventListener("click", function() {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+              });
+            }
+          </script>
 </script>
 </body>
 </html>

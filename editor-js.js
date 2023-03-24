@@ -45,7 +45,7 @@ function jsSave() {
     selectedParent = parent.options[parent.selectedIndex].value;
     parentTitle = parent.options[parent.selectedIndex].text;
   }
-  
+
 
   let regex = /^[a-zA-Z0-9_,.;:!¿?ÁÉÍÓÚáéíóúñÑ\s]+$/;
   if (titulo == "") {
@@ -53,8 +53,8 @@ function jsSave() {
       'Se han encontrado uno o más campos vacíos',
       'Favor de llenar todos los campos',
       'warning', {
-        timer: 5000,
-      });
+      timer: 5000,
+    });
     return;
   } else if (!regex.test(titulo)) {
     Swal.fire(
@@ -63,8 +63,8 @@ function jsSave() {
       'warning'
     );
     return;
-  } 
-  
+  }
+
   if (selectedParent == "") {
     fetch('insert.php', {
       method: 'POST',
@@ -79,8 +79,8 @@ function jsSave() {
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
-            timer: 5000,
-          });
+          timer: 5000,
+        });
         primaryToIndex(titulo, 'primary');
       }
     });
@@ -98,15 +98,15 @@ function jsSave() {
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
-            timer: 5000,
-          });
-          if (selectedHierarchy == 2) {
-            addToIndex(parentTitle, 'secondary', titulo);
-          } else if (selectedHierarchy == 3) {
-            addToIndex(parentTitle, 'terciary', titulo);
-          } else if (selectedHierarchy == 4) {
-            addToIndex(parentTitle, 'cuaternary', titulo);
-          }
+          timer: 5000,
+        });
+        if (selectedHierarchy == 2) {
+          addToIndex(parentTitle, 'secondary', titulo);
+        } else if (selectedHierarchy == 3) {
+          addToIndex(parentTitle, 'terciary', titulo);
+        } else if (selectedHierarchy == 4) {
+          addToIndex(parentTitle, 'cuaternary', titulo);
+        }
       }
     });
   }
@@ -119,12 +119,12 @@ function jsSave() {
 function showTitle(str) {
   var title = "<h1 class='h1'>" + str + "</h1>";
   const xhttp = new XMLHttpRequest();
-  xhttp.onload = function() {
+  xhttp.onload = function () {
     document.getElementById('title').innerHTML = title;
   }
   xhttp.open("POST", "editor.php");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  xhttp.send("p="+str);
+  xhttp.send("p=" + str);
 }
 function showCont(cont) {
   const xhttp = new XMLHttpRequest();
@@ -145,48 +145,48 @@ function showTitleAndCont(title, cont) {
   (Solo despues de hacer click en su boton para editar) Utiliza el ID oculto del registro
   para eliminar el archivo y registro
  */
-  function deleteCont() {
-    let id = document.getElementById('hidden-id').innerText;
-    let titulo = document.getElementById("input-title").value;
-    let hierarchy = document.getElementById("select-hierarchy");
-    let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  
-    if (id == null || titulo == "" || selectedHierarchy == 0) {
-      Swal.fire(
-        'Se han encontrado uno o más campos vacíos',
-        'Debe seleccionar uno de los registros',
-        'warning', {
+function deleteCont() {
+  let id = document.getElementById('hidden-id').innerText;
+  let titulo = document.getElementById("input-title").value;
+  let hierarchy = document.getElementById("select-hierarchy");
+  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
+
+  if (id == null || titulo == "" || selectedHierarchy == 0) {
+    Swal.fire(
+      'Se han encontrado uno o más campos vacíos',
+      'Debe seleccionar uno de los registros',
+      'warning', {
+      timer: 5000,
+    });
+  } else {
+    Swal.fire({
+      title: '¿Está seguro de que desea eliminar este registro?',
+      text: "No podrá deshacer esta acción.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch('delete.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
+        });
+        Swal.fire(
+          'Eliminado exitosamente',
+          'Puede cerrar esta ventana',
+          'success', {
           timer: 5000,
         });
-    } else {
-      Swal.fire({
-        title: '¿Está seguro de que desea eliminar este registro?',
-        text: "No podrá deshacer esta acción.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          fetch('delete.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
-          });
-          Swal.fire(
-            'Eliminado exitosamente',
-            'Puede cerrar esta ventana',
-            'success', {
-              timer: 5000,
-            });
-        }
-      })
-    }
+      }
+    })
   }
+}
 
 /*
   Toma los valores del registro (despues de presionar el boton de editar) y los coloca en
@@ -197,17 +197,17 @@ function editCont(id, tit, hie, cont) {
   // console.log("titulo" + tit);
   // console.log("contenido" + cont);
   // console.log("jerarquia" + hie);
-  
+
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   // console.log(selectedHierarchy);
-  
+
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
     document.getElementById('hidden-id').innerText = id;
     document.getElementById("input-title").value = tit;
     document.getElementById('editor').firstChild.innerHTML = cont;
-    hierarchy.options[hie-1].selected = true
+    hierarchy.options[hie - 1].selected = true
   }
   xhttp.open("POST", "editor.php");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -223,17 +223,17 @@ function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = document.getElementById("input-title").value;
   let contenido = quill.container.firstChild.innerHTML;
-  
+
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  
+
   if (id == "") {
     Swal.fire(
       'No se ha seleccionado un registro',
       'Favor de seleccionar uno',
       'warning', {
-        timer: 5000,
-      });
+      timer: 5000,
+    });
   } else {
     Swal.fire({
       title: '¿Estás seguro de querer editar?',
@@ -256,8 +256,8 @@ function updateCont() {
           'Modificado existosamente',
           'Puede cerrar esta ventana',
           'success', {
-            timer: 5000,
-          });
+          timer: 5000,
+        });
       }
     })
   }
@@ -280,20 +280,20 @@ function sendImage() {
 
 function uploadImage() {
   let img = document.getElementById('image').files[0];
-  
+
   if (img == null || img == "" || !img) {
     Swal.fire(
       'No se ha seleccionado ninguna imagen',
       'Favor de seleccionar',
       'warning', {
-        timer: 5000,
-      });
+      timer: 5000,
+    });
   } else {
     let formData = new FormData();
     let imgName = img.name;
     formData.append('image', img);
     formData.append('imageName', imgName);
-  
+
     // Envía el formulario mediante AJAX
     fetch('upload_image.php', {
       method: 'POST',
@@ -304,11 +304,11 @@ function uploadImage() {
           'Imagen subida existosamente',
           'Puede cerrar esta ventana',
           'success', {
-            timer: 5000,
-          });
+          timer: 5000,
+        });
         return response.json();
       } else {
-  
+
         throw new Error('Error al subir la imagen');
       }
     }).then(data => {
@@ -347,8 +347,8 @@ function showOrHideDiv() {
           'Error',
           'Es posible que el archivo haya sido eliminado, cambiado el nombre o de lugar',
           'error', {
-            timer: 5000,
-          });
+          timer: 5000,
+        });
         return;
       }
     };
@@ -361,7 +361,7 @@ function showOrHideDiv() {
   Imprime el contenido de un archivo en base a su ruta y nombre de archivo y lo coloca
   en una seccion de la pagina 
 */
-document.getElementById("print-btn").addEventListener("click", function() {
+document.getElementById("print-btn").addEventListener("click", function () {
   printFile(title, folder);
 });
 
@@ -371,7 +371,7 @@ function printFile(filename, folder, title, parent) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", file, true);
   if (!parent && !title) {
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         document.getElementById("show-parent").innerHTML = "";
         document.getElementById("title").innerHTML = "<h1>" + filename + "</h1>";
@@ -381,13 +381,13 @@ function printFile(filename, folder, title, parent) {
           'Archivo no encontrado',
           'Es posible que el archivo haya sido eliminado, cambiado el nombre o de lugar',
           'error', {
-            timer: 5000,
-          });
+          timer: 5000,
+        });
         return;
       }
     };
   } else if (parent && title) {
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
         document.getElementById("show-parent").innerText = parent;
         document.getElementById("title").innerHTML = "<h1>" + title + "</h1>";
@@ -397,8 +397,8 @@ function printFile(filename, folder, title, parent) {
           'Archivo no encontrado',
           'Es posible que el archivo haya sido eliminado, cambiado el nombre o de lugar',
           'error', {
-            timer: 5000,
-          });
+          timer: 5000,
+        });
         return;
       }
     };
@@ -408,7 +408,7 @@ function printFile(filename, folder, title, parent) {
 
 function refreshIndex() {
   var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
+  xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.querySelector("#snav").innerHTML = this.responseText;
     }
@@ -440,9 +440,9 @@ function clear() {
   document.getElementById('image').value = '';
 }
 
-function cargarIndice(){
+function cargarIndice() {
   var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function() {
+  xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("indice-importado").innerHTML = this.responseText;
     }
@@ -461,10 +461,10 @@ function primaryToIndex(title, category) {
     const li = document.createElement('li');
     const span = document.createElement('span');
     const template = document.createElement('ul');
-    
+
     ul.id = title;
     ul.className = 'treeview';
-    
+
     template.className = 'nested';
     template.dataset.parent = title;
     template.dataset.category = 'secondary';
@@ -498,7 +498,7 @@ function addToIndex(parentId, category, title) {
       template.className = 'nested';
       template.dataset.parent = title;
       template.dataset.category = 'secondary';
-      
+
       newElement.appendChild(template)
       parentElement.appendChild(newElement)
       parentElement.querySelector("li").appendChild(newElement).nextSibling;
@@ -509,5 +509,5 @@ function addToIndex(parentId, category, title) {
       parentElement.appendChild(newElement)
       parentElement.querySelector("li").appendChild(newElement).nextSibling;
     }
-  } 
+  }
 }

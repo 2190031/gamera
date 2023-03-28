@@ -129,7 +129,7 @@ include("conn.php");
 
     </div>
 
-    <section class='box-indice'>
+    <!-- <section class='box-indice'>
       <ul id='grupo1' class='treeview' data-category="primary">
         <li><span class='carret primary'><a>Articulo principal</a></span>
 
@@ -154,7 +154,7 @@ include("conn.php");
 
         </li>
       </ul>
-    </section>
+    </section> -->
 
 
   </div>

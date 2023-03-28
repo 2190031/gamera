@@ -193,14 +193,9 @@ function deleteCont() {
   el editor y en un campo oculto el ID para prepararlo para su edicion
 */
 function editCont(id, tit, hie, cont) {
-  // console.log("id" + id);
-  // console.log("titulo" + tit);
-  // console.log("contenido" + cont);
-  // console.log("jerarquia" + hie);
 
   let hierarchy = document.getElementById("select-hierarchy");
-  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  // console.log(selectedHierarchy);
+  let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value; 
 
   const xhttp = new XMLHttpRequest();
   xhttp.onload = function () {
@@ -483,6 +478,7 @@ function primaryToIndex(title, category) {
     ul.appendChild(li);
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
   }
+  createIndex();
 }
 function addToIndex(parentId, category, title) {
   const parentElement = document.querySelector(`[data-category="${category}"][data-parent="${parentId}"]`);
@@ -497,17 +493,44 @@ function addToIndex(parentId, category, title) {
     if (category == 'secondary') {
       template.className = 'nested';
       template.dataset.parent = title;
-      template.dataset.category = 'secondary';
+      template.dataset.category = 'terciary';
+
+      newElement.appendChild(template);
+      parentElement.appendChild(newElement);
+    } else if (category == 'terciary') {
+      template.className = 'nested';
+      template.dataset.parent = title;
+      template.dataset.category = 'quaternary';
 
       newElement.appendChild(template)
-      parentElement.appendChild(newElement)
-      parentElement.querySelector("li").appendChild(newElement).nextSibling;
-    } else if (category == 'terciary') {
-      parentElement.appendChild(newElement)
-      parentElement.querySelector("li").appendChild(newElement).nextSibling;
+      parentElement.appendChild(newElement);
     } else if (category == 'quaternary') {
       parentElement.appendChild(newElement)
-      parentElement.querySelector("li").appendChild(newElement).nextSibling;
     }
   }
+  createIndex();
+}
+
+function createIndex() {
+  let cont = document.getElementById('indice-importado').innerHTML;
+  console.log(cont);
+  fetch(
+    'edit_nav.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `cont=${cont}`
+    }
+  ).then(response => {
+    if (response.ok) {
+      console.log('creado');
+      Swal.fire(
+        'Insertado correctamente',
+        'Puede cerrar esta ventana',
+        'success', {
+        timer: 5000,
+      });
+    } else {
+      console.log('error');
+    }
+  });
 }

@@ -44,6 +44,7 @@ function jsSave() {
     let parent = document.getElementById('parent');
     selectedParent = parent.options[parent.selectedIndex].value;
     parentTitle = parent.options[parent.selectedIndex].text;
+    console.log(selectedParent, " ", parentTitle);
   }
 
 
@@ -93,6 +94,11 @@ function jsSave() {
       body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
     }).then(response => {
       if (response.ok) {
+        fetch('insert.php')
+        .then(response => response.json())
+        .then(file => {
+          console.log(file); // 42
+        });
         console.log('Insertado');
         Swal.fire(
           'Insertado correctamente',
@@ -101,9 +107,9 @@ function jsSave() {
           timer: 5000,
         });
         if (selectedHierarchy == 2) {
-          addToIndex(parentTitle, 'secondary', titulo);
+          addToIndex(parentTitle, 'secondary' , titulo);
         } else if (selectedHierarchy == 3) {
-          addToIndex(parentTitle, 'terciary', titulo);
+          addToIndex(parentTitle, 'terciary'  , titulo);
         } else if (selectedHierarchy == 4) {
           addToIndex(parentTitle, 'cuaternary', titulo);
         }
@@ -523,12 +529,6 @@ function createIndex() {
   ).then(response => {
     if (response.ok) {
       console.log('creado');
-      Swal.fire(
-        'Insertado correctamente',
-        'Puede cerrar esta ventana',
-        'success', {
-        timer: 5000,
-      });
     } else {
       console.log('error');
     }

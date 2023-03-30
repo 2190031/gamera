@@ -13,24 +13,33 @@ include("conn.php");
   <link href="style.css" rel="stylesheet">
 
   <!-- Sweet alert -->
-  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+  <!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+  <script src="sweetalert/sweetalert2.all.min.js"></script>
 
   <!-- Main Quill library -->
-  <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
-  <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  <!-- <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script> -->
+  <script src="quill\quill.js"></script>
+  <script src="quill\quill.min.js"></script>
 
   <!-- Theme included stylesheets -->
-  <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-  <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+  <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link href="//cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet"> -->
+  <link href="quill\quill.snow.css" rel="stylesheet">
+  <link href="quill\quill.bubble.css" rel="stylesheet">
 
   <!-- Core build with no theme, formatting, non-essential modules -->
-  <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
-  <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script>
+  <!-- <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
+  <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script> -->
+  <link href="quill\quill.core.css" rel="stylesheet"> 
+  <script src="quill\quill.core.js"></script>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
+  <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
+  <script src="bootstrap\js\bootstrap.js"></script>
 
   <script>
     function getLiElements() {
@@ -124,39 +133,9 @@ include("conn.php");
 
   <h1 class="h1">Agregar al índice</h1>
   <div class='indice'>
-
     <div id="indice-importado">
 
     </div>
-
-    <!-- <section class='box-indice'>
-      <ul id='grupo1' class='treeview' data-category="primary">
-        <li><span class='carret primary'><a>Articulo principal</a></span>
-
-          <ul class='nested' data-parent="grupo1" data-category="secondary">
-            <li><a>Articulo secundario (sin hijos)</a></li>
-            <li><span class='carret secondary'><a>Articulo secundario (con hijos)</a></span>
-
-              <ul class='nested' data-parent="grupo1" data-category="terciary">
-                <li><a>Articulo terciario (sin hijos)</a></li>
-                <li><span class='carret terciary'><a>Articulo terciario (con hijos)</a></span>
-
-                  <ul class='nested' data-parent="grupo1" data-category="quaternary">
-                    <li><a>Articulo cuaternario</a></li>
-                    <li><a>Articulo cuaternario</a></li>
-                  </ul>
-
-                </li>
-              </ul>
-
-            </li>
-          </ul>
-
-        </li>
-      </ul>
-    </section> -->
-
-
   </div>
 
 

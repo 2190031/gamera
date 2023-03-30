@@ -35,6 +35,8 @@
   
           $folder = "1/";
           $file = $folder . $titulo . '.html';
+          $update = "UPDATE help SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+          $conn->query($update);
           $content = $contenido;
           file_put_contents($file, $content);
         } else {
@@ -46,15 +48,19 @@
         if ($result = mysqli_query($conn, $query)) {
           echo "Insertado en 2";
           
-          $query_name="SELECT help.title FROM help, help_sec WHERE help_sec.prim_parent = help.id;";
+          $query_name="SELECT help.title FROM help WHERE help.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "2/";
             $parName = $result2->fetch_assoc();
+
             $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
+            $update = "UPDATE help_sec SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+            $conn->query($update);
           }
           $content = $contenido;
           file_put_contents($file, $content);
+          $fileJson = json_encode($file);
         } else {
           echo "Error";
         }
@@ -64,12 +70,15 @@
         if ($result = mysqli_query($conn, $query)) {
           echo "Insertado en 3";
           
-          $query_name="SELECT help_sec.title FROM help_sec, help_ter WHERE help_ter.sec_parent = help_sec.id;";
+          $query_name="SELECT help_sec.title FROM help_sec WHERE help_sec.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "3/";
             $parName = $result2->fetch_assoc();
+
             $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
+            $update = "UPDATE help_ter SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+            $conn->query($update);
           }
           $content = $contenido;
           file_put_contents($file, $contenido);
@@ -82,12 +91,15 @@
         if ($result = mysqli_query($conn, $query)) {
           echo "Insertado en 4";
           
-          $query_name="SELECT help_ter.title FROM help_ter, help_cuat WHERE help_cuat.ter_parent = help_ter.id;";
+          $query_name="SELECT help_ter.title FROM help_ter WHERE help_ter.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "4/";
             $parName = $result2->fetch_assoc();
+
             $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
+            $update = "UPDATE help_cuat SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+            $conn->query($update);
           }
           $content = $contenido;
           file_put_contents($file, $contenido);
@@ -96,4 +108,6 @@
         }
       }
     } 
+    $filename = json_encode($file);
+    echo "<p id='filename'>" . $filename . "</p>";
 ?>

@@ -3,6 +3,7 @@ include("conn.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $id = $_POST['id'];
 $titulo = $_POST['titulo']; 
+$_titulo = $_POST['_titulo'];
 $hierarchy = $_POST['hierarchy'];
 
   if ($hierarchy === "1") {
@@ -12,7 +13,7 @@ $hierarchy = $_POST['hierarchy'];
       echo "Eliminado en 1";
 
       $folder = "1/";
-      $file = $folder . $titulo . '.html';
+      $file = $folder . $_titulo . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";
@@ -34,7 +35,7 @@ $hierarchy = $_POST['hierarchy'];
       echo "Eliminado en 2";
       
       $folder = "2/";
-      $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
+      $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";
@@ -56,7 +57,7 @@ $hierarchy = $_POST['hierarchy'];
       echo "Eliminado en 3";
       echo $query;
       $folder = "3/";
-      $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
+      $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";
@@ -79,7 +80,7 @@ $hierarchy = $_POST['hierarchy'];
       echo "Eliminado en 4";
       echo $query;
       $folder = "4/";
-      $file = $folder . $titulo . "-PN-" . $parName['title'] . '.html';
+      $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
       if (file_exists($file)) {
         unlink($file);
         echo "El archivo ha sido eliminado.";

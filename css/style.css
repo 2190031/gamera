@@ -1,3 +1,9 @@
+ 
+.form-select,
+.form-control {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
 #scroll-nav {
     max-height: 500px;
     height: fit-content;

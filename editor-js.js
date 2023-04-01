@@ -48,7 +48,7 @@ function jsSave() {
   }
 
 
-  let regex = /^[a-zA-Z0-9_,.;:!¿?ÁÉÍÓÚáéíóúñÑ\s]+$/;
+  let regex = /[a-zA-Z0-9_,.;ÁÉÍÓÚáéíóúñÑ]/;
   if (titulo == "") {
     Swal.fire(
       'Se han encontrado uno o más campos vacíos',
@@ -60,19 +60,20 @@ function jsSave() {
   } else if (!regex.test(titulo)) {
     Swal.fire(
       'Caracteres especiales no permitidos',
-      'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ; : ! ¿ ?',
+      'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ;',
       'warning'
     );
     return;
   }
-
+  const _titulo = titulo.split(" ").join("_");
+  console.log(_titulo);
   if (selectedParent == "") {
     fetch('insert.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+      body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
     }).then(response => {
       if (response.ok) {
         console.log('Insertado');
@@ -82,8 +83,8 @@ function jsSave() {
           'success', {
           timer: 5000,
         });
-        primaryToIndex(titulo, 'primary');
-      }
+          primaryToIndex(titulo, _titulo, 'primary');
+        }
     });
   } else if (selectedParent != "") {
     fetch('insert.php', {
@@ -91,30 +92,64 @@ function jsSave() {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
+      body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
     }).then(response => {
       if (response.ok) {
-        fetch('insert.php')
-        .then(response => response.json())
-        .then(file => {
-          console.log(file); // 42
-        });
         console.log('Insertado');
         Swal.fire(
           'Insertado correctamente',
           'Puede cerrar esta ventana',
           'success', {
-          timer: 5000,
+            timer: 5000,
         });
-        if (selectedHierarchy == 2) {
-          addToIndex(parentTitle, 'secondary' , titulo);
-        } else if (selectedHierarchy == 3) {
-          addToIndex(parentTitle, 'terciary'  , titulo);
-        } else if (selectedHierarchy == 4) {
-          addToIndex(parentTitle, 'cuaternary', titulo);
-        }
+        response.json().then(data => {
+          const indexID = data.indexID;
+          console.log(indexID); // Aquí puedes hacer lo que necesites con el valor de indexID
+
+          if (selectedHierarchy == 2) {
+            addToIndex(indexID, parentTitle, 'secondary' , titulo);
+          } else if (selectedHierarchy == 3) {
+            addToIndex(indexID, parentTitle, 'terciary'  , titulo);
+          } else if (selectedHierarchy == 4) {
+            addToIndex(indexID, parentTitle, 'quaternary', titulo);
+          }
+
+        }).catch(error => {
+          console.error(error);
+        });
       }
+    }).catch(error => {
+      console.error(error);
     });
+
+  //   fetch('insert.php', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     },
+  //     body: `titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
+  //   }).then(response => {
+  //     if (response.ok) {
+  //       console.log('Insertado');
+  //       Swal.fire(
+  //         'Insertado correctamente',
+  //         'Puede cerrar esta ventana',
+  //         'success', {
+  //         timer: 5000,
+  //       });
+
+  // console.log(indexID);
+
+
+  //       if (selectedHierarchy == 2) {
+  //         addToIndex(parentTitle, 'secondary' , titulo);
+  //       } else if (selectedHierarchy == 3) {
+  //         addToIndex(parentTitle, 'terciary'  , titulo);
+  //       } else if (selectedHierarchy == 4) {
+  //         addToIndex(parentTitle, 'quaternary', titulo);
+  //       }
+  //     }
+  //   });
   }
 }
 
@@ -156,6 +191,7 @@ function deleteCont() {
   let titulo = document.getElementById("input-title").value;
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
+  const _titulo = titulo.split(" ").join("_");
 
   if (id == null || titulo == "" || selectedHierarchy == 0) {
     Swal.fire(
@@ -181,16 +217,19 @@ function deleteCont() {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: `id=${id}&titulo=${titulo}&hierarchy=${selectedHierarchy}`
-        });
-        Swal.fire(
-          'Eliminado exitosamente',
-          'Puede cerrar esta ventana',
-          'success', {
-          timer: 5000,
+          body: `id=${id}&titulo=${titulo}&_titulo=${_titulo}&hierarchy=${selectedHierarchy}`
+        }).then(response => {
+          if (response.ok) {
+            Swal.fire(
+              'Eliminado exitosamente',
+              'Puede cerrar esta ventana',
+              'success', {
+              timer: 5000,
+            });
+          }
         });
       }
-    })
+    });
   }
 }
 
@@ -224,9 +263,10 @@ function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = document.getElementById("input-title").value;
   let contenido = quill.container.firstChild.innerHTML;
-
+  console.log(contenido)
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
+  const _title = titulo.split(" ").join("_");
 
   if (id == "") {
     Swal.fire(
@@ -250,7 +290,7 @@ function updateCont() {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          body: `id=${id}&titulo=${titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+          body: `id=${id}&titulo=${titulo}&_titulo=${_title}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
         });
         console.log('Editado');
         Swal.fire(
@@ -363,11 +403,11 @@ function showOrHideDiv() {
   en una seccion de la pagina 
 */
 document.getElementById("print-btn").addEventListener("click", function () {
-  printFile(title, folder);
+  printFile(title);
 });
 
-function printFile(filename, folder, title, parent) {
-  let file = folder + filename + ".html";
+function printFile(filename, title, parent) {
+  let file = filename;
   console.log("archivo " + file);
   var xhr = new XMLHttpRequest();
   xhr.open("GET", file, true);
@@ -452,7 +492,7 @@ function cargarIndice() {
   xhr.send();
 }
 
-function primaryToIndex(title, category) {
+function primaryToIndex(title, _title, category) {
   const index = document.querySelector('.indice');
   const treeview = index.querySelectorAll('.treeview');
   const parentIndex = document.getElementsByClassName('box-indice');
@@ -463,11 +503,11 @@ function primaryToIndex(title, category) {
     const span = document.createElement('span');
     const template = document.createElement('ul');
 
-    ul.id = title;
+    ul.id = 'myUL';
     ul.className = 'treeview';
 
     template.className = 'nested';
-    template.dataset.parent = title;
+    template.dataset.parent = _title;
     template.dataset.category = 'secondary';
 
     span.className = 'carret primary';
@@ -486,17 +526,22 @@ function primaryToIndex(title, category) {
   }
   createIndex();
 }
-function addToIndex(parentId, category, title) {
+
+function addToIndex(indexID, parentId, category, title) {
   const parentElement = document.querySelector(`[data-category="${category}"][data-parent="${parentId}"]`);
   const template = document.createElement('ul');
+
+  
+
   if (parentElement) {
     const newElement = document.createElement("li");
     const a = document.createElement('a');
     a.href = '#';
     a.textContent = title;
-
+    
     newElement.appendChild(a);
     if (category == 'secondary') {
+      a.id = "s-" + indexID;
       template.className = 'nested';
       template.dataset.parent = title;
       template.dataset.category = 'terciary';
@@ -504,6 +549,7 @@ function addToIndex(parentId, category, title) {
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
     } else if (category == 'terciary') {
+      a.id = "t-" + indexID;
       template.className = 'nested';
       template.dataset.parent = title;
       template.dataset.category = 'quaternary';
@@ -511,6 +557,7 @@ function addToIndex(parentId, category, title) {
       newElement.appendChild(template)
       parentElement.appendChild(newElement);
     } else if (category == 'quaternary') {
+      a.id = "c-" + indexID;
       parentElement.appendChild(newElement)
     }
   }
@@ -519,7 +566,6 @@ function addToIndex(parentId, category, title) {
 
 function createIndex() {
   let cont = document.getElementById('indice-importado').innerHTML;
-  console.log(cont);
   fetch(
     'edit_nav.php', {
       method: 'POST',
@@ -532,5 +578,14 @@ function createIndex() {
     } else {
       console.log('error');
     }
-  });
+  }); 
 }
+
+function deleteFromIndex(parentId, category, title){
+  if (category == 'primary') {
+    const parentElement = document.querySelector(`[data-category="${primary}"][data-parent="${parentId}"]`);
+
+  }
+  parentElement.remove();
+}
+

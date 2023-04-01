@@ -10,7 +10,7 @@ include("conn.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Funciones demo</title>
 
-  <link href="style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 
   <!-- Sweet alert -->
   <!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
@@ -21,8 +21,8 @@ include("conn.php");
   <!-- Main Quill library -->
   <!-- <script src="//cdn.quilljs.com/1.3.6/quill.js"></script>
   <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script> -->
-  <script src="quill\quill.js"></script>
-  <script src="quill\quill.min.js"></script>
+  <script src="quill/quill.js"></script>
+  <script src="quill/quill.min.js"></script>
 
   <!-- Theme included stylesheets -->
   <!-- <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -55,7 +55,7 @@ include("conn.php");
   </script>
 </head>
 
-<body onload="cargarIndice()">
+<body onload="cargarIndice()" class="">
   <div class="container">
     <h1 class="h1">Inserte una nueva sección</h1>
     <h2 class="h2">Título</h2>
@@ -93,7 +93,7 @@ include("conn.php");
         <button id="borrar" class="btn btn-outline-danger" title='Eliminar archivo' onclick=deleteCont()>Eliminar archivo</button>
       </div>
       <div class="col">
-        <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios. (Debe seleccionar el artículo deseado en el índice)' onclick=updateCont()>Guardar cambios</button>
+        <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios. (Debe seleccionar el artículo deseado en el índice)' onclick=updateCont()>Sobreescribir</button>
       </div>
       <div class="col">
         <button id="limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=clear()>Limpiar campos</button>
@@ -106,7 +106,6 @@ include("conn.php");
         </div>
       </div>
     </div>
-    <br>
     <p name="id" id="hidden-id" value="$row['id']" hidden></p>
     <hr>
     <br>
@@ -121,13 +120,6 @@ include("conn.php");
 
 
   </div>
-  <hr>
-  <button class="btn btn-outline-primary" onclick="primaryToIndex('nuevo','primary')">Cargar</button>
-  <button class="btn btn-outline-primary" onclick="addToIndex('grupo1','secondary','secondary')">Cargar</button>
-  <button class="btn btn-outline-primary" onclick="addToIndex('grupo1','terciary','terciary')">Cargar</button>
-  <button class="btn btn-outline-primary" onclick="addToIndex('grupo1','quaternary','quaternary')">Cargar</button>
-
-  <button class="btn btn-outline-primary" onclick="cargarIndice()">Cargar</button>
 
   <hr>
 
@@ -142,6 +134,8 @@ include("conn.php");
   <!-- Include the Quill library -->
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="quill/quill.js"></script>
+  <script src="jquery/jquery-3.6.4.min.js"></script>
 
   <!-- Initialize Quill editor -->
   <script src="editor-js.js"></script>

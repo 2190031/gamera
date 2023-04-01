@@ -29,6 +29,16 @@ function buscarTitulos() {
   // Obtener entrada del usuario y convertirla a minúsculas y reemplazar los espacios por guiones bajos para uso interno
   var busqueda = input.value.toLowerCase();
 
+  // Comprobar si la entrada del usuario tiene al menos 3 caracteres
+  if (busqueda.length < 3) {
+    // Limpiar resultados anteriores
+    resultados.innerHTML = "";
+    // Ocultar resultados
+    resultados.style.display = "none";
+    // Salir de la función sin realizar la búsqueda
+    return;
+  }
+
   // Limpiar resultados anteriores
   resultados.innerHTML = "";
 

@@ -83,7 +83,28 @@ function jsSave() {
           'success', {
           timer: 5000,
         });
-          primaryToIndex(titulo, _titulo, 'primary');
+        response.json().then(data => {
+          const indexID = data.indexID;
+          console.log(indexID);
+          console.log('Insertado');
+          Swal.fire(
+            'Agregado correctamente al índice',
+            'Puede cerrar esta ventana',
+            'success', {
+            timer: 5000,
+          });
+
+          primaryToIndex(titulo, _titulo, 'primary', indexID);
+        }).catch(error => {
+          console.log('Insertado');
+          Swal.fire(
+            'Ha ocurrido un error',
+            'Puede cerrar esta ventana',
+            'error', {
+            timer: 5000,
+          });
+          console.error(error);
+        });
         }
     });
   } else if (selectedParent != "") {
@@ -104,14 +125,16 @@ function jsSave() {
         });
         response.json().then(data => {
           const indexID = data.indexID;
-          console.log(indexID); // Aquí puedes hacer lo que necesites con el valor de indexID
+          const parentID = data.parentID;
+          console.log(indexID);
+          console.log(parentID);
 
           if (selectedHierarchy == 2) {
-            addToIndex(indexID, parentTitle, 'secondary' , titulo);
+            addToIndex(indexID, parentID, 'secondary' , titulo);
           } else if (selectedHierarchy == 3) {
-            addToIndex(indexID, parentTitle, 'terciary'  , titulo);
+            addToIndex(indexID, parentID, 'terciary'  , titulo);
           } else if (selectedHierarchy == 4) {
-            addToIndex(indexID, parentTitle, 'quaternary', titulo);
+            addToIndex(indexID, parentID, 'quaternary', titulo);
           }
 
         }).catch(error => {
@@ -291,17 +314,20 @@ function updateCont() {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body: `id=${id}&titulo=${titulo}&_titulo=${_title}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
-        });
-        console.log('Editado');
-        Swal.fire(
-          'Modificado existosamente',
-          'Puede cerrar esta ventana',
-          'success', {
-          timer: 5000,
+        }).then(response => {
+          if (response.ok) {
+            console.log('Editado');
+            Swal.fire(
+              'Modificado existosamente',
+              'Puede cerrar esta ventana',
+              'success', {
+              timer: 5000,
+            });
+          }
         });
       }
     })
-  }
+  };
 }
 
 /* 
@@ -332,31 +358,55 @@ function uploadImage() {
   } else {
     let formData = new FormData();
     let imgName = img.name;
-    formData.append('image', img);
-    formData.append('imageName', imgName);
+    
+    let allowedTypes = /^image\/(jpg|jpeg|png|gif|webp|tiff|bmp|svg|ico|apng)$/;
+    if (!allowedTypes.test(img.type)){
+      Swal.fire(
+        'Formato de imagen inválido',
+        'Debe tener extension .jpg, .jpeg, .png, .webp, .tiff, .svg o .gif',
+        'warning', {
+        timer: 5000,
+      });
+      console.log('formato inválido')
+    } else {
+      formData.append('image', img);
+      formData.append('imageName', imgName);
 
-    // Envía el formulario mediante AJAX
-    fetch('upload_image.php', {
-      method: 'POST',
-      body: formData
-    }).then(response => {
-      if (response.ok) {
+      // Envía el formulario mediante AJAX
+      fetch('upload_image.php', {
+        method: 'POST',
+        body: formData
+      }).then(response => {
+        if (response.ok) {
+          Swal.fire(
+            'Imagen subida existosamente',
+            'Puede cerrar esta ventana',
+            'success', {
+            timer: 5000,
+          });
+          return response.json();
+        } else {
+              Swal.fire(
+                'Error al subir la imagen',
+                'Puede cerrar esta ventana',
+                'error', {
+                timer: 5000,
+              });
+          throw new Error('Error al subir la imagen');
+        }
+      }).then(data => {
+        console.log(data.message);
+      }).catch(error => {
         Swal.fire(
-          'Imagen subida existosamente',
+          'Error al subir la imagen',
           'Puede cerrar esta ventana',
-          'success', {
+          'error', {
           timer: 5000,
         });
-        return response.json();
-      } else {
+        console.error(error.message);
+      });
+    }
 
-        throw new Error('Error al subir la imagen');
-      }
-    }).then(data => {
-      console.log(data.message);
-    }).catch(error => {
-      console.error(error.message);
-    });
   }
 
 }
@@ -467,7 +517,7 @@ function clearFields() {
     confirmButtonText: 'Sí, borrar',
     cancelButtonText: 'Cancelar'
   }).then((result) => {
-    if (result.isConfirmed) {
+    if (result.isConfirmed && result.ok) {
       clear();
     }
   });
@@ -492,7 +542,8 @@ function cargarIndice() {
   xhr.send();
 }
 
-function primaryToIndex(title, _title, category) {
+function primaryToIndex(title, _title, category, dataset) {
+  console.log(dataset);
   const index = document.querySelector('.indice');
   const treeview = index.querySelectorAll('.treeview');
   const parentIndex = document.getElementsByClassName('box-indice');
@@ -507,7 +558,7 @@ function primaryToIndex(title, _title, category) {
     ul.className = 'treeview';
 
     template.className = 'nested';
-    template.dataset.parent = _title;
+    template.dataset.parent = 'p-' + dataset;
     template.dataset.category = 'secondary';
 
     span.className = 'carret primary';
@@ -527,12 +578,17 @@ function primaryToIndex(title, _title, category) {
   createIndex();
 }
 
-function addToIndex(indexID, parentId, category, title) {
-  const parentElement = document.querySelector(`[data-category="${category}"][data-parent="${parentId}"]`);
+function addToIndex(indexID, parentID, category, title) {
+  let parentElement;
+  if (category == 'secondary') {
+    parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'p-'+parentID}"]`);
+  } else if (category == 'terciary') {
+    parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'s-'+parentID}"]`);
+  } else if (category == 'quaternary') {
+    parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'t-'+parentID}"]`);
+  }
   const template = document.createElement('ul');
-
-  
-
+  console.log(indexID, " ", parentID)
   if (parentElement) {
     const newElement = document.createElement("li");
     const a = document.createElement('a');
@@ -543,7 +599,7 @@ function addToIndex(indexID, parentId, category, title) {
     if (category == 'secondary') {
       a.id = "s-" + indexID;
       template.className = 'nested';
-      template.dataset.parent = title;
+      template.dataset.parent = 's-' + indexID;
       template.dataset.category = 'terciary';
 
       newElement.appendChild(template);
@@ -551,7 +607,7 @@ function addToIndex(indexID, parentId, category, title) {
     } else if (category == 'terciary') {
       a.id = "t-" + indexID;
       template.className = 'nested';
-      template.dataset.parent = title;
+      template.dataset.parent = 't-' + indexID;
       template.dataset.category = 'quaternary';
 
       newElement.appendChild(template)
@@ -559,6 +615,8 @@ function addToIndex(indexID, parentId, category, title) {
     } else if (category == 'quaternary') {
       a.id = "c-" + indexID;
       parentElement.appendChild(newElement)
+    } else {
+      console.log('error');
     }
   }
   createIndex();
@@ -576,16 +634,80 @@ function createIndex() {
     if (response.ok) {
       console.log('creado');
     } else {
+      Swal.fire(
+        'Error al subir la imagen',
+        'Puede cerrar esta ventana',
+        'error', {
+        timer: 5000,
+      });
       console.log('error');
     }
   }); 
 }
 
-function deleteFromIndex(parentId, category, title){
-  if (category == 'primary') {
-    const parentElement = document.querySelector(`[data-category="${primary}"][data-parent="${parentId}"]`);
+// function removeFromIndex(category, parentId, childId) {
+//   const parentElement = document.querySelector(`[data-category="${category}"][data-parent="${parentId}"]`);
+//   if (parentElement) {
+//     const childElement = parentElement.querySelector(`[id="${childId}"]`);
+//     if (childElement) {
+//       childElement.remove();
+//       createIndex();
+//     }
+//   }
+// }
 
+// function removeFromIndex(id) {
+//   const element = document.getElementById(id);
+//   const category = element.dataset.category;
+//   const parent = element.dataset.parent;
+//   element.remove();
+
+//   if (category === 'quaternary') {
+//     const parentElement = document.querySelector(`[data-category="terciary"][data-parent="${parent}"]`);
+//     if (parentElement.querySelectorAll('li').length === 0) {
+//       parentElement.remove();
+//     }
+//   } else if (category === 'terciary') {
+//     const parentElement = document.querySelector(`[data-category="secondary"][data-parent="${parent}"]`);
+//     if (parentElement.querySelectorAll('li').length === 0) {
+//       parentElement.remove();
+//     }
+//   } else if (category === 'secondary') {
+//     const parentElement = document.querySelector(`[data-category="primary"][data-parent="${parent}"]`);
+//     if (parentElement.querySelectorAll('li').length === 0) {
+//       parentElement.remove();
+//     }
+//   }
+
+//   createIndex();
+// }
+function removeFromIndex(elementId) {
+  const element = document.getElementById(elementId);
+  if (!element) {
+    console.error(`Element ${elementId} not found`);
+    return;
   }
-  parentElement.remove();
+  
+  const parent = element.parentNode;
+  parent.removeChild(element);
+  
+  // If element is a secondary, tertiary or quaternary, remove its parent ul and li elements as well
+  if (parent.tagName.toLowerCase() === 'ul' && parent.className.includes('nested')) {
+    const grandparent = parent.parentNode;
+    const siblings = grandparent.querySelectorAll('li');
+    
+    // If the deleted element was the only child, remove its parent ul and li elements
+    if (siblings.length === 1) {
+      const greatGrandparent = grandparent.parentNode;
+      const greatSiblings = greatGrandparent.querySelectorAll('li');
+      
+      greatGrandparent.removeChild(grandparent);
+      greatGrandparent.removeChild(greatSiblings[0].querySelector('a'));
+      greatGrandparent.removeChild(greatSiblings[0]);
+    } else {
+      grandparent.removeChild(element.parentNode);
+    }
+  }
+  
+  createIndex();
 }
-

@@ -122,6 +122,7 @@ include("conn.php");
   </div>
 
   <hr>
+  <button class="btn btn-outline-success" onclick="removeFromIndex(document.getElementById('s-49'))">Borrar</button>
 
   <h1 class="h1">Agregar al índice</h1>
   <div class='indice'>

@@ -57,7 +57,7 @@
         if ($result = mysqli_query($conn, $query)) {
 
           
-          $query_name="SELECT help.title FROM help WHERE help.id = '$parent';";
+          $query_name="SELECT help.id, help.title FROM help WHERE help.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "2/";
@@ -75,7 +75,11 @@
             $_id = $resultSel->fetch_assoc();
             // echo $_id['id'];
             $indexID = $_id['id'];
-            echo json_encode(array('indexID' => $indexID));
+            $parentID = $parName['id'];
+            
+            header('Content-Type: application/json');
+            echo json_encode(array('indexID' => $indexID, 'parentID' => $parentID));
+            // echo json_encode(array('parentID' => $parentID));
           }
         } else {
           echo "Error";
@@ -86,7 +90,7 @@
         if ($result = mysqli_query($conn, $query)) {
 
           
-          $query_name="SELECT help_sec.title FROM help_sec WHERE help_sec.id = '$parent';";
+          $query_name="SELECT help_sec.id, help_sec.title FROM help_sec WHERE help_sec.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "3/";
@@ -104,7 +108,10 @@
           $_id = $resultSel->fetch_assoc();
           // echo $_id['id'];
           $indexID = $_id['id'];
-          echo json_encode(array('indexID' => $indexID));     
+          $parentID = $parName['id'];
+
+          header('Content-Type: application/json');
+          echo json_encode(array('indexID' => $indexID, 'parentID' => $parentID));     
         }
         } else {
           echo "Error";
@@ -114,7 +121,7 @@
         $query = "INSERT INTO help_cuat(title,content,ter_parent) VALUES('$titulo', '$contenido', '$parent')";   
         if ($result = mysqli_query($conn, $query)) {
 
-          $query_name="SELECT help_ter.title FROM help_ter WHERE help_ter.id = '$parent';";
+          $query_name="SELECT help_ter.id, help_ter.ti tle FROM help_ter WHERE help_ter.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "4/";
@@ -132,7 +139,10 @@
           $_id = $resultSel->fetch_assoc();
           // echo $_id['id'];
           $indexID = $_id['id'];
-          echo json_encode(array('indexID' => $indexID));
+          $parentID = $parName['id'];
+
+          header('Content-Type: application/json');
+          echo json_encode(array('indexID' => $indexID, 'parentID' => $indexID));
         }
         } else {
           echo "Error";

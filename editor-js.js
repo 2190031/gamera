@@ -87,7 +87,7 @@ function jsSave() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana',
+            'Puede cerrar esta ventana ' + error.message,
             'error'
           );
           console.error(error);
@@ -495,6 +495,15 @@ function refreshIndex() {
   };
   xhttp.open("GET", "fill-index.php", true);
   xhttp.send();
+
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.querySelector("#indice-js").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "indice-js.js", true);
+  xhttp.send();
 }
 
 function clearFields() {
@@ -547,7 +556,7 @@ function cargarIndice() {
     }
   }
   // xhr.open("GET", "0.1indice.html");
-  xhr.open("GET", "indice-js.php");
+  xhr.open("GET", "indice-js.js");
   xhr.send();
 }
 
@@ -585,7 +594,7 @@ function primaryToIndex(title, _title, category, dataset) {
     li.appendChild(template);
     ul.appendChild(li);
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
-    // createIndexJS(a.id, "1/" + title + ".html");
+    addScriptToIndex(a.id, "1/" + title + ".html");
     createIndex();
   }
 }
@@ -618,7 +627,7 @@ function addToIndex(indexID, parentID, category, title) {
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
 
-      // createIndexJS(a.id, "2/" + title + ".html");
+      addScriptToIndex(a.id, "2/" + title + ".html");
       createIndex()
     } else if (category == 'terciary') {
       a.id = "t-" + indexID;
@@ -629,14 +638,15 @@ function addToIndex(indexID, parentID, category, title) {
       newElement.appendChild(template)
       parentElement.appendChild(newElement);
 
-      // createIndexJS(a.id, "3/" + title + ".html");
+      addScriptToIndex(a.id, "3/" + title + ".html");
       createIndex()
     } else if (category == 'quaternary') {
       a.id = "c-" + indexID;
       template.className = 'nested';
       template.dataset.parent = 'c-' + indexID;
       parentElement.appendChild(newElement);
-      // createIndexJS(a.id, "4/" + title + ".html");
+
+      addScriptToIndex(a.id, "4/" + title + ".html");
       createIndex()
     } else {
       console.log('error');
@@ -644,48 +654,49 @@ function addToIndex(indexID, parentID, category, title) {
   }
 }
 
-  // function createIndexJS(id, title) {
-  //   title.split(" ").join("_");
-  //   var newScript = `
-  //     $(document).ready(function() {
-  //       $('#${id}').click(function() {
-  //         $("#contenido").load("${filename}");
-  //       });
-  //     });
-  //   `;
 
-  //   let newdiv = div.innerHTML.split("\n");
-  //   newdiv.pop();
-  //   newdiv.push(newScript);
-  //   newdiv = newdiv.join("\n");
-  //   console.log(newdiv);
-  //   fetch(
-  //     'edit_nav.php', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  //     body: `cont=${cont}`
-  //   }
-  //   ).then(response => {
-  //     if (response.ok) {
-  //       console.log('creado');
-  //     } else {
-  //       Swal.fire(
-  //         'Error al agregar al índice',
-  //         'Puede cerrar esta ventana',
-  //         'error', {
-  //         timer: 5000
-  //       }
-  //       );
-  //     }
-  //   }).catch(error => {
-  //     Swal.fire(
-  //       'Ha ocurrido un error',
-  //       'Puede cerrar esta ventana ' + error.message,
-  //       'error'
-  //     );
-  //     console.error(error);
-  //   });
-  // }
+function addScriptToIndex(id, title) {
+  filename = title.split(" ").join("_");
+  var newScript = `$('#${id}').click(function() { $("#contenido").load("${filename}"); }); \n});`;
+  let div = document.getElementById("indice-js");
+  let newdiv = div.innerText.split("\n");
+  newdiv.pop();
+  newdiv.push(newScript);
+  newdiv = newdiv.join("\n");
+  console.log(newdiv);
+
+  createIndexJS(newdiv);
+}
+
+  function createIndexJS(script) {
+    // let script = document.getElementById("indice-js").innerText;
+    fetch(
+      'edit_nav_js.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `newScript=${script}`
+    }
+    ).then(response => {
+      if (response.ok) {
+        console.log('creado');
+      } else {
+        Swal.fire(
+          'Error al agregar al índice',
+          'Puede cerrar esta ventana',
+          'error', {
+          timer: 5000
+        }
+        );
+      }
+    }).catch(error => {
+      Swal.fire(
+        'Ha ocurrido un error',
+        'Puede cerrar esta ventana ' + error.message,
+        'error'
+      );
+      console.error(error);
+    });
+  }
 
 function createIndex() {
   let cont = document.getElementById('indice-importado').innerHTML;

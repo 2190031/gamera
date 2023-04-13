@@ -59,7 +59,7 @@ function jsSave() {
     );
     return;
   }
-  const _titulo = titulo.split(" ").join("_");
+  const _titulo = titulo.split(" ").join("");
   console.log(_titulo);
   if (selectedParent == "") {
     fetch('insert.php', {
@@ -128,7 +128,7 @@ function jsSave() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana',
+            'Puede cerrar esta ventana ' + error,
             'error'
           );
           console.error(error);
@@ -138,7 +138,7 @@ function jsSave() {
       Swal.fire(
         'Ha ocurrido un error',
 
-        'Puede cerrar esta ventana',
+        'Puede cerrar esta ventana ' + error,
         'error'
       );
       console.error(error);
@@ -183,7 +183,7 @@ function deleteCont() {
   let titulo = document.getElementById("input-title").value;
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  const _titulo = titulo.split(" ").join("_");
+  const _titulo = titulo.split(" ").join("");
 
   if (id == null || titulo == "" || selectedHierarchy == 0) {
     Swal.fire(
@@ -266,7 +266,7 @@ function updateCont() {
   console.log(contenido)
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  const _title = titulo.split(" ").join("_");
+  const title = titulo.split(" ").join("");
 
   if (id == "") {
     Swal.fire(
@@ -682,7 +682,7 @@ function addScriptToIndex(id, title) {
       } else {
         Swal.fire(
           'Error al agregar al índice',
-          'Puede cerrar esta ventana',
+          'Puede cerrar esta ventana ' + error,
           'error', {
           timer: 5000
         }
@@ -713,7 +713,7 @@ function createIndex() {
     } else {
       Swal.fire(
         'Error al agregar al índice',
-        'Puede cerrar esta ventana',
+        'Puede cerrar esta ventana ' + error,
         'error', {
         timer: 5000
       }

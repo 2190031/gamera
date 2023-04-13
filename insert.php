@@ -11,43 +11,27 @@
     } 
 
     if (!isset($titulo)) {
-      echo "
-      <script>
-        Swal('Error', 'Favor de ingresar un titulo', 'error');
-      </script>
-      ";
+      echo "Favor de ingresar un titulo";
     } else if (!isset($contenido)) {
-      echo "
-      <script>
-        Swal('Error', 'Favor de ingresar contenido en el articulo', 'error');
-      </script>
-      ";
+      echo "Favor de ingresar contenido en el articulo";
     } else if ($hierarchy === 0) {
-      echo "
-      <script>
-        Swal('Error', 'Favor de seleccionar una categoria para el articulo', 'error');
-      </script>
-      ";
+      echo "Favor de seleccionar una categoria para el articulo";
     } else {
       if ($hierarchy === '1') {
         $query = "INSERT INTO help(title,content) VALUES('$titulo', '$contenido')";   
         if ($result = mysqli_query($conn, $query)) {
-
-  
-          $folder = "1/";
-          $file = $folder . $_titulo . '.html';
-          $update = "UPDATE help SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
-          $conn->query($update);
-          $content = $contenido;
-          file_put_contents($file, $content);
+            $folder = "1/";
+            $file = $folder . $_titulo . '.html';
+            $update = "UPDATE help SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+            $conn->query($update);
+            $content = $contenido;
+            file_put_contents($file, $content);
         } else {
           echo "Error";
         }
         $select = "SELECT id FROM help WHERE filename = '$file'";
-        // $conn->query($select);
         if ($resultSel = mysqli_query($conn, $select)) {
           $_id = $resultSel->fetch_assoc();
-          // echo $_id['id'];
           $indexID = $_id['id'];
           echo json_encode(array('indexID' => $indexID));
         }
@@ -55,9 +39,7 @@
         
         $query = "INSERT INTO help_sec(title,content,prim_parent) VALUES('$titulo', '$contenido', '$parent')";   
         if ($result = mysqli_query($conn, $query)) {
-
-          
-          $query_name="SELECT help.id, help.title FROM help WHERE help.id = '$parent';";
+          $query_name= "SELECT help.id, help.title FROM help WHERE help.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "2/";
@@ -70,16 +52,13 @@
           $content = $contenido;
           file_put_contents($file, $content);
           $select = "SELECT id FROM help_sec WHERE filename = '$file'";
-          // $conn->query($select);
           if ($resultSel = mysqli_query($conn, $select)) {
             $_id = $resultSel->fetch_assoc();
-            // echo $_id['id'];
             $indexID = $_id['id'];
             $parentID = $parName['id'];
             
             header('Content-Type: application/json');
             echo json_encode(array('indexID' => $indexID, 'parentID' => $parentID));
-            // echo json_encode(array('parentID' => $parentID));
           }
         } else {
           echo "Error";
@@ -88,8 +67,6 @@
         
         $query = "INSERT INTO help_ter(title,content,sec_parent) VALUES('$titulo', '$contenido', '$parent')";   
         if ($result = mysqli_query($conn, $query)) {
-
-          
           $query_name="SELECT help_sec.id, help_sec.title FROM help_sec WHERE help_sec.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
@@ -103,10 +80,8 @@
           $content = $contenido;
           file_put_contents($file, $contenido);
           $select = "SELECT id FROM help_ter WHERE filename = '$file'";
-        // $conn->query($select);
         if ($resultSel = mysqli_query($conn, $select)) {
           $_id = $resultSel->fetch_assoc();
-          // echo $_id['id'];
           $indexID = $_id['id'];
           $parentID = $parName['id'];
 
@@ -121,7 +96,7 @@
         $query = "INSERT INTO help_cuat(title,content,ter_parent) VALUES('$titulo', '$contenido', '$parent')";   
         if ($result = mysqli_query($conn, $query)) {
 
-          $query_name="SELECT help_ter.id, help_ter.ti tle FROM help_ter WHERE help_ter.id = '$parent';";
+          $query_name="SELECT help_ter.id, help_ter.title FROM help_ter WHERE help_ter.id = '$parent';";
           $result2 = $conn->query($query_name);
           if ($result2->num_rows > 0) {
             $folder = "4/";
@@ -142,7 +117,7 @@
           $parentID = $parName['id'];
 
           header('Content-Type: application/json');
-          echo json_encode(array('indexID' => $indexID, 'parentID' => $indexID));
+          echo json_encode(array('indexID' => $indexID, 'parentID' => $parentID));
         }
         } else {
           echo "Error";

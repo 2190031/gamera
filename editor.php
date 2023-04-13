@@ -2,7 +2,7 @@
 include("conn.php");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -33,7 +33,7 @@ include("conn.php");
   <!-- Core build with no theme, formatting, non-essential modules -->
   <!-- <link href="//cdn.quilljs.com/1.3.6/quill.core.css" rel="stylesheet">
   <script src="//cdn.quilljs.com/1.3.6/quill.core.js"></script> -->
-  <link href="quill\quill.core.css" rel="stylesheet"> 
+  <link href="quill\quill.core.css" rel="stylesheet">
   <script src="quill\quill.core.js"></script>
 
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -41,18 +41,9 @@ include("conn.php");
   <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
   <script src="bootstrap\js\bootstrap.js"></script>
 
-  <script>
-    function getLiElements() {
-      const content = document.getElementById('indice').innerHTML;
-      const lines = content.split('\n');
-      const liElements = lines.filter(line => line.includes('<li><a href="#" id'));
-      document.getElementById('indice').innerHTML = liElements.toString();
-      console.log(liElements);
-      liElements.splice(0, 0, '<li><a href="#" class>Nuevo Link</a></li>');
-      console.log(liElements)
-      document.getElementById('indice2').innerHTML = liElements.toString();
-    }
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+
 </head>
 
 <body onload="cargarIndice()" class="">
@@ -74,9 +65,10 @@ include("conn.php");
 
     <div id="h" class="d-none">
       <h2 class="h2">Seccion a la que pertenece</h2>
-      <select class="form-select" id="parent">
-        <?php include('fill-select.php'); ?>
-      </select>
+      <input class="form-control" list="parent" id="parents" placeholder="Type to search...">
+      <datalist id="parent">
+        <?php include('fill-datalist.php'); ?>
+      </datalist>
       <br><br>
     </div>
 
@@ -122,22 +114,27 @@ include("conn.php");
   </div>
 
   <hr>
-  <button class="btn btn-outline-success" onclick="removeFromIndex(document.getElementById('s-49'))">Borrar</button>
 
   <h1 class="h1">Agregar al índice</h1>
   <div class='indice'>
     <div id="indice-importado">
 
     </div>
+
+    <h1 class="h1">Agregar al índice</h1>
+
+    <div id="contenido">
+
+    </div>
   </div>
 
-
+  <script src="indice-js.js"></script>
   <!-- Include the Quill library -->
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="quill/quill.js"></script>
   <script src="jquery/jquery-3.6.4.min.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
   <!-- Initialize Quill editor -->
   <script src="editor-js.js"></script>
 
@@ -152,7 +149,9 @@ include("conn.php");
       });
     }
   </script>
-  </script>
+  <div class="d-none" id="indice-js">
+
+  </div>
 </body>
 
 </html>

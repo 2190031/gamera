@@ -42,11 +42,11 @@ require('conn.php');
                                             <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>
                                         </svg>
                                     </button>
-                                    <button type='button'  href='#title' class='btn btn-outline-primary btn-sm float-end' onclick='primaryToIndex(`" . $rowP['title'] . "`,`primary`)'>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
-                                                <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
-                                            </svg>
-                                        </button>
+                                    <!--<button type='button'  href='#title' class='btn btn-outline-primary btn-sm float-end' onclick='primaryToIndex(`" . $rowP['title'] . "`,`primary`)'>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
+                                            <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
+                                        </svg>
+                                    </button>-->
                                 </div>
                                 <br>";
                             }
@@ -89,11 +89,11 @@ require('conn.php');
                                                 <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>
                                             </svg>
                                         </button>
-                                        <button type='button'  href='#title' class='btn btn-outline-success btn-sm float-end' onclick='addToIndex(`" . $parName['title'] . "`,`secondary`,`" . $rowS['title'] . "`)'>
+                                        <!--<button type='button'  href='#title' class='btn btn-outline-success btn-sm float-end' onclick='addToIndex(`" . $parName['title'] . "`,`secondary`,`" . $rowS['title'] . "`)'>
                                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
                                                 <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
                                             </svg>
-                                        </button>
+                                        </button>-->
                                     </div>
                                     <br>";
                                 }
@@ -138,11 +138,11 @@ require('conn.php');
                                             <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>
                                         </svg>
                                     </button>
-                                    <button type='button'  href='#title' class='btn btn-outline-danger btn-sm float-end' onclick='addToIndex(`" . $parName['title'] . "`,`terciary`,`" . $rowT['title'] . "`)'>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
-                                                <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
-                                            </svg>
-                                        </button>
+                                    <!--<button type='button'  href='#title' class='btn btn-outline-danger btn-sm float-end' onclick='addToIndex(`" . $parName['title'] . "`,`terciary`,`" . $rowT['title'] . "`)'>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
+                                            <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
+                                        </svg>
+                                    </button>-->
                                 </div>
                                 <br>";
                                 }
@@ -187,11 +187,11 @@ require('conn.php');
                                             <path d='M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z'/>
                                         </svg>
                                     </button>
-                                    <button type='button'  href='#title' class='btn btn-outline-warning btn-sm float-end' onclick='addToIndex(`" . $parName['title'] . "`,`quaternary`,`" . $rowC['title'] . "`)'>
-                                            <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
-                                                <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
-                                            </svg>
-                                        </button>
+                                    <!--<button type='button'  href='#title' class='btn btn-outline-warning btn-sm float-end' onclick='addToIndex(`" . $parName['title'] . "`,`quaternary`,`" . $rowC['title'] . "`)'>
+                                        <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-plus' viewBox='0 0 16 16'>
+                                            <path d='M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z'/>
+                                        </svg>
+                                    </button>-->
                                 </div>
                                 <br>";
                                 }

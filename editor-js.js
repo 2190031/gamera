@@ -731,32 +731,36 @@ function createIndex() {
 
 
 function removeFromIndex(elementId) {
-  const element = document.getElementById(elementId);
-  let html_element = element.innerHTML;
-  if (!element) {
-    console.error(`Element ${elementId} not found`);
-    return;
-  }
-
-  const parent = element.parentNode;
-  parent.removeChild(element);
-
-  // If element is a secondary, tertiary or quaternary, remove its parent ul and li elements as well
-  if (parent.tagName.toLowerCase() === 'ul' && parent.className.includes('nested')) {
-    const grandparent = parent.parentNode;
-    const siblings = grandparent.querySelectorAll('li');
-
-    // If the deleted element was the only child, remove its parent ul and li elements
-    if (siblings.length === 1) {
-      const greatGrandparent = grandparent.parentNode;
-      const greatSiblings = greatGrandparent.querySelectorAll('li');
-
-      greatGrandparent.removeChild(grandparent);
-      greatGrandparent.removeChild(greatSiblings[0].querySelector('a'));
-      greatGrandparent.removeChild(greatSiblings[0]);
-    } else {
-      grandparent.removeChild(element.parentNode);
+  if (elementId.split('-')[0] == 'p') {
+    const element = document.getElementById(elementId).parentNode.parentNode.parentNode;
+    let html_element = element.innerHTML;
+    console.log(element)
+  
+    if (!element) {
+      console.error(`Element ${elementId} not found`);
+      return;
     }
+    element.remove();
+  } else if (elementId.split('-')[0] != 'p' && elementId.split('-')[0] != 'c') {
+    const element = document.getElementById(elementId).parentNode;
+    let html_element = element.innerHTML;
+    console.log(element)
+  
+    if (!element) {
+      console.error(`Element ${elementId} not found`);
+      return;
+    }
+    element.remove();
+  } else if (elementId.split('-')[0] == 'c') {
+    const element = document.getElementById(elementId).parentElement;
+    let html_element = element.innerHTML;
+    console.log(element)
+  
+    if (!element) {
+      console.error(`Element ${elementId} not found`);
+      return;
+    }
+    element.remove();
   }
 
   createIndex();

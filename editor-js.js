@@ -212,6 +212,23 @@ function deleteCont() {
           body: `id=${id}&titulo=${titulo}&_titulo=${_titulo}&hierarchy=${selectedHierarchy}`
         }).then(response => {
           if (response.ok) {
+            if (selectedHierarchy == "1") {
+              id = "p-" + id;
+              console.log(id)
+              removeFromIndex(id)
+            } else if (selectedHierarchy == "2") {
+              id = "s-" + id;
+              console.log(id)
+              removeFromIndex(id)
+            } else if (selectedHierarchy == "3") {
+              id = "t-" + id;
+              console.log(id)
+              removeFromIndex(id)
+            } else if (selectedHierarchy == "4") {
+              id = "c-" + id;
+              console.log(id)
+              removeFromIndex(id)
+            }
             Swal.fire(
               'Eliminado exitosamente',
               'Puede cerrar esta ventana',
@@ -223,7 +240,7 @@ function deleteCont() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana',
+            'Puede cerrar esta ventana' + error.message,
             'error'
           );
           console.error(error);
@@ -294,6 +311,20 @@ function updateCont() {
         }).then(response => {
           if (response.ok) {
             console.log('Editado');
+            if (selectedHierarchy == "1") {
+              id = "p-" + id;
+              updateOnIndex(id, titulo)
+            } else if (selectedHierarchy == "2") {
+              id = "s-" + id;
+              updateOnIndex(id, titulo)
+            } else if (selectedHierarchy == "3") {
+              id = "t-" + id;
+              updateOnIndex(id, titulo)
+            } else if (selectedHierarchy == "4") {
+              id = "c-" + id;
+              updateOnIndex(id, titulo)
+            } else 
+            console.log(id)
             Swal.fire(
               'Modificado existosamente',
               'Puede cerrar esta ventana',
@@ -506,7 +537,8 @@ function refreshIndex() {
   xhttp.send();
 }
 
-function clearFields() {
+
+function limpiarCampos() {
   Swal.fire({
     title: '¿Estás seguro?',
     text: 'Esto borrará todos los campos.',
@@ -515,8 +547,11 @@ function clearFields() {
     confirmButtonText: 'Sí, borrar',
     cancelButtonText: 'Cancelar'
   }).then((result) => {
-    if (result.isConfirmed && result.ok) {
-      clear();
+    if (result.isConfirmed) {
+      document.getElementById('input-title').value = '';
+      document.getElementById('hidden-id').innerText = '';
+      quill.setText('');
+      document.getElementById('image').value = '';
     }
   }).catch(error => {
     Swal.fire(
@@ -527,15 +562,9 @@ function clearFields() {
     );
     console.error(error);
   });
-}
 
-document.getElementById('limpiar').addEventListener('click', clearFields);
+};
 
-function clear() {
-  document.getElementById('input-title').value = '';
-  quill.setText('');
-  document.getElementById('image').value = '';
-}
 
 function cargarIndice() {
   var xhr = new XMLHttpRequest();
@@ -579,7 +608,7 @@ function primaryToIndex(title, _title, category, dataset) {
     template.dataset.parent = 'p-' + dataset;
     template.dataset.category = 'secondary';
 
-    span.className = 'carret primary';
+    span.className = 'caret primary ola1';
 
     ul.dataset.category = 'primary';
 
@@ -763,5 +792,41 @@ function removeFromIndex(elementId) {
     element.remove();
   }
 
+  createIndex();
+}
+
+function updateOnIndex(elementId, newTitle) {
+  console.log(elementId)
+  if (elementId.split('-')[0] == 'p') {
+    let element = document.getElementById(elementId);
+    let html_element = element.innerHTML;
+    console.log(element);
+    element.innerText = newTitle;
+  
+    if (!element) {
+      console.error(`Element ${elementId} not found`);
+      return;
+    }
+  } else if (elementId.split('-')[0] != 'p' && elementId.split('-')[0] != 'c') {
+    let element = document.getElementById(elementId);
+    let html_element = element.innerHTML;
+    console.log(element)
+    element.innerText = newTitle;
+  
+    if (!element) {
+      console.error(`Element ${elementId} not found`);
+      return;
+    }
+  } else if (elementId.split('-')[0] == 'c') {
+    let element = document.getElementById(elementId);
+    let html_element = element.innerHTML;
+    console.log(element)
+    element.innerText = newTitle;
+  
+    if (!element) {
+      console.error(`Element ${elementId} not found`);
+      return;
+    }
+  }
   createIndex();
 }

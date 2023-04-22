@@ -40,9 +40,12 @@ include("conn.php");
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> -->
   <link rel="stylesheet" href="bootstrap\css\bootstrap.min.css">
   <script src="bootstrap\js\bootstrap.js"></script>
-
+  <!-- 
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript" src="js/media_query.js"></script>
 
 </head>
 
@@ -88,7 +91,7 @@ include("conn.php");
         <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios. (Debe seleccionar el artículo deseado en el índice)' onclick=updateCont()>Sobreescribir</button>
       </div>
       <div class="col">
-        <button id="limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=clear()>Limpiar campos</button>
+        <button id="btn-limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=limpiarCampos()>Limpiar campos</button>
       </div>
       <div class="ms-auto">
         <div class="input-group">
@@ -131,10 +134,10 @@ include("conn.php");
   <script src="indice-js.js"></script>
   <!-- Include the Quill library -->
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
   <script src="quill/quill.js"></script>
-  <script src="jquery/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+  <!-- <script src="jquery/jquery-3.6.4.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
   <!-- Initialize Quill editor -->
   <script src="editor-js.js"></script>
 

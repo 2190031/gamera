@@ -95,8 +95,9 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" id="buscador" placeholder="Búsqueda" aria-label="Search" style="width: 400px;" autocomplete="off">
+            <form method="get" action="buscador.php" class="d-flex" role="search">
+              <input class="form-control me-2" type="text" name="q" id="buscador" placeholder="Búsqueda" aria-label="Search" style="width: 400px;" autocomplete="off">
+              <button type="submit" class="btn btn-outline-light">Buscar</button>
             </form>
           </div>
           <ul id="resultados"></ul>

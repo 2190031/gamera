@@ -1,55 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
 
-<?php 
+<?php
 
-$dir = 'C:\xampp\htdocs\gamera\1';
-$files = scandir($dir);
+$search_query = $_POST["search_query"];
 
-$pages = [];
-
-foreach ($files as $file) {
-  if (strpos($file, '.html') !== false) {
-    $path = $dir . '/' . $file;
-    $html = file_get_contents($path);
-    $dom = new DOMDocument();
-    $dom->loadHTML($html);
-    $title = $dom->getElementsByTagName('title')->item(0)->textContent;
-    $content = $dom->getElementsByTagName('body')->item(0)->textContent;
-    $page = ['title' => $title, 'content' => $content, 'file' => $file];
-    $pages[] = $page;
-  }
+if (strlen($search_query) < 3) {
+    die();
 }
 
-$query = $_GET['q'];
+$folders = array("1", "2", "3", "4"); // carpetas donde se hará la búsqueda
 
-$results = [];
+$results = array();
 
-foreach ($pages as $page) {
-  if (preg_match('/' . $query . '/i', $page['content'])) {
-    $results[] = $page;
-  }
-}
-
-if (count($results) > 0) {
-    echo '<ul>';
-    foreach ($results as $result) {
-      echo '<li>' . $result['title'] . ' - <a href="1/' . $result['file'] . '">' . $result['file'] . '</a></li>';
+foreach ($folders as $folder) {
+    $files = glob($folder . '/*.html'); // patrón de búsqueda para archivos HTML en la carpeta actual
+    foreach ($files as $file) {
+        $title = basename($file, ".html"); // título del archivo sin la extensión
+        if (stripos($title, $search_query) !== false) {
+            $result = array(
+                'title' => $title,
+                'path' => $file
+            );
+            array_push($results, $result);
+        }
     }
-    echo '</ul>';
-  } else {
-    echo 'No se encontraron';
+}
 
-  }
+echo json_encode($results);
 
-  ?>
+?>

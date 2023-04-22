@@ -96,16 +96,16 @@
             <span class="navbar-toggler-icon"></span>
           </button>
             <form method="get" action="buscador.php" class="d-flex" role="search">
-              <input class="form-control me-2" type="text" name="q" id="buscador" placeholder="Búsqueda" aria-label="Search" style="width: 400px;" autocomplete="off">
+              <input class="form-control me-2" id="search" type="text" name="q" id="buscador" placeholder="Búsqueda" aria-label="Search" style="width: 400px;" autocomplete="off">
               <button type="submit" class="btn btn-outline-light">Buscar</button>
             </form>
           </div>
-          <ul id="resultados"></ul>
+          <ul id="results"></ul>
       </nav>
     </header>
-    <div class="general" >
+    <div class="general">
 
-        <div class="contenido">
+        <div class="contenido" id="conten">
 
             <section class="box" id="contenido">
 
@@ -419,5 +419,6 @@
     </div>
     <!-- Copyright -->
   </footer>
- <script src="js/test.js"></script>
+ <script src="js/buscar_.js"></script>
+
 </html>

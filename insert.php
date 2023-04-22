@@ -46,7 +46,7 @@
             $parName = $result2->fetch_assoc();
 
             $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
-            $update = "UPDATE help_sec SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+            $update = "UPDATE help_sec SET filename = '$file' WHERE title = '$_titulo' AND content='$contenido'";
             $conn->query($update);
           }
           $content = $contenido;
@@ -78,7 +78,7 @@
             $conn->query($update);
           }
           $content = $contenido;
-          file_put_contents($file, $contenido);
+          file_put_contents($file, $content);
           $select = "SELECT id FROM help_ter WHERE filename = '$file'";
         if ($resultSel = mysqli_query($conn, $select)) {
           $_id = $resultSel->fetch_assoc();

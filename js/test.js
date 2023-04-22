@@ -1,5 +1,5 @@
 // Función para cargar un archivo y obtener su contenido HTML
-function cargarHTML(url, exito, error) {
+/* function cargarHTML(url, exito, error) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -101,6 +101,4 @@ document.addEventListener("click", function(event) {
     // Ocultar resultados
     resultados.style.display = "none";
   }
-});
-
-
+}); */

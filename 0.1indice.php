@@ -98,7 +98,6 @@
           </button>
             <form method="get" action="buscador.php" class="d-flex" role="search">
               <input class="form-control me-2" id="search" type="text" name="q" id="buscador" placeholder="Búsqueda" aria-label="Search" style="width: 400px;" autocomplete="off">
-              <button type="submit" class="btn btn-outline-light">Buscar</button>
             </form>
           </div>
           <ul id="results"></ul>

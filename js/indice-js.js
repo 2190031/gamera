@@ -1,6 +1,5 @@
 $(document).ready(function () { 
 
-<<<<<<< HEAD
 $('#p-164').click(function() { $("#contenido").load("1/jnrgkjlsgkjnsbk.html"); }); 
 $('#s-77').click(function() { $("#contenido").load("2/jnrgkjlsgkjnsbk.html"); }); 
 $('#c-30').click(function() { $("#contenido").load("4/jnrgkjlsgkjnsbk.html"); }); 
@@ -28,7 +27,4 @@ $('#p-176').click(function() { $("#contenido").load("1/bbbdfdfbdbfdfbdfb.html");
 $('#p-177').click(function() { $("#contenido").load("1/erbretbsbtstsst.html"); }); 
 $('#p-178').click(function() { $("#contenido").load("1/mhgcvhj,jvh,vhj,vj,hvjh,hvjhvjvhhvjvhj,vhjvhhv,vhvh,vhjjh,vvhj,.html"); }); 
 $('#p-179').click(function() { $("#contenido").load("1/1234567890-wertyuiop[sdfghjkl;asdfghjkl;dsfghjkldfgdfcvgygjhv,vhjvkhhjvcm_hvhvmvhgjcvhmk.html"); }); 
-=======
-
->>>>>>> b68f4619f006df12d9954b0537a862cf8539d38b
 });

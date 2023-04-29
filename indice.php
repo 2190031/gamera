@@ -22,7 +22,7 @@
     <link rel="shortcut icon" href="img/gamera_logo-vector.png" type="image/x-icon">
     <title>Gamera</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <script src="indice-js.js"></script>
+    <script src="js/indice-js.js"></script>
 </head>
 
 <body>

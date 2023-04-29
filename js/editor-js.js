@@ -1,5 +1,5 @@
 /*
-  Modulos (opciones de la barra de herramientas) del editor para el cuerpo del articulo
+Modulos (opciones de la barra de herramientas) del editor para el cuerpo del articulo
 */
 var toolbarOptions = [
   ['bold', 'italic', 'underline', 'strike'],
@@ -14,7 +14,7 @@ var toolbarOptions = [
 ];
 
 /*
-  Variable que inicializa el editor para el cuerpo del articulo en el div editor
+Variable que inicializa el editor para el cuerpo del articulo en el div editor
 */
 var quill = new Quill('#editor', {
   modules: {
@@ -147,8 +147,8 @@ function jsSave() {
 }
 
 /*
-  Funciones para obtener el titulo y contenido como parametros despues de las primeras 2
-  funciones, llamandolas simultaneamente en la tercera
+Funciones para obtener el titulo y contenido como parametros despues de las primeras 2
+funciones, llamandolas simultaneamente en la tercera
 */
 function showTitle(str) {
   var title = "<h1 class='h1'>" + str + "</h1>";
@@ -175,9 +175,9 @@ function showTitleAndCont(title, cont) {
 }
 
 /*
-  (Solo despues de hacer click en su boton para editar) Utiliza el ID oculto del registro
-  para eliminar el archivo y registro
- */
+(Solo despues de hacer click en su boton para editar) Utiliza el ID oculto del registro
+para eliminar el archivo y registro
+*/
 function deleteCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = document.getElementById("input-title").value;
@@ -251,8 +251,8 @@ function deleteCont() {
 }
 
 /*
-  Toma los valores del registro (despues de presionar el boton de editar) y los coloca en
-  el editor y en un campo oculto el ID para prepararlo para su edicion
+Toma los valores del registro (despues de presionar el boton de editar) y los coloca en
+el editor y en un campo oculto el ID para prepararlo para su edicion
 */
 function editCont(id, tit, hie, cont) {
 
@@ -273,9 +273,10 @@ function editCont(id, tit, hie, cont) {
 }
 
 /*
-  Verifica si se ha seleccionado un registro del indice (a traves del boton para editar)
-  y ejecuta la consulta para hacer update al registro segun su ID
+Verifica si se ha seleccionado un registro del indice (a traves del boton para editar)
+y ejecuta la consulta para hacer update al registro segun su ID
 */
+
 function updateCont() {
   let id = document.getElementById('hidden-id').innerText;
   let titulo = document.getElementById("input-title").value;
@@ -323,8 +324,8 @@ function updateCont() {
             } else if (selectedHierarchy == "4") {
               id = "c-" + id;
               updateOnIndex(id, titulo)
-            } else 
-            console.log(id)
+            } else
+              console.log(id)
             Swal.fire(
               'Modificado existosamente',
               'Puede cerrar esta ventana',
@@ -347,8 +348,8 @@ function updateCont() {
 }
 
 /* 
-  Procesa la imagen, toma el nombre del archivo y su extension, verifica si esta o no
-  en la carpeta de imagenes y la inserta en el editor
+Procesa la imagen, toma el nombre del archivo y su extension, verifica si esta o no
+en la carpeta de imagenes y la inserta en el editor
 */
 function sendImage() {
   let img = document.getElementById('image').files[0];
@@ -361,6 +362,9 @@ function sendImage() {
   quill.clipboard.dangerouslyPasteHTML(quill.getLength(), imgTag);
 }
 
+/*
+Sube una imagen de formatos especificados a la carpeta de imagenes
+*/
 function uploadImage() {
   let img = document.getElementById('image').files[0];
 
@@ -427,12 +431,12 @@ function uploadImage() {
   }
 
 }
+
 /* 
 Quita la clase d-none que oculta un select en la pagina mientras el tipo de articulo 
 sea la opcion por defecto o principal, al cambiaro se muestra el select
 */
 document.getElementById("select-hierarchy").addEventListener("change", showOrHideDiv);
-// document.getElementById("select-hierarchy-modal").addEventListener("change", showOrHideDivModal);
 
 function showOrHideDiv() {
   let select = document.getElementById("select-hierarchy");
@@ -469,8 +473,8 @@ function showOrHideDiv() {
 
 
 /* 
-  Imprime el contenido de un archivo en base a su ruta y nombre de archivo y lo coloca
-  en una seccion de la pagina 
+Imprime el contenido de un archivo en base a su ruta y nombre de archivo y lo coloca
+en una seccion de la pagina 
 */
 document.getElementById("print-btn").addEventListener("click", function () {
   printFile(title);
@@ -517,6 +521,10 @@ function printFile(filename, title, parent) {
   xhr.send();
 }
 
+/* 
+Recarga el indice al presionar boton, actualiza cambios de insercion, eliminacion y modificacion
+*/
+
 function refreshIndex() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -537,7 +545,9 @@ function refreshIndex() {
   xhttp.send();
 }
 
-
+/* 
+Elimina el texto de los campos y el editor
+*/
 function limpiarCampos() {
   Swal.fire({
     title: '¿Estás seguro?',
@@ -565,7 +575,9 @@ function limpiarCampos() {
 
 };
 
-
+/* 
+Llama al indice y lo coloca en el div indice
+*/
 function cargarIndice() {
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
@@ -589,6 +601,9 @@ function cargarIndice() {
   xhr.send();
 }
 
+/* 
+Al insertar, agrega el nuevo regitro primario al indice, actualizandolo
+*/
 function primaryToIndex(title, _title, category, dataset) {
   console.log(dataset);
   const index = document.querySelector('.indice');
@@ -628,6 +643,9 @@ function primaryToIndex(title, _title, category, dataset) {
   }
 }
 
+/*
+Agrega los articulos del resto de categorias al indice, tomando en cuenta su articulo padre
+*/
 function addToIndex(indexID, parentID, category, title) {
   let parentElement;
   if (category == 'secondary') {
@@ -683,7 +701,9 @@ function addToIndex(indexID, parentID, category, title) {
   }
 }
 
-
+/*
+Agrega el codigo jquery para cada articulo en el archivo indice-js.js
+*/
 function addScriptToIndex(id, title) {
   filename = title.split(" ").join("_");
   var newScript = `$('#${id}').click(function() { $("#contenido").load("${filename}"); }); \n});`;
@@ -697,36 +717,42 @@ function addScriptToIndex(id, title) {
   createIndexJS(newdiv);
 }
 
-  function createIndexJS(script) {
-    // let script = document.getElementById("indice-js").innerText;
-    fetch(
-      'edit_nav_js.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `newScript=${script}`
-    }
-    ).then(response => {
-      if (response.ok) {
-        console.log('creado');
-      } else {
-        Swal.fire(
-          'Error al agregar al índice',
-          'Puede cerrar esta ventana ' + error,
-          'error', {
-          timer: 5000
-        }
-        );
-      }
-    }).catch(error => {
-      Swal.fire(
-        'Ha ocurrido un error',
-        'Puede cerrar esta ventana ' + error.message,
-        'error'
-      );
-      console.error(error);
-    });
+/*
+Funcion complementaria de addScriptToIndex, actualiza el cambio de agregar la nueva linea de codigo al archivo
+*/
+function createIndexJS(script) {
+  // let script = document.getElementById("indice-js").innerText;
+  fetch(
+    'edit_nav_js.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `newScript=${script}`
   }
+  ).then(response => {
+    if (response.ok) {
+      console.log('creado');
+    } else {
+      Swal.fire(
+        'Error al agregar al índice',
+        'Puede cerrar esta ventana ' + error,
+        'error', {
+        timer: 5000
+      }
+      );
+    }
+  }).catch(error => {
+    Swal.fire(
+      'Ha ocurrido un error',
+      'Puede cerrar esta ventana ' + error.message,
+      'error'
+    );
+    console.error(error);
+  });
+}
 
+/*
+Realiza el cambio hecho con las funciones addToIndex y primaryToIndex, haciendo definitivo el cambio en el archivo de origen
+*/
 function createIndex() {
   let cont = document.getElementById('indice-importado').innerHTML;
 
@@ -758,13 +784,15 @@ function createIndex() {
   });
 }
 
-
+/*
+Al eliminar un articulo, lo elimina tambien del indice, si este tiene articulos hijos, tambien los elimina del indice
+*/
 function removeFromIndex(elementId) {
   if (elementId.split('-')[0] == 'p') {
     const element = document.getElementById(elementId).parentNode.parentNode.parentNode;
     let html_element = element.innerHTML;
     console.log(element)
-  
+
     if (!element) {
       console.error(`Element ${elementId} not found`);
       return;
@@ -774,7 +802,7 @@ function removeFromIndex(elementId) {
     const element = document.getElementById(elementId).parentNode;
     let html_element = element.innerHTML;
     console.log(element)
-  
+
     if (!element) {
       console.error(`Element ${elementId} not found`);
       return;
@@ -784,7 +812,7 @@ function removeFromIndex(elementId) {
     const element = document.getElementById(elementId).parentElement;
     let html_element = element.innerHTML;
     console.log(element)
-  
+
     if (!element) {
       console.error(`Element ${elementId} not found`);
       return;
@@ -795,6 +823,9 @@ function removeFromIndex(elementId) {
   createIndex();
 }
 
+/*
+Al hacer una modificacion al articulo (su titulo) se actualiza en el indice
+*/
 function updateOnIndex(elementId, newTitle) {
   console.log(elementId)
   if (elementId.split('-')[0] == 'p') {
@@ -802,7 +833,7 @@ function updateOnIndex(elementId, newTitle) {
     let html_element = element.innerHTML;
     console.log(element);
     element.innerText = newTitle;
-  
+
     if (!element) {
       console.error(`Element ${elementId} not found`);
       return;
@@ -812,7 +843,7 @@ function updateOnIndex(elementId, newTitle) {
     let html_element = element.innerHTML;
     console.log(element)
     element.innerText = newTitle;
-  
+
     if (!element) {
       console.error(`Element ${elementId} not found`);
       return;
@@ -822,7 +853,7 @@ function updateOnIndex(elementId, newTitle) {
     let html_element = element.innerHTML;
     console.log(element)
     element.innerText = newTitle;
-  
+
     if (!element) {
       console.error(`Element ${elementId} not found`);
       return;

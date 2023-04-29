@@ -14,8 +14,9 @@ $results = array();
 foreach ($folders as $folder) {
     $files = glob($folder . '/*.html'); // patrón de búsqueda para archivos HTML en la carpeta actual
     foreach ($files as $file) {
-        $title = basename($file, ".html"); // título del archivo sin la extensión
-        if (stripos($title, $search_query) !== false) {
+        $content = file_get_contents($file); // obtener el contenido del archivo
+        if (stripos($content, $search_query) !== false) { // buscar el texto dentro del contenido del archivo
+            $title = basename($file, ".html"); // título del archivo sin la extensión que contiene el texto que se introdujo en la barra de búsqueda
             $result = array(
                 'title' => $title,
                 'path' => $file

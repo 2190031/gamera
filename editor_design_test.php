@@ -101,7 +101,7 @@ include("conn.php");
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
       <!-- Initialize Quill editor -->
-      <script src="editor-js.js"></script>
+      <script src="js/editor-js.js"></script>
 </script>
 </body>
 </html>

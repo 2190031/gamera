@@ -57,7 +57,7 @@ include("conn.php");
     <div id="" class="mb-3">
       <input type="text" name="title" id="input-title" class="form-control">
     </div>
-    <h2 class="h2">Tipo de articulo</h2>
+    <h2 class="h2">Tipo de artículo</h2>
     <select class="form-select" id="select-hierarchy">
       <option value="1" selected>Principal</option>
       <option value="2">Secundario</option>
@@ -67,7 +67,7 @@ include("conn.php");
     <br>
 
     <div id="h" class="d-none">
-      <h2 class="h2">Seccion a la que pertenece</h2>
+      <h2 class="h2">Sección a la que pertenece</h2>
       <input class="form-control" list="parent" id="parents" placeholder="Type to search...">
       <datalist id="parent">
         <?php include('fill-datalist.php'); ?>
@@ -118,29 +118,39 @@ include("conn.php");
 
   <hr>
 
-  <h1 class="h1">Agregar al índice</h1>
-  <div class='indice'>
-    <div id="indice-importado">
+  <h1 class="h1">Índice - Vista previa</h1>
+  <div class="row">
+    <div class="col-5">
+      <div class="h-100 flex-column align-items-stretch pe-4 border-end">
+        <div class='indice'>
+          <div id="indice-importado">
 
+          </div>
+          <!-- <h1 class="h1">Agregar al índice</h1><div id="contenido"></div> -->
+        </div>
+      </div>
     </div>
 
-    <h1 class="h1">Agregar al índice</h1>
 
-    <div id="contenido">
+    <div class="col-5">
+      <div data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+        <p>Resultado</p>
+        <div id="parent">
+          <small class="fw-light">Este articulo pertenece a: <p id="show-parent"></p></small>
+        </div>
+        <div id="output">
+          <div id="title"></div>
 
+          <div id="contenido"></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script src="indice-js.js"></script>
-  <!-- Include the Quill library -->
-  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-  <script src="quill/quill.js"></script>
-  <!-- <script src="jquery/jquery-3.6.4.min.js"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
-  <!-- Initialize Quill editor -->
-  <script src="editor-js.js"></script>
 
+  <div class="d-none" id="indice-js">
+
+  </div>
   <script>
     var toggler = document.getElementsByClassName("caret");
     var i;
@@ -152,9 +162,15 @@ include("conn.php");
       });
     }
   </script>
-  <div class="d-none" id="indice-js">
-
-  </div>
+  <script src="js/indice-js.js"></script>
+  <!-- Include the Quill library -->
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+  <script src="quill/quill.js"></script>
+  <!-- <script src="jquery/jquery-3.6.4.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
+  <!-- Initialize Quill editor -->
+  <script src="js/editor-js.js"></script>
 </body>
 
 </html>

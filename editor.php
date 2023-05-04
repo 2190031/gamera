@@ -46,7 +46,6 @@ include("conn.php");
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <script type="text/javascript" src="js/media_query.js"></script>
-
 </head>
 
 <body onload="cargarIndice()" class="">
@@ -111,9 +110,6 @@ include("conn.php");
         ?>
       </div>
     </div>
-
-
-
   </div>
 
   <hr>
@@ -126,7 +122,6 @@ include("conn.php");
           <div id="indice-importado">
 
           </div>
-          <!-- <h1 class="h1">Agregar al índice</h1><div id="contenido"></div> -->
         </div>
       </div>
     </div>
@@ -135,11 +130,8 @@ include("conn.php");
     <div class="col-5">
       <div data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
         <p>Resultado</p>
-        <div id="parent">
-          <small class="fw-light">Este articulo pertenece a: <p id="show-parent"></p></small>
-        </div>
         <div id="output">
-          <div id="title"></div>
+          <!-- <div id="title"></div> -->
 
           <div id="contenido"></div>
         </div>
@@ -149,6 +141,9 @@ include("conn.php");
 
 
   <div class="d-none" id="indice-js">
+
+  </div>
+  <div class="d-none" id="indice-js-no-jquery">
 
   </div>
   <script>
@@ -162,15 +157,11 @@ include("conn.php");
       });
     }
   </script>
-  <script src="js/indice-js.js"></script>
-  <!-- Include the Quill library -->
-  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-  <script src="quill/quill.js"></script>
-  <!-- <script src="jquery/jquery-3.6.4.min.js"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script> -->
-  <!-- Initialize Quill editor -->
   <script src="js/editor-js.js"></script>
+  <script src="js/indice-js.js"></script>
+  <!-- <script src="js/indice-js-no-jquery.js"></script> -->
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <script src="quill/quill.js"></script>
 </body>
 
 </html>

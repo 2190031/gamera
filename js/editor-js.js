@@ -586,8 +586,7 @@ function cargarIndice() {
       document.getElementById("indice-importado").innerHTML = index;
     }
   }
-  // xhr.open("GET", "0.1indice.html");
-  xhr.open("GET", "0.1indice_copy.html");
+  xhr.open("GET", "indice_elementos.html");
   xhr.send();
 
   xhr = new XMLHttpRequest();
@@ -596,8 +595,16 @@ function cargarIndice() {
       document.getElementById("indice-js").innerHTML = this.responseText;
     }
   }
-  // xhr.open("GET", "0.1indice.html");
-  xhr.open("GET", "indice-js.js");
+  xhr.open("GET", "js/indice-js.js");
+  xhr.send();
+  
+  xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("indice-js-no-jquery").innerHTML = this.responseText;
+    }
+  }
+  xhr.open("GET", "js/indice-js-no-jquery.js");
   xhr.send();
 }
 
@@ -628,7 +635,7 @@ function primaryToIndex(title, _title, category, dataset) {
     ul.dataset.category = 'primary';
 
     const a = document.createElement('a');
-    a.href = '#';
+    a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
     a.id = "p-" + dataset;
@@ -639,6 +646,7 @@ function primaryToIndex(title, _title, category, dataset) {
     ul.appendChild(li);
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
     addScriptToIndex(a.id, "1/" + title + ".html");
+    addScriptToIndexNoJquery(a.id, "1/" + title + ".html");
     createIndex();
   }
 }
@@ -660,7 +668,7 @@ function addToIndex(indexID, parentID, category, title) {
   if (parentElement) {
     const newElement = document.createElement("li");
     const a = document.createElement('a');
-    a.href = '#';
+    a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
 
@@ -675,6 +683,7 @@ function addToIndex(indexID, parentID, category, title) {
       parentElement.appendChild(newElement);
 
       addScriptToIndex(a.id, "2/" + title + ".html");
+      addScriptToIndexNoJquery(a.id, "2/" + title + ".html");
       createIndex()
     } else if (category == 'terciary') {
       a.id = "t-" + indexID;
@@ -686,6 +695,7 @@ function addToIndex(indexID, parentID, category, title) {
       parentElement.appendChild(newElement);
 
       addScriptToIndex(a.id, "3/" + title + ".html");
+      addScriptToIndexNoJquery(a.id, "3/" + title + ".html");
       createIndex()
     } else if (category == 'quaternary') {
       a.id = "c-" + indexID;
@@ -694,6 +704,7 @@ function addToIndex(indexID, parentID, category, title) {
       parentElement.appendChild(newElement);
 
       addScriptToIndex(a.id, "4/" + title + ".html");
+      addScriptToIndexNoJquery(a.id, "4/" + title + ".html");
       createIndex()
     } else {
       console.log('error');
@@ -713,8 +724,19 @@ function addScriptToIndex(id, title) {
   newdiv.push(newScript);
   newdiv = newdiv.join("\n");
   console.log(newdiv);
-
   createIndexJS(newdiv);
+}
+
+function addScriptToIndexNoJquery(id, title) {
+  filename = title.split(" ").join("_");
+  let parsedId = id.split("-").join("")
+  var newScript = `let ${parsedId} = document.getElementById('${id}'); ${parsedId}.addEventListener('click', function() {var xhr = new XMLHttpRequest();xhr.open("GET", "${filename}", true);xhr.onreadystatechange = function() {if (xhr.readyState === 4) {document.getElementById("contenido").innerHTML = xhr.responseText;}};xhr.send();});\n});`;
+  let div = document.getElementById("indice-js-no-jquery");
+  let newdiv = div.innerText.split("\n");
+  newdiv.pop();
+  newdiv.push(newScript);
+  newdiv = newdiv.join("\n");
+  createIndexJSNoJquery(newdiv);
 }
 
 /*
@@ -724,6 +746,35 @@ function createIndexJS(script) {
   // let script = document.getElementById("indice-js").innerText;
   fetch(
     'edit_nav_js.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: `newScript=${script}`
+  }
+  ).then(response => {
+    if (response.ok) {
+      console.log('creado');
+    } else {
+      Swal.fire(
+        'Error al agregar al índice',
+        'Puede cerrar esta ventana ' + error,
+        'error', {
+        timer: 5000
+      }
+      );
+    }
+  }).catch(error => {
+    Swal.fire(
+      'Ha ocurrido un error',
+      'Puede cerrar esta ventana ' + error.message,
+      'error'
+    );
+    console.error(error);
+  });
+}
+
+function createIndexJSNoJquery(script) {
+  fetch(
+    'edit_nav_js-no-jquery.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `newScript=${script}`

@@ -62,7 +62,7 @@ function jsSave() {
   const _titulo = titulo.split(" ").join("");
   console.log(_titulo);
   if (selectedParent == "") {
-    fetch('insert.php', {
+    fetch('php/insert.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -95,7 +95,7 @@ function jsSave() {
       }
     });
   } else if (selectedParent != "") {
-    fetch('insert.php', {
+    fetch('php/insert.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -204,7 +204,7 @@ function deleteCont() {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch('delete.php', {
+        fetch('php/delete.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -303,7 +303,7 @@ function updateCont() {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch('update.php', {
+        fetch('php/update.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -393,7 +393,7 @@ function uploadImage() {
       formData.append('imageName', imgName);
 
       // Envía el formulario mediante AJAX
-      fetch('upload_image.php', {
+      fetch('php/upload_image.php', {
         method: 'POST',
         body: formData
       }).then(response => {
@@ -450,7 +450,7 @@ function showOrHideDiv() {
     div.classList.remove("d-none");
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "fill-select.php", true);
+    xhr.open("POST", "php/fill-select.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
       if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
@@ -532,7 +532,7 @@ function refreshIndex() {
       document.querySelector("#snav").innerHTML = this.responseText;
     }
   };
-  xhttp.open("GET", "fill-index.php", true);
+  xhttp.open("GET", "php/fill-index.php", true);
   xhttp.send();
 
   xhttp = new XMLHttpRequest();
@@ -745,7 +745,7 @@ Funcion complementaria de addScriptToIndex, actualiza el cambio de agregar la nu
 function createIndexJS(script) {
   // let script = document.getElementById("indice-js").innerText;
   fetch(
-    'edit_nav_js.php', {
+    'php/edit_nav_js.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `newScript=${script}`
@@ -772,35 +772,6 @@ function createIndexJS(script) {
   });
 }
 
-// function createIndexJSNoJquery(script) {
-//   fetch(
-//     'edit_nav_js-no-jquery.php', {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//     body: `newScript=${script}`
-//   }
-//   ).then(response => {
-//     if (response.ok) {
-//       console.log('creado');
-//     } else {
-//       Swal.fire(
-//         'Error al agregar al índice',
-//         'Puede cerrar esta ventana ' + error,
-//         'error', {
-//         timer: 5000
-//       }
-//       );
-//     }
-//   }).catch(error => {
-//     Swal.fire(
-//       'Ha ocurrido un error',
-//       'Puede cerrar esta ventana ' + error.message,
-//       'error'
-//     );
-//     console.error(error);
-//   });
-// }
-
 /*
 Realiza el cambio hecho con las funciones addToIndex y primaryToIndex, haciendo definitivo el cambio en el archivo de origen
 */
@@ -808,7 +779,7 @@ function createIndex() {
   let cont = document.getElementById('indice-importado').innerHTML;
 
   fetch(
-    'edit_nav.php', {
+    'php/edit_nav.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: `cont=${cont}`

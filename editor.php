@@ -45,7 +45,6 @@ include("conn.php");
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-  <script type="text/javascript" src="js/media_query.js"></script>
 
 </head>
 

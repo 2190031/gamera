@@ -541,7 +541,7 @@ function refreshIndex() {
       document.querySelector("#indice-js").innerHTML = this.responseText;
     }
   };
-  xhttp.open("GET", "indice-js.js", true);
+  xhttp.open("GET", "js/indice-js.js", true);
   xhttp.send();
 }
 
@@ -598,14 +598,14 @@ function cargarIndice() {
   xhr.open("GET", "js/indice-js.js");
   xhr.send();
   
-  xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("indice-js-no-jquery").innerHTML = this.responseText;
-    }
-  }
-  xhr.open("GET", "js/indice-js-no-jquery.js");
-  xhr.send();
+  // xhr = new XMLHttpRequest();
+  // xhr.onreadystatechange = function () {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     document.getElementById("indice-js-no-jquery").innerHTML = this.responseText;
+  //   }
+  // }
+  // xhr.open("GET", "js/indice-js-no-jquery.js");
+  // xhr.send();
 }
 
 /* 
@@ -646,7 +646,7 @@ function primaryToIndex(title, _title, category, dataset) {
     ul.appendChild(li);
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
     addScriptToIndex(a.id, "1/" + title + ".html");
-    addScriptToIndexNoJquery(a.id, "1/" + title + ".html");
+    // addScriptToIndexNoJquery(a.id, "1/" + title + ".html");
     createIndex();
   }
 }
@@ -683,7 +683,7 @@ function addToIndex(indexID, parentID, category, title) {
       parentElement.appendChild(newElement);
 
       addScriptToIndex(a.id, "2/" + title + ".html");
-      addScriptToIndexNoJquery(a.id, "2/" + title + ".html");
+      // addScriptToIndexNoJquery(a.id, "2/" + title + ".html");
       createIndex()
     } else if (category == 'terciary') {
       a.id = "t-" + indexID;
@@ -695,7 +695,7 @@ function addToIndex(indexID, parentID, category, title) {
       parentElement.appendChild(newElement);
 
       addScriptToIndex(a.id, "3/" + title + ".html");
-      addScriptToIndexNoJquery(a.id, "3/" + title + ".html");
+      // addScriptToIndexNoJquery(a.id, "3/" + title + ".html");
       createIndex()
     } else if (category == 'quaternary') {
       a.id = "c-" + indexID;
@@ -704,7 +704,7 @@ function addToIndex(indexID, parentID, category, title) {
       parentElement.appendChild(newElement);
 
       addScriptToIndex(a.id, "4/" + title + ".html");
-      addScriptToIndexNoJquery(a.id, "4/" + title + ".html");
+      // addScriptToIndexNoJquery(a.id, "4/" + title + ".html");
       createIndex()
     } else {
       console.log('error');
@@ -727,17 +727,17 @@ function addScriptToIndex(id, title) {
   createIndexJS(newdiv);
 }
 
-function addScriptToIndexNoJquery(id, title) {
-  filename = title.split(" ").join("_");
-  let parsedId = id.split("-").join("")
-  var newScript = `let ${parsedId} = document.getElementById('${id}'); ${parsedId}.addEventListener('click', function() {var xhr = new XMLHttpRequest();xhr.open("GET", "${filename}", true);xhr.onreadystatechange = function() {if (xhr.readyState === 4) {document.getElementById("contenido").innerHTML = xhr.responseText;}};xhr.send();});\n});`;
-  let div = document.getElementById("indice-js-no-jquery");
-  let newdiv = div.innerText.split("\n");
-  newdiv.pop();
-  newdiv.push(newScript);
-  newdiv = newdiv.join("\n");
-  createIndexJSNoJquery(newdiv);
-}
+// function addScriptToIndexNoJquery(id, title) {
+//   filename = title.split(" ").join("_");
+//   let parsedId = id.split("-").join("")
+//   var newScript = `let ${parsedId} = document.getElementById('${id}'); ${parsedId}.addEventListener('click', function() {var xhr = new XMLHttpRequest();xhr.open("GET", "${filename}", true);xhr.onreadystatechange = function() {if (xhr.readyState === 4) {document.getElementById("contenido").innerHTML = xhr.responseText;}};xhr.send();});\n});`;
+//   let div = document.getElementById("indice-js-no-jquery");
+//   let newdiv = div.innerText.split("\n");
+//   newdiv.pop();
+//   newdiv.push(newScript);
+//   newdiv = newdiv.join("\n");
+//   createIndexJSNoJquery(newdiv);
+// }
 
 /*
 Funcion complementaria de addScriptToIndex, actualiza el cambio de agregar la nueva linea de codigo al archivo
@@ -772,34 +772,34 @@ function createIndexJS(script) {
   });
 }
 
-function createIndexJSNoJquery(script) {
-  fetch(
-    'edit_nav_js-no-jquery.php', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `newScript=${script}`
-  }
-  ).then(response => {
-    if (response.ok) {
-      console.log('creado');
-    } else {
-      Swal.fire(
-        'Error al agregar al índice',
-        'Puede cerrar esta ventana ' + error,
-        'error', {
-        timer: 5000
-      }
-      );
-    }
-  }).catch(error => {
-    Swal.fire(
-      'Ha ocurrido un error',
-      'Puede cerrar esta ventana ' + error.message,
-      'error'
-    );
-    console.error(error);
-  });
-}
+// function createIndexJSNoJquery(script) {
+//   fetch(
+//     'edit_nav_js-no-jquery.php', {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//     body: `newScript=${script}`
+//   }
+//   ).then(response => {
+//     if (response.ok) {
+//       console.log('creado');
+//     } else {
+//       Swal.fire(
+//         'Error al agregar al índice',
+//         'Puede cerrar esta ventana ' + error,
+//         'error', {
+//         timer: 5000
+//       }
+//       );
+//     }
+//   }).catch(error => {
+//     Swal.fire(
+//       'Ha ocurrido un error',
+//       'Puede cerrar esta ventana ' + error.message,
+//       'error'
+//     );
+//     console.error(error);
+//   });
+// }
 
 /*
 Realiza el cambio hecho con las funciones addToIndex y primaryToIndex, haciendo definitivo el cambio en el archivo de origen

@@ -350,9 +350,88 @@
         </li>
         </ul>
 
+        <script>
+          var toggler = document.getElementsByClassName("caret");
+          var i;
+          
+          for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function() {
+              this.parentElement.querySelector(".nested").classList.toggle("active");
+              this.classList.toggle("caret-down");
+            });
+          }
+          </script>
+
 
       </section>
+
+      <div class="indice2">
+        
+      </div>
     </div>
+
+    </body>
+
+    <br>
+
+    <!-- Footer -->
+  <footer class="footer" >
+  
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+  
+      <div class="me-5 d-none d-lg-block">
+        <span>Conéctate con nosotros en las redes sociales:</span>
+      </div>
+  
+      <div>
+        <a href="https://www.facebook.com/gamerasoft/" class="me-4 text-reset">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://www.instagram.com/gamerasoftware/" class="me-4 text-reset">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </section>
+    <!-- Section: Social media -->
+  
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Gamera Software
+            </h6>
+            <p>
+              Empresa de Desarrollo de Software tanto para Windows como para Android.
+            </p>
+          </div>
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase fw-bold mb-4">Contáctanos</h6>
+            <p><i class="fas fa-home me-3"></i> C. Proy. 3 Esq Proy. 1 #5 , Santiago de Los Caballeros</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              mayobanex@gamerasoft.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i>809 276 2410</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+  
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2023 Copyright:
+      <a class="text-reset fw-bold" href="http://gamera.ddns.net/">Gamera Software</a>
+    </div>
+
     <!-- Copyright -->
   </footer>
  <script src="js/buscar_.js"></script>

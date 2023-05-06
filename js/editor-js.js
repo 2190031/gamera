@@ -87,7 +87,7 @@ function jsSave() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana ' + error.message,
+            'Puede cerrar esta ventana <br>' + error.message,
             'error'
           );
           console.error(error);
@@ -128,7 +128,7 @@ function jsSave() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana ' + error,
+            'Puede cerrar esta ventana <br>' + error,
             'error'
           );
           console.error(error);
@@ -138,7 +138,7 @@ function jsSave() {
       Swal.fire(
         'Ha ocurrido un error',
 
-        'Puede cerrar esta ventana ' + error,
+        'Puede cerrar esta ventana <br>' + error,
         'error'
       );
       console.error(error);
@@ -240,7 +240,7 @@ function deleteCont() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana' + error.message,
+            'Puede cerrar esta ventana <br>' + error.message,
             'error'
           );
           console.error(error);
@@ -337,7 +337,7 @@ function updateCont() {
           Swal.fire(
             'Ha ocurrido un error',
 
-            'Puede cerrar esta ventana',
+            'Puede cerrar esta ventana <br>' + error.message,
             'error'
           );
           console.error(error);
@@ -408,7 +408,7 @@ function uploadImage() {
         } else {
           Swal.fire(
             'Error al subir la imagen',
-            'Puede cerrar esta ventana',
+            'Puede cerrar esta ventana <br>' + error.message,
             'error', {
             timer: 5000,
           });
@@ -420,7 +420,7 @@ function uploadImage() {
         Swal.fire(
           'Error al subir la imagen',
 
-          'Puede cerrar esta ventana',
+          'Puede cerrar esta ventana <br>' + error.message,
           'error', {
           timer: 5000,
         });
@@ -567,7 +567,7 @@ function limpiarCampos() {
     Swal.fire(
       'Ha ocurrido un error',
 
-      'Puede cerrar esta ventana',
+      'Puede cerrar esta ventana <br>' + error.message,
       'error'
     );
     console.error(error);
@@ -597,15 +597,6 @@ function cargarIndice() {
   }
   xhr.open("GET", "js/indice-js.js");
   xhr.send();
-  
-  // xhr = new XMLHttpRequest();
-  // xhr.onreadystatechange = function () {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     document.getElementById("indice-js-no-jquery").innerHTML = this.responseText;
-  //   }
-  // }
-  // xhr.open("GET", "js/indice-js-no-jquery.js");
-  // xhr.send();
 }
 
 /* 
@@ -646,7 +637,6 @@ function primaryToIndex(title, _title, category, dataset) {
     ul.appendChild(li);
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
     addScriptToIndex(a.id, "1/" + title + ".html");
-    // addScriptToIndexNoJquery(a.id, "1/" + title + ".html");
     createIndex();
   }
 }
@@ -656,34 +646,38 @@ Agrega los articulos del resto de categorias al indice, tomando en cuenta su art
 */
 function addToIndex(indexID, parentID, category, title) {
   let parentElement;
+  var parentName;
   if (category == 'secondary') {
     parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'p-' + parentID}"]`);
+    parentName = parentElement.parentNode.innerText;
   } else if (category == 'terciary') {
     parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'s-' + parentID}"]`);
+    parentName = parentElement.parentNode.innerText;
   } else if (category == 'quaternary') {
     parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'t-' + parentID}"]`);
+    parentName = parentElement.parentNode.innerText;
   }
   const template = document.createElement('ul');
-
+  
   if (parentElement) {
     const newElement = document.createElement("li");
     const a = document.createElement('a');
     a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
-
+    
     newElement.appendChild(a);
     if (category == 'secondary') {
       a.id = "s-" + indexID;
       template.className = 'nested';
       template.dataset.parent = 's-' + indexID;
       template.dataset.category = 'terciary';
-
+      
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
-
+      
+      title = title + '-PN-' + parentName;
       addScriptToIndex(a.id, "2/" + title + ".html");
-      // addScriptToIndexNoJquery(a.id, "2/" + title + ".html");
       createIndex()
     } else if (category == 'terciary') {
       a.id = "t-" + indexID;
@@ -694,8 +688,8 @@ function addToIndex(indexID, parentID, category, title) {
       newElement.appendChild(template)
       parentElement.appendChild(newElement);
 
+      title = title + '-PN-' + parentName;
       addScriptToIndex(a.id, "3/" + title + ".html");
-      // addScriptToIndexNoJquery(a.id, "3/" + title + ".html");
       createIndex()
     } else if (category == 'quaternary') {
       a.id = "c-" + indexID;
@@ -703,8 +697,8 @@ function addToIndex(indexID, parentID, category, title) {
       template.dataset.parent = 'c-' + indexID;
       parentElement.appendChild(newElement);
 
+      title = title + '-PN-' + parentName;
       addScriptToIndex(a.id, "4/" + title + ".html");
-      // addScriptToIndexNoJquery(a.id, "4/" + title + ".html");
       createIndex()
     } else {
       console.log('error');
@@ -727,23 +721,10 @@ function addScriptToIndex(id, title) {
   createIndexJS(newdiv);
 }
 
-// function addScriptToIndexNoJquery(id, title) {
-//   filename = title.split(" ").join("_");
-//   let parsedId = id.split("-").join("")
-//   var newScript = `let ${parsedId} = document.getElementById('${id}'); ${parsedId}.addEventListener('click', function() {var xhr = new XMLHttpRequest();xhr.open("GET", "${filename}", true);xhr.onreadystatechange = function() {if (xhr.readyState === 4) {document.getElementById("contenido").innerHTML = xhr.responseText;}};xhr.send();});\n});`;
-//   let div = document.getElementById("indice-js-no-jquery");
-//   let newdiv = div.innerText.split("\n");
-//   newdiv.pop();
-//   newdiv.push(newScript);
-//   newdiv = newdiv.join("\n");
-//   createIndexJSNoJquery(newdiv);
-// }
-
 /*
 Funcion complementaria de addScriptToIndex, actualiza el cambio de agregar la nueva linea de codigo al archivo
 */
 function createIndexJS(script) {
-  // let script = document.getElementById("indice-js").innerText;
   fetch(
     'edit_nav_js.php', {
     method: 'POST',
@@ -756,7 +737,7 @@ function createIndexJS(script) {
     } else {
       Swal.fire(
         'Error al agregar al índice',
-        'Puede cerrar esta ventana ' + error,
+        'Puede cerrar esta ventana <br>' + error.message,
         'error', {
         timer: 5000
       }
@@ -765,7 +746,7 @@ function createIndexJS(script) {
   }).catch(error => {
     Swal.fire(
       'Ha ocurrido un error',
-      'Puede cerrar esta ventana ' + error.message,
+      'Puede cerrar esta ventana <br>' + error.message,
       'error'
     );
     console.error(error);
@@ -790,7 +771,7 @@ function createIndex() {
     } else {
       Swal.fire(
         'Error al agregar al índice',
-        'Puede cerrar esta ventana ' + error,
+        'Puede cerrar esta ventana <br>' + error.message,
         'error', {
         timer: 5000
       }
@@ -799,7 +780,7 @@ function createIndex() {
   }).catch(error => {
     Swal.fire(
       'Ha ocurrido un error',
-      'Puede cerrar esta ventana ' + error.message,
+      'Puede cerrar esta ventana <br>' + error.message,
       'error'
     );
     console.error(error);

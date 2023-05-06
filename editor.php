@@ -1,5 +1,5 @@
 <?php
-include("php/conn.php");
+include("conn.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,7 +69,7 @@ include("php/conn.php");
       <h2 class="h2">Sección a la que pertenece</h2>
       <input class="form-control" list="parent" id="parents" placeholder="Type to search...">
       <datalist id="parent">
-        <?php include('php/fill-datalist.php'); ?>
+        <?php include('fill-datalist.php'); ?>
       </datalist>
       <br><br>
     </div>
@@ -106,7 +106,7 @@ include("php/conn.php");
     <div id="scroll-nav card">
       <div id="snav">
         <?php
-        include_once('php/fill-index.php');
+        include_once('fill-index.php');
         ?>
       </div>
     </div>

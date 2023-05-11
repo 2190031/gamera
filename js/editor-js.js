@@ -59,7 +59,7 @@ function jsSave() {
     );
     return;
   }
-  const _titulo = titulo.split(" ").join("");
+  const _titulo = titulo.split(" ").join("_");
   console.log(_titulo);
   if (selectedParent == "") {
     fetch('insert.php', {
@@ -117,7 +117,9 @@ function jsSave() {
           console.log(parentID);
 
           if (selectedHierarchy == 2) {
+            console.log(indexID, parentID)
             addToIndex(indexID, parentID, 'secondary', titulo);
+            
           } else if (selectedHierarchy == 3) {
             addToIndex(indexID, parentID, 'terciary', titulo);
           } else if (selectedHierarchy == 4) {
@@ -183,7 +185,7 @@ function deleteCont() {
   let titulo = document.getElementById("input-title").value;
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  const _titulo = titulo.split(" ").join("");
+  const _titulo = titulo.split(" ").join("_");
 
   if (id == null || titulo == "" || selectedHierarchy == 0) {
     Swal.fire(
@@ -284,7 +286,7 @@ function updateCont() {
   console.log(contenido)
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  const title = titulo.split(" ").join("");
+  const title = titulo.split(" ").join("_");
 
   if (id == "") {
     Swal.fire(

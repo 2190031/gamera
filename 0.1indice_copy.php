@@ -125,10 +125,22 @@
 
     </div>
 
+
     <?php include("indice_elementos.html"); ?>
 
     <!-- Copyright -->
     </footer>
+    <script>
+          var toggler = document.getElementsByClassName("caret");
+          var i;
+          
+          for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function() {
+              this.parentElement.querySelector(".nested").classList.toggle("active");
+              this.classList.toggle("caret-down");
+            });
+          }
+          </script>
     <script src="js/buscar_.js"></script>
     <script src="js/indice-js.js"></script>
 

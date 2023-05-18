@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="http://localhost/gamera-1/css/estilo.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,7 +101,7 @@
   </header>
   <div class="general">
 
-    <div class="contenido" id="conten">
+    <div class="contenido text-break" id="conten">
 
       <section class="box" id="contenido">
 
@@ -128,8 +128,6 @@
 
     <?php include("indice_elementos.html"); ?>
 
-    <!-- Copyright -->
-    </footer>
     <script>
           var toggler = document.getElementsByClassName("caret");
           var i;
@@ -143,5 +141,66 @@
           </script>
     <script src="js/buscar_.js"></script>
     <script src="js/indice-js.js"></script>
+
+    <!-- Footer -->
+  <footer class="footer" >
+  
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+
+    <div class="me-5 d-none d-lg-block">
+      <span>Conéctate con nosotros en las redes sociales:</span>
+    </div>
+
+    <div>
+      <a href="https://www.facebook.com/gamerasoft/" class="me-4 text-reset">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://www.instagram.com/gamerasoftware/" class="me-4 text-reset">
+        <i class="fab fa-instagram"></i>
+      </a>
+    </div>
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Gamera Software
+          </h6>
+          <p>
+            Empresa de Desarrollo de Software tanto para Windows como para Android.
+          </p>
+        </div>
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contáctanos</h6>
+          <p><i class="fas fa-home me-3"></i> C. Proy. 3 Esq Proy. 1 #5 , Santiago de Los Caballeros</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            mayobanex@gamerasoft.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i>809 276 2410</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+
+  <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-reset fw-bold" href="http://gamera.ddns.net/">Gamera Software</a>
+  </div>
+
+  <!-- Copyright -->
+</footer>
 
 </html>

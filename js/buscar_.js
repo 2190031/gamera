@@ -1,6 +1,6 @@
 var searchInput = document.getElementById("search");
 var resultsDiv = document.getElementById("results");
-var contenidoDiv = document.getElementById("conten");
+var contenidoDiv = document.getElementById("contenido");
 var timeoutId;
 
 searchInput.addEventListener("input", function () {

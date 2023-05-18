@@ -49,12 +49,28 @@ include("conn.php");
 </head>
 
 <body onload="cargarIndice()" class="">
+  <nav class="bg-light shadow-sm p-2 mb-4 fs-5">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Disabled</a>
+      </li>
+    </ul>
+  </nav>
   <div class="container">
-    <h1 class="h1">Inserte una nueva sección</h1>
+    <h1 class="h1 text-center display-5">Nueva sección</h1>
     <h2 class="h2">Título</h2>
 
     <div id="" class="mb-3">
-      <input type="text" name="title" id="input-title" class="form-control">
+      <input type="text" name="title" id="input-title" class="form-control" autofocus>
     </div>
     <h2 class="h2">Tipo de artículo</h2>
     <select class="form-select" id="select-hierarchy">
@@ -67,7 +83,7 @@ include("conn.php");
 
     <div id="h" class="d-none">
       <h2 class="h2">Sección a la que pertenece</h2>
-      <input class="form-control" list="parent" id="parents" placeholder="Type to search...">
+      <input class="form-control" list="parent" id="parents" placeholder="Type to search..." autocomplete="FALSE">
       <datalist id="parent">
         <?php include('fill-datalist.php'); ?>
       </datalist>
@@ -79,24 +95,26 @@ include("conn.php");
     </div>
 
     <br>
-    <div class="row row-cols-lg-auto g-3 align-items-center">
-      <div class="col">
-        <button id="guardar" class="btn btn-outline-primary" title='Guardar archivo' onclick=jsSave() onload="enableButton()">Guardar archivo</button>
-      </div>
-      <div class="col">
-        <button id="borrar" class="btn btn-outline-danger" title='Eliminar archivo' onclick=deleteCont()>Eliminar archivo</button>
-      </div>
-      <div class="col">
-        <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios. (Debe seleccionar el artículo deseado en el índice)' onclick=updateCont()>Sobreescribir</button>
-      </div>
-      <div class="col">
-        <button id="btn-limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=limpiarCampos()>Limpiar campos</button>
-      </div>
-      <div class="ms-auto">
-        <div class="input-group">
-          <button class="btn btn-outline-success" type="button" title='Insertar imagen en el artículo' onclick=sendImage()>Insertar imagen</button>
-          <input class="form-control" title='Buscar imagen (debe estar en la carpeta de imágenes)' type="file" id="image">
-          <button class="btn btn-outline-secondary" type="button" title='Subir imagen en el artículo' onclick=uploadImage()>Subir imagen</button>
+    <div class="fixed-bottom bg-white shadow">
+      <div class="row row-cols-lg-auto g-3 align-items-center m-2 pb-2">
+        <div class="col">
+          <button id="guardar" class="btn btn-outline-primary" title='Guardar archivo' onclick=jsSave() onload="enableButton()">Guardar archivo</button>
+        </div>
+        <div class="col">
+          <button id="borrar" class="btn btn-outline-danger" title='Eliminar archivo' onclick=deleteCont()>Eliminar archivo</button>
+        </div>
+        <div class="col">
+          <button id="editar" class="btn btn-outline-warning" title='Sobreescribir cambios. (Debe seleccionar el artículo deseado en el índice)' onclick=updateCont()>Sobreescribir</button>
+        </div>
+        <div class="col">
+          <button id="btn-limpiar" class="btn btn-outline-info" title='Limpiar los campos' onclick=limpiarCampos()>Limpiar campos</button>
+        </div>
+        <div class="ms-auto">
+          <div class="input-group">
+            <button class="btn btn-outline-success" type="button" title='Insertar imagen en el artículo' onclick=sendImage()>Insertar imagen</button>
+            <input class="form-control" title='Buscar imagen (debe estar en la carpeta de imágenes)' type="file" id="image">
+            <button class="btn btn-outline-secondary" type="button" title='Subir imagen en el artículo' onclick=uploadImage()>Subir imagen</button>
+          </div>
         </div>
       </div>
     </div>
@@ -110,9 +128,6 @@ include("conn.php");
         ?>
       </div>
     </div>
-
-
-
   </div>
 
   <hr>
@@ -145,6 +160,7 @@ include("conn.php");
       </div>
     </div>
   </div>
+  <br><br><br><br><br>
 
 
   <div class="d-none" id="indice-js">

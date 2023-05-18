@@ -27,7 +27,7 @@ var quill = new Quill('#editor', {
 function jsSave() {
   let titulo = document.getElementById("input-title").value;
   let contenido = quill.container.firstChild.innerHTML.trim();
-  console.log(contenido);
+  // console.log(contenido);
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   let selectedParent = "";
@@ -40,7 +40,7 @@ function jsSave() {
       parentTitle = selectedOption.textContent;
     }
   }
-  console.log(selectedParent, " ", parentTitle);
+  // console.log(selectedParent, " ", parentTitle);
 
   let regex = /[a-zA-Z0-9_,.;ÁÉÍÓÚáéíóúñÑ]/;
   if (titulo == "") {
@@ -60,7 +60,6 @@ function jsSave() {
     return;
   }
   const _titulo = titulo.split(" ").join("_");
-  console.log(_titulo);
   if (selectedParent == "") {
     fetch('insert.php', {
       method: 'POST',
@@ -70,29 +69,42 @@ function jsSave() {
       body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
     }).then(response => {
       if (response.ok) {
-        console.log('Insertado');
-        Swal.fire(
-          'Creado correctamente',
-          'Puede cerrar esta ventana',
-          'success', {
-          timer: 5000
-        });
         response.json().then(data => {
           const indexID = data.indexID;
           console.log(indexID);
           console.log('Insertado');
-
+          Swal.fire(
+            'Creado correctamente',
+            'Puede cerrar esta ventana',
+            'success', {
+            timer: 5000
+          });
           primaryToIndex(titulo, _titulo, 'primary', indexID);
         }).catch(error => {
           Swal.fire(
             'Ha ocurrido un error',
-
-            'Puede cerrar esta ventana <br>' + error.message,
+            'Puede cerrar esta ventana',
             'error'
           );
           console.error(error);
         });
+      } else {
+        response.text().then(text => {
+          Swal.fire(
+            'Ha ocurrido un error',
+            text,
+            'error'
+          );
+          console.error(text);
+        });
       }
+    }).catch(error => {
+      Swal.fire(
+        'Ha ocurrido un error',
+        error.message,
+        'error'
+      );
+      console.error(error);
     });
   } else if (selectedParent != "") {
     fetch('insert.php', {

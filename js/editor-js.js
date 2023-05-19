@@ -23,6 +23,15 @@ var quill = new Quill('#editor', {
   theme: 'snow'
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  const base = document.querySelector('#categ-base').innerText;
+  if (base !== 'No hay resultados') {
+    // existe
+    // console.log(base)
+  } else if (base === 'No hay resultados') {
+    // no existe
+  }
+})
 
 function jsSave() {
   let titulo = document.getElementById("input-title").value;
@@ -32,131 +41,147 @@ function jsSave() {
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   let selectedParent = "";
   let parentTitle = "";
-  if (selectedHierarchy > 1) {
-    parent = document.getElementById('parents');
-    selectedParent = parent.value;
-    let selectedOption = parent.querySelector(`option[value="${selectedParent}"]`);
-    if (selectedOption !== null) {
-      parentTitle = selectedOption.textContent;
-    }
-  }
-  // console.log(selectedParent, " ", parentTitle);
 
-  let regex = /[a-zA-Z0-9_,.;ÁÉÍÓÚáéíóúñÑ]/;
-  if (titulo == "") {
+  const base = document.querySelector('#categ-base').innerText;
+  if (base !== 'No hay resultados' && selectedHierarchy == '0') {
     Swal.fire(
-      'Se han encontrado uno o más campos vacíos',
-      'Favor de llenar todos los campos',
+      'Ya existe el artículo base',
+      'No puede crearse más de uno',
       'warning', {
       timer: 5000,
-    });
-    return;
-  } else if (!regex.test(titulo)) {
-    Swal.fire(
-      'Caracteres especiales no permitidos',
-      'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ;',
-      'warning'
-    );
-    return;
-  }
-  const _titulo = titulo.split(" ").join("_");
-  if (selectedParent == "") {
-    fetch('insert.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
-    }).then(response => {
-      if (response.ok) {
-        response.json().then(data => {
-          const indexID = data.indexID;
-          console.log(indexID);
+    }
+    )
+  } else {
+    if (selectedHierarchy > 1) {
+      parent = document.getElementById('parents');
+      selectedParent = parent.value;
+      let selectedOption = parent.querySelector(`option[value="${selectedParent}"]`);
+      if (selectedOption !== null) {
+        parentTitle = selectedOption.textContent;
+      }
+    }
+    // console.log(selectedParent, " ", parentTitle);
+
+    let regex = /[a-zA-Z0-9_,.;ÁÉÍÓÚáéíóúñÑ]/;
+    if (titulo == "") {
+      Swal.fire(
+        'Se han encontrado uno o más campos vacíos',
+        'Favor de llenar todos los campos',
+        'warning', {
+        timer: 5000,
+      });
+      return;
+    } else if (!regex.test(titulo)) {
+      Swal.fire(
+        'Caracteres especiales no permitidos',
+        'Favor de utilizar solo letras, números y algunos caracteres especiales permitidos como , . ;',
+        'warning'
+      );
+      return;
+    }
+    const _titulo = titulo.split(" ").join("_");
+    if (selectedParent == "") {
+      fetch('insert.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}`
+      }).then(response => {
+        if (response.ok) {
+          response.json().then(data => {
+            const indexID = data.indexID;
+            console.log(indexID);
+            console.log('Insertado');
+            Swal.fire(
+              'Creado correctamente',
+              'Puede cerrar esta ventana',
+              'success', {
+              timer: 5000
+            });
+            console.log(selectedHierarchy)
+            if (selectedHierarchy == '0') {
+              primaryToIndex(titulo, _titulo, 'base', indexID);
+            } else if (selectedHierarchy == 1) {
+              addToIndex(indexID, '1', 'primary', titulo);
+            } 
+          }).catch(error => {
+            Swal.fire(
+              'Ha ocurrido un error',
+              'Puede cerrar esta ventana',
+              'error'
+            );
+            console.error(error);
+          });
+        } else {
+          response.text().then(text => {
+            Swal.fire(
+              'Ha ocurrido un error',
+              text,
+              'error'
+            );
+            console.error(text);
+          });
+        }
+      }).catch(error => {
+        Swal.fire(
+          'Ha ocurrido un error',
+          error.message,
+          'error'
+        );
+        console.error(error);
+      });
+    } else if (selectedParent != "") {
+      fetch('insert.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
+      }).then(response => {
+        if (response.ok) {
           console.log('Insertado');
           Swal.fire(
-            'Creado correctamente',
+            'Insertado correctamente',
             'Puede cerrar esta ventana',
             'success', {
-            timer: 5000
+            timer: 5000,
           });
-          primaryToIndex(titulo, _titulo, 'primary', indexID);
-        }).catch(error => {
-          Swal.fire(
-            'Ha ocurrido un error',
-            'Puede cerrar esta ventana',
-            'error'
-          );
-          console.error(error);
-        });
-      } else {
-        response.text().then(text => {
-          Swal.fire(
-            'Ha ocurrido un error',
-            text,
-            'error'
-          );
-          console.error(text);
-        });
-      }
-    }).catch(error => {
-      Swal.fire(
-        'Ha ocurrido un error',
-        error.message,
-        'error'
-      );
-      console.error(error);
-    });
-  } else if (selectedParent != "") {
-    fetch('insert.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
-    }).then(response => {
-      if (response.ok) {
-        console.log('Insertado');
+          response.json().then(data => {
+            const indexID = data.indexID;
+            const parentID = data.parentID;
+            console.log(indexID);
+            console.log(parentID);
+
+            if (selectedHierarchy == 2) {
+              console.log(indexID, parentID)
+              addToIndex(indexID, parentID, 'secondary', titulo);
+            } else if (selectedHierarchy == 3) {
+              addToIndex(indexID, parentID, 'terciary', titulo);
+            } else if (selectedHierarchy == 4) {
+              addToIndex(indexID, parentID, 'quaternary', titulo);
+            }
+
+          }).catch(error => {
+            Swal.fire(
+              'Ha ocurrido un error',
+
+              'Puede cerrar esta ventana <br>' + error,
+              'error'
+            );
+            console.error(error);
+          });
+        }
+      }).catch(error => {
         Swal.fire(
-          'Insertado correctamente',
-          'Puede cerrar esta ventana',
-          'success', {
-          timer: 5000,
-        });
-        response.json().then(data => {
-          const indexID = data.indexID;
-          const parentID = data.parentID;
-          console.log(indexID);
-          console.log(parentID);
+          'Ha ocurrido un error',
 
-          if (selectedHierarchy == 2) {
-            console.log(indexID, parentID)
-            addToIndex(indexID, parentID, 'secondary', titulo);
-            
-          } else if (selectedHierarchy == 3) {
-            addToIndex(indexID, parentID, 'terciary', titulo);
-          } else if (selectedHierarchy == 4) {
-            addToIndex(indexID, parentID, 'quaternary', titulo);
-          }
-
-        }).catch(error => {
-          Swal.fire(
-            'Ha ocurrido un error',
-
-            'Puede cerrar esta ventana <br>' + error,
-            'error'
-          );
-          console.error(error);
-        });
-      }
-    }).catch(error => {
-      Swal.fire(
-        'Ha ocurrido un error',
-
-        'Puede cerrar esta ventana <br>' + error,
-        'error'
-      );
-      console.error(error);
-    });
+          'Puede cerrar esta ventana <br>' + error,
+          'error'
+        );
+        console.error(error);
+      });
+    }
   }
 }
 
@@ -199,13 +224,22 @@ function deleteCont() {
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
   const _titulo = titulo.split(" ").join("_");
 
-  if (id == null || titulo == "" || selectedHierarchy == 0) {
-    Swal.fire(
-      'Se han encontrado uno o más campos vacíos',
-      'Debe seleccionar uno de los registros',
-      'warning', {
-      timer: 5000
-    });
+  if (id == null || titulo == "" || selectedHierarchy == '0') {
+    if (selectedHierarchy == '0') {
+      Swal.fire(
+        'No puede eliminarse el artículo base',
+        'Debe modificarlo o crear otros de categoría inferior',
+        'warning', {
+        timer: 5000
+      });
+    } else {
+      Swal.fire(
+        'Se han encontrado uno o más campos vacíos',
+        'Debe seleccionar uno de los registros',
+        'warning', {
+        timer: 5000
+      });
+    }
   } else {
     Swal.fire({
       title: '¿Está seguro de que desea eliminar este registro?',
@@ -298,7 +332,7 @@ function updateCont() {
   console.log(contenido)
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
-  const title = titulo.split(" ").join("_");
+  const _title = titulo.split(" ").join("_");
 
   if (id == "") {
     Swal.fire(
@@ -326,7 +360,11 @@ function updateCont() {
         }).then(response => {
           if (response.ok) {
             console.log('Editado');
-            if (selectedHierarchy == "1") {
+            
+            if (selectedHierarchy == "0") {
+              id = "z-" + id;
+              updateOnIndex(id, titulo)
+            } else if (selectedHierarchy == "1") {
               id = "p-" + id;
               updateOnIndex(id, titulo)
             } else if (selectedHierarchy == "2") {
@@ -621,7 +659,7 @@ function primaryToIndex(title, _title, category, dataset) {
   const index = document.querySelector('.indice');
   const treeview = index.querySelectorAll('.treeview');
   const parentIndex = document.getElementsByClassName('box-indice');
-  if (category == 'primary') {
+  if (category == 'base') {
     const ul = document.createElement('ul');
 
     const li = document.createElement('li');
@@ -632,27 +670,27 @@ function primaryToIndex(title, _title, category, dataset) {
     ul.className = 'treeview';
 
     template.className = 'nested';
-    template.dataset.parent = 'p-' + dataset;
-    template.dataset.category = 'secondary';
+    template.dataset.parent = 'z-' + dataset;
+    template.dataset.category = 'primary';
 
-    span.className = 'caret primary ola1';
+    span.className = 'caret base ola1';
 
-    ul.dataset.category = 'primary';
+    ul.dataset.category = 'base';
 
     const a = document.createElement('a');
     a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
-    a.id = "p-" + dataset;
+    a.id = "z-" + dataset;
 
     span.appendChild(a);
     li.appendChild(span);
     li.appendChild(template);
     ul.appendChild(li);
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
-    addScriptToIndex(a.id, "1/" + title + ".html");
+    addScriptToIndex(a.id, "0/" + title + ".html");
     createIndex();
-  }
+  } 
 }
 
 /*
@@ -661,7 +699,10 @@ Agrega los articulos del resto de categorias al indice, tomando en cuenta su art
 function addToIndex(indexID, parentID, category, title) {
   let parentElement;
   var parentName;
-  if (category == 'secondary') {
+  if (category == 'primary') {
+    parentElement = document.querySelector(`[data-category="${category}"][data-parent="z-1"]`);
+    parentName = parentElement.parentNode.innerText;
+  } else if (category == 'secondary') {
     parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'p-' + parentID}"]`);
     parentName = parentElement.parentNode.innerText;
   } else if (category == 'terciary') {
@@ -672,24 +713,36 @@ function addToIndex(indexID, parentID, category, title) {
     parentName = parentElement.parentNode.innerText;
   }
   const template = document.createElement('ul');
-  
+
   if (parentElement) {
     const newElement = document.createElement("li");
     const a = document.createElement('a');
     a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
-    
+
     newElement.appendChild(a);
-    if (category == 'secondary') {
+    if (category == 'primary') {
+      a.id = "p-" + indexID;
+      template.className = 'nested';
+      template.dataset.parent = 'p-' + indexID;
+      template.dataset.category = 'secondary';
+
+      newElement.appendChild(template);
+      parentElement.appendChild(newElement);
+
+      title = title + '-PN-' + parentName;
+      addScriptToIndex(a.id, "1/" + title + ".html");
+      createIndex()
+    } else if (category == 'secondary') {
       a.id = "s-" + indexID;
       template.className = 'nested';
       template.dataset.parent = 's-' + indexID;
       template.dataset.category = 'terciary';
-      
+
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
-      
+
       title = title + '-PN-' + parentName;
       addScriptToIndex(a.id, "2/" + title + ".html");
       createIndex()

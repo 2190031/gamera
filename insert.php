@@ -14,8 +14,29 @@
       echo "Favor de ingresar un titulo";
     } else if (!isset($contenido)) {
       echo "Favor de ingresar contenido en el articulo";
-    } else if ($hierarchy === 0) {
-      echo "Favor de seleccionar una categoria para el articulo";
+    } else if ($hierarchy === '0') {
+      $query = "INSERT INTO help_par(title,content) VALUES('$titulo', '$contenido')";
+        if ($result = mysqli_query($conn, $query)) {
+          $folder = "0/";
+          $file = $folder . $_titulo . '.html';
+          $update = "UPDATE help_par SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
+          $conn->query($update);
+          $content = $contenido;
+          file_put_contents($file, $content);
+          $select = "SELECT id FROM help_par WHERE filename = '$file'";
+          if ($resultSel = mysqli_query($conn, $select)) {
+            $_id = $resultSel->fetch_assoc();
+            $indexID = $_id['id'];
+            echo json_encode(array('indexID' => $indexID));
+          }
+        } else {
+          $error = mysqli_error($conn);
+          if (strpos($error, 'Duplicate entry') !== false) {
+            echo "Este registro ya existe, por favor coloque un contenido diferente.";
+          } else {
+            echo "Ha ocurrido un error.";
+          }
+        }
     } else {
       if ($hierarchy === '1') {
         $query = "INSERT INTO help(title,content) VALUES('$titulo', '$contenido')";
@@ -30,7 +51,10 @@
           if ($resultSel = mysqli_query($conn, $select)) {
             $_id = $resultSel->fetch_assoc();
             $indexID = $_id['id'];
-            echo json_encode(array('indexID' => $indexID));
+            
+            header('Content-Type: application/json');
+            echo json_encode(array('indexID' => $indexID, 'parentID' => '1'));
+            // echo json_encode(array('indexID' => $indexID));
           }
         } else {
           $error = mysqli_error($conn);
@@ -130,4 +154,3 @@
       }
     }
   }
-?>

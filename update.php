@@ -9,7 +9,12 @@ $hierarchy = $_POST['hierarchy'];
 
 echo $contenido;
 
-if ($hierarchy === "1") {
+if ($hierarchy === "0") {
+  $query = "UPDATE help_par SET title='$titulo', content='$contenido' WHERE id='$id'";
+  mysqli_query($conn, $query);
+  $file = "0/" . $_titulo . '.html';
+  file_put_contents($file, $contenido);
+} elseif ($hierarchy === "1") {
     $query = "UPDATE help SET title='$titulo', content='$contenido' WHERE id='$id'";
     mysqli_query($conn, $query);
 

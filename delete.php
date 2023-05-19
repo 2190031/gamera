@@ -6,11 +6,13 @@ $titulo = $_POST['titulo'];
 $_titulo = $_POST['_titulo'];
 $hierarchy = $_POST['hierarchy'];
 
-  if ($hierarchy === "1") {
+  if ($hierarchy === "0") {
+    echo 'No puede eliminarse el articulo base';
+  } elseif ($hierarchy === "1") {
     
     $query = "DELETE FROM help WHERE id = '$id'";   
     if ($result = mysqli_query($conn, $query)) {
-      echo "Eliminado en 1";
+      echo "Eliminado en 1/";
 
       $folder = "1/";
       $file = $folder . $_titulo . '.html';
@@ -32,7 +34,7 @@ $hierarchy = $_POST['hierarchy'];
 
     $query = "DELETE FROM help_sec WHERE id = '$id'";   
     if ($result = mysqli_query($conn, $query)) {
-      echo "Eliminado en 2";
+      echo "Eliminado en 2/";
       
       $folder = "2/";
       $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
@@ -54,7 +56,7 @@ $hierarchy = $_POST['hierarchy'];
 
     $query = "DELETE FROM help_ter WHERE id = '$id'";   
     if ($result = mysqli_query($conn, $query)) {
-      echo "Eliminado en 3";
+      echo "Eliminado en 3/";
       echo $query;
       $folder = "3/";
       $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
@@ -77,7 +79,7 @@ $hierarchy = $_POST['hierarchy'];
 
     $query = "DELETE FROM help_cuat WHERE id = '$id'";   
     if ($result = mysqli_query($conn, $query)) {
-      echo "Eliminado en 4";
+      echo "Eliminado en 4/";
       echo $query;
       $folder = "4/";
       $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
@@ -93,5 +95,3 @@ $hierarchy = $_POST['hierarchy'];
     }
   }
 }
-
-?>

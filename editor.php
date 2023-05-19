@@ -49,7 +49,7 @@ include("conn.php");
 </head>
 
 <body onload="cargarIndice()" class="">
-  <nav class="bg-light shadow-sm p-2 mb-4 fs-5">
+  <nav class="bg-light shadow-sm p-2 mb-4 fs-6">
     <ul class="nav">
       <li class="nav-item">
         <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
@@ -74,10 +74,12 @@ include("conn.php");
     </div>
     <h2 class="h2">Tipo de artículo</h2>
     <select class="form-select" id="select-hierarchy">
+      <option value="0">Base</option>
       <option value="1" selected>Principal</option>
       <option value="2">Secundario</option>
       <option value="3">Terciario</option>
       <option value="4">Cuaternario</option>
+      <hr>
     </select>
     <br>
 
@@ -95,7 +97,7 @@ include("conn.php");
     </div>
 
     <br>
-    <div class="fixed-bottom bg-white shadow">
+    <div class="fixed-bottom bg-light shadow">
       <div class="row row-cols-lg-auto g-3 align-items-center m-2 pb-2">
         <div class="col">
           <button id="guardar" class="btn btn-outline-primary" title='Guardar archivo' onclick=jsSave() onload="enableButton()">Guardar archivo</button>

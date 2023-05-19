@@ -22,65 +22,6 @@
   <link rel="shortcut icon" href="img/gamera_logo-vector.png" type="image/x-icon">
   <title>Gamera</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-
-  <script>
-    $(document).ready(function() {
-      $('#1').click(function() {
-        $("#contenido").load("funcionamiento_general.html");
-      });
-
-      $('#1_2').click(function() {
-        $("#contenido").load("ventana_de_listado_tipo_simple.html");
-      });
-
-      $('#1_3').click(function() {
-        $("#contenido").load("ventana_de_listado_con_filtro_de_datos.html");
-      });
-
-      $('#1_4').click(function() {
-        $("#contenido").load("elementos_comunes_de_las_ventanas.html");
-      });
-
-      $('#1_5').click(function() {
-        $("#contenido").load("ventana_de_reportes.html");
-      });
-
-      $('#2_1').click(function() {
-        $("#contenido").load("estaciones.html");
-      });
-
-      $('#2_2').click(function() {
-        $("#contenido").load("zonas.html");
-      });
-
-      $('#2_3').click(function() {
-        $("#contenido").load("usuarios.html");
-      });
-
-      $('#2_4').click(function() {
-        $("#contenido").load("permisos.html");
-      });
-
-      $('#2_5').click(function() {
-        $("#contenido").load("2.5adms_como_crear_usuario.html");
-      });
-
-      $('#2_6').click(function() {
-        $("#contenido").load("2.6adms_como_agregar_permisos.html");
-      });
-
-      $('#2_7').click(function() {
-        $("#contenido").load("2.7adms_como_crear_estacion.html");
-      });
-
-      $('#2_8').click(function() {
-        $("#contenido").load("2.8adms_como_crear_zona.html");
-      });
-      $('#2_9').click(function() {
-        $("#contenido").load("2.9adms_como_cerrar_sesiones");
-      });
-    });
-  </script>
 </head>
 
 <body>

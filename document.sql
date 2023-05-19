@@ -52,7 +52,7 @@ CREATE TABLE `help_ter` (
   UNIQUE KEY `content_UNIQUE` (`content`(250)),
   KEY `hierarchy_idx` (`sec_parent`),
   CONSTRAINT `sec_parent` FOREIGN KEY (`sec_parent`) REFERENCES `help_sec` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT;
+) ENGINE=InnoDB;
 
 DROP TABLE IF EXISTS `help_cuat`;
 CREATE TABLE `help_cuat` (

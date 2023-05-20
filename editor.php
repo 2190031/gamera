@@ -52,16 +52,12 @@ include("conn.php");
   <nav class="bg-light shadow-sm p-2 mb-4 fs-6">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled">Disabled</a>
+        <div class="">
+          <a class="text-decoration-none fs-6" aria-current="page" href="index.html">
+            <img src="img/gamera_logo-vector.png" width="100" class="me-4" alt="">
+            Volver al inicio
+          </a>
+        </div>
       </li>
     </ul>
   </nav>

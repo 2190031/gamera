@@ -717,13 +717,17 @@ function addToIndex(indexID, parentID, category, title) {
   const template = document.createElement('ul');
 
   if (parentElement) {
+    const span = document.createElement('span');
     const newElement = document.createElement("li");
     const a = document.createElement('a');
     a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
 
-    newElement.appendChild(a);
+    span.className = 'caret base ola1';
+
+    span.appendChild(a);
+    newElement.appendChild(span);
     if (category == 'primary') {
       a.id = "p-" + indexID;
       template.className = 'nested';
@@ -779,14 +783,40 @@ Agrega el codigo jquery para cada articulo en el archivo indice-js.js
 */
 function addScriptToIndex(id, title) {
   filename = title.split(" ").join("_");
-  var newScript = `$('#${id}').click(function() { $("#contenido").load("${filename}"); }); \n});`;
+  var newScript = `$('#${id}').click(function () { $("#contenido").load("${filename}"); }); \n`;
+  /* let div = document.getElementById("indice-js");
+  * let newdiv = div.innerText.split("\n");
+  * newdiv.pop();
+  * newdiv.push(newScript);
+  * newdiv = newdiv.join("\n");
+  * console.log(newdiv);
+  * createIndexJS(newdiv);
+
+
+  * div.innerText += '\n' + newScript; // Append the new line to the existing content
+
+  * console.log(div.innerText);
+  * createIndexJS(div.innerText);
+
+  *
+  * let div = document.getElementById("indice-js");
+  * let lines = div.innerText.split("\n"); // Split the existing content into lines
+  * lines.pop(); // Remove the last empty line
+  * lines.push(newScript); // Append the new line to the array
+  * let updatedContent = lines.join("\n"); // Join the lines back into a string
+
+  * console.log(updatedContent);
+  * createIndexJS(updatedContent);
+  */
+
   let div = document.getElementById("indice-js");
-  let newdiv = div.innerText.split("\n");
-  newdiv.pop();
-  newdiv.push(newScript);
-  newdiv = newdiv.join("\n");
-  console.log(newdiv);
-  createIndexJS(newdiv);
+  let lines = div.innerText.split("\n");
+  lines.splice(-1, 0, newScript); // Insert the new script before the last line
+
+  let updatedScript = lines.join("\n"); // Join the lines using newline separator
+
+  console.log(updatedScript);
+  createIndexJS(updatedScript);
 }
 
 /*

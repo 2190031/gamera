@@ -305,6 +305,8 @@ el editor y en un campo oculto el ID para prepararlo para su edicion
 function editCont(id, tit, hie, cont) {
 
   let hierarchy = document.getElementById("select-hierarchy");
+  console.log(hierarchy);
+  console.log(hierarchy.options[hie].value);
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
 
   const xhttp = new XMLHttpRequest();
@@ -312,7 +314,7 @@ function editCont(id, tit, hie, cont) {
     document.getElementById('hidden-id').innerText = id;
     document.getElementById("input-title").value = tit;
     document.getElementById('editor').firstChild.innerHTML = cont;
-    hierarchy.options[hie - 1].selected = true
+    hierarchy.options[hie].selected = true
   }
   xhttp.open("POST", "editor.php");
   xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -700,7 +702,7 @@ function addToIndex(indexID, parentID, category, title) {
   let parentElement;
   var parentName;
   if (category == 'primary') {
-    parentElement = document.querySelector(`[data-category="${category}"][data-parent="z-1"]`);
+    parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'z-' + parentID}"]`);
     parentName = parentElement.parentNode.innerText;
   } else if (category == 'secondary') {
     parentElement = document.querySelector(`[data-category="${category}"][data-parent="${'p-' + parentID}"]`);
@@ -731,7 +733,6 @@ function addToIndex(indexID, parentID, category, title) {
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
 
-      title = title + '-PN-' + parentName;
       addScriptToIndex(a.id, "1/" + title + ".html");
       createIndex()
     } else if (category == 'secondary') {
@@ -859,7 +860,7 @@ Al eliminar un articulo, lo elimina tambien del indice, si este tiene articulos 
 */
 function removeFromIndex(elementId) {
   if (elementId.split('-')[0] == 'p') {
-    const element = document.getElementById(elementId).parentNode.parentNode.parentNode;
+    const element = document.getElementById(elementId).parentNode.parentNode;
     let html_element = element.innerHTML;
     console.log(element)
 

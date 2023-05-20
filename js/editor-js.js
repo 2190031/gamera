@@ -717,13 +717,17 @@ function addToIndex(indexID, parentID, category, title) {
   const template = document.createElement('ul');
 
   if (parentElement) {
+    const span = document.createElement('span');
     const newElement = document.createElement("li");
     const a = document.createElement('a');
     a.href = '#contenido';
     a.classList = "ola";
     a.textContent = title;
 
-    newElement.appendChild(a);
+    span.className = 'caret base ola1';
+
+    span.appendChild(a);
+    newElement.appendChild(span);
     if (category == 'primary') {
       a.id = "p-" + indexID;
       template.className = 'nested';

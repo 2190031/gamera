@@ -11,6 +11,7 @@ include("conn.php");
   <title>Funciones demo</title>
 
   <link href="css/style.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="img/logo-vector.png">
 
   <!-- Sweet alert -->
   <!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
@@ -81,7 +82,7 @@ include("conn.php");
 
     <div id="h" class="d-none">
       <h2 class="h2">Sección a la que pertenece</h2>
-      <input class="form-control" list="parent" id="parents" placeholder="Type to search..." autocomplete="FALSE">
+      <input class="form-control" list="parent" id="parents" placeholder="Type to search..." autocomplete="off">
       <datalist id="parent">
         <?php include('fill-datalist.php'); ?>
       </datalist>

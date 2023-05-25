@@ -724,16 +724,16 @@ function addToIndex(indexID, parentID, category, title) {
     a.classList = "ola";
     a.textContent = title;
 
-    span.className = 'caret base ola1';
-
-    span.appendChild(a);
-    newElement.appendChild(span);
     if (category == 'primary') {
       a.id = "p-" + indexID;
       template.className = 'nested';
       template.dataset.parent = 'p-' + indexID;
       template.dataset.category = 'secondary';
-
+      
+      span.className = 'caret base ola1';
+  
+      span.appendChild(a);
+      newElement.appendChild(span);
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
 
@@ -775,6 +775,8 @@ function addToIndex(indexID, parentID, category, title) {
     } else {
       console.log('error');
     }
+  } else {
+    return "Elemento padre no encontrado en el ínidice.\nEste elemento podría no existir dentro del índice"
   }
 }
 

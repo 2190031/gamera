@@ -642,7 +642,8 @@ function cargarIndice() {
   }
   xhr.open("GET", "indice_elementos.html");
   xhr.send();
-
+}
+function cargarIndiceJS() {
   xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -653,6 +654,10 @@ function cargarIndice() {
   xhr.send();
 }
 
+function cargar() {
+  cargarIndice();
+  cargarIndiceJS();
+}
 /* 
 Al insertar, agrega el nuevo regitro primario al indice, actualizandolo
 */

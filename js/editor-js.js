@@ -102,8 +102,10 @@ function jsSave() {
             console.log(selectedHierarchy)
             if (selectedHierarchy == '0') {
               primaryToIndex(titulo, _titulo, 'base', indexID);
+              cargarIndiceJS();
             } else if (selectedHierarchy == 1) {
               addToIndex(indexID, '1', 'primary', titulo);
+              cargarIndiceJS();
             } 
           }).catch(error => {
             Swal.fire(
@@ -156,10 +158,13 @@ function jsSave() {
             if (selectedHierarchy == 2) {
               console.log(indexID, parentID)
               addToIndex(indexID, parentID, 'secondary', titulo);
+              cargarIndiceJS();
             } else if (selectedHierarchy == 3) {
               addToIndex(indexID, parentID, 'terciary', titulo);
+              cargarIndiceJS();
             } else if (selectedHierarchy == 4) {
               addToIndex(indexID, parentID, 'quaternary', titulo);
+              cargarIndiceJS();
             }
 
           }).catch(error => {
@@ -642,17 +647,23 @@ function cargarIndice() {
   }
   xhr.open("GET", "indice_elementos.html");
   xhr.send();
-
+}
+function cargarIndiceJS() {
   xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       document.getElementById("indice-js").innerHTML = this.responseText;
+      console.log(this.responseText);
     }
   }
   xhr.open("GET", "js/indice-js.js");
   xhr.send();
 }
 
+function cargar() {
+  cargarIndice();
+  cargarIndiceJS();
+}
 /* 
 Al insertar, agrega el nuevo regitro primario al indice, actualizandolo
 */

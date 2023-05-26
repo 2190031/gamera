@@ -49,7 +49,7 @@ include("conn.php");
 
 </head>
 
-<body onload="cargarIndice()" class="">
+<body onload="cargar()" class="">
   <nav class="bg-light shadow-sm p-2 mb-4 fs-6">
     <ul class="nav">
       <li class="nav-item">

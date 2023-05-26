@@ -6,7 +6,7 @@ if (strlen($search_query) < 3) {
     die();
 }
 
-$folders = array("1", "2", "3", "4"); // carpetas donde se hará la búsqueda
+$folders = array("1", "2", "3", "4"); // carpetas donde se hará la búsqueda.
 
 $results = array();
 

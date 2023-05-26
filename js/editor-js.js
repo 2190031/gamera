@@ -724,6 +724,7 @@ function addToIndex(indexID, parentID, category, title) {
     a.classList = "ola text-break text-truncate";
     a.textContent = title;
 
+    parentName = parentName.split(' ').join('_');
     if (category == 'primary') {
       a.id = "p-" + indexID;
       template.className = 'nested';
@@ -731,7 +732,6 @@ function addToIndex(indexID, parentID, category, title) {
       template.dataset.category = 'secondary';
       
       span.className = 'caret base ola1';
-  
       span.appendChild(a);
       newElement.appendChild(span);
       newElement.appendChild(template);
@@ -745,6 +745,9 @@ function addToIndex(indexID, parentID, category, title) {
       template.dataset.parent = 's-' + indexID;
       template.dataset.category = 'terciary';
 
+      span.className = 'caret base ola1';
+      span.appendChild(a);
+      newElement.appendChild(span);
       newElement.appendChild(template);
       parentElement.appendChild(newElement);
 
@@ -757,6 +760,9 @@ function addToIndex(indexID, parentID, category, title) {
       template.dataset.parent = 't-' + indexID;
       template.dataset.category = 'quaternary';
 
+      span.className = 'caret base ola1';
+      span.appendChild(a);
+      newElement.appendChild(span);
       newElement.appendChild(template)
       parentElement.appendChild(newElement);
 
@@ -767,6 +773,8 @@ function addToIndex(indexID, parentID, category, title) {
       a.id = "c-" + indexID;
       template.className = 'nested';
       template.dataset.parent = 'c-' + indexID;
+
+      newElement.appendChild(a);
       parentElement.appendChild(newElement);
 
       title = title + '-PN-' + parentName;
@@ -785,7 +793,7 @@ Agrega el codigo jquery para cada articulo en el archivo indice-js.js
 */
 function addScriptToIndex(id, title) {
   filename = title.split(" ").join("_");
-  var newScript = `$('#${id}').click(function () { $("#contenido").load("${filename}"); }); \n`;
+  var newScript = `\n$('#${id}').click(function () { $("#contenido").load("${filename}"); });`;
   /* let div = document.getElementById("indice-js");
   * let newdiv = div.innerText.split("\n");
   * newdiv.pop();

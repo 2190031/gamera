@@ -9,7 +9,7 @@
             echo "<p>".$row["content"]."</p>";
         }
     } else {
-        echo "No se encontraron resultados.";
+        echo "Todavía no se ha creado la portada. Ir al <a href='editor.php'>editor</a> para comenzar.";
     }
 
 ?>

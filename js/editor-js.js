@@ -681,7 +681,7 @@ function primaryToIndex(title, _title, category, dataset) {
 
     const a = document.createElement('a');
     a.href = '#contenido';
-    a.classList = "ola";
+    a.classList = "ola text-break text-truncate";
     a.textContent = title;
     a.id = "z-" + dataset;
 
@@ -721,7 +721,7 @@ function addToIndex(indexID, parentID, category, title) {
     const newElement = document.createElement("li");
     const a = document.createElement('a');
     a.href = '#contenido';
-    a.classList = "ola";
+    a.classList = "ola text-break text-truncate";
     a.textContent = title;
 
     if (category == 'primary') {

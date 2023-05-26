@@ -187,7 +187,7 @@ ul, ol, #myUL {
 
   .ola {
     text-decoration: none;
-    color: black;
+    /* color: black; */
     font-family: 'Tajawal', sans-serif;
     font-weight: 100 !important;
     letter-spacing: normal;
@@ -196,7 +196,7 @@ ul, ol, #myUL {
   
   .ola1 {
     text-decoration: none;
-    color: #BF2A2A !important;
+    /* color: #BF2A2A !important; */
     font-family: 'Tajawal', sans-serif;
     font-weight: 300 !important;
     letter-spacing: normal;
@@ -205,7 +205,7 @@ ul, ol, #myUL {
 
   .ola2{
     text-decoration: none;
-    color: #2a3177 !important;
+    /* color: #2a3177 !important; */
     font-family: 'Tajawal', sans-serif;
     font-weight: 300 !important;
     letter-spacing: normal;
@@ -223,8 +223,9 @@ ul, ol, #myUL {
 
   /* Create the caret/arrow with a unicode, and style it */
   .caret::before {
+    font-size: 0.75em;
     content: "\25B6";
-    color: black;
+    color: rgb(11, 26, 56);
     display: inline-block;
     margin-right: 6px;
   }
@@ -265,4 +266,29 @@ ul, ol, #myUL {
   }
 
 
-  
+[data-category="primary"], 
+[data-category="secondary"], 
+[data-category="terciary"], 
+[data-category="quaternary"] {
+  margin-left: 5px;
+}
+
+ul[data-category="base"]>li>span>a#z-1 {
+  color: rgb(70, 70, 130) !important;
+}
+
+ul[data-category="primary"]>li>span>a {
+  color: rgb(30, 30, 30) !important;
+}
+
+ul[data-category="secondary"]>li>span>a {
+  color: rgb(50, 50, 50) !important;
+}
+
+ul[data-category="terciary"]>li>span>a {
+  color: rgb(50, 50, 50) !important;
+}
+
+ul[data-category="quaternary"]>li>span>a {
+  color: rgb(50, 50, 50) !important;
+}

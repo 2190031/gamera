@@ -73,8 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result2->num_rows > 0) {
           $folder = "2/";
           $parName = $result2->fetch_assoc();
-
-          $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
+          
+          $_parName = str_replace(' ', '_', $parName['title']);
+          $file = $folder . $_titulo . "-PN-" . $_parName . '.html';
           $update = "UPDATE help_sec SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
           $conn->query($update);
         }
@@ -101,8 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($result2->num_rows > 0) {
           $folder = "3/";
           $parName = $result2->fetch_assoc();
-
-          $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
+          
+          $_parName = str_replace(' ', '_', $parName['title']);
+          $file = $folder . $_titulo . "-PN-" . $_parName . '.html';
           $update = "UPDATE help_ter SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
           $conn->query($update);
         }
@@ -131,7 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $folder = "4/";
           $parName = $result2->fetch_assoc();
 
-          $file = $folder . $_titulo . "-PN-" . $parName['title'] . '.html';
+          $_parName = str_replace(' ', '_', $parName['title']);
+          $file = $folder . $_titulo . "-PN-" . $_parName . '.html';
           $update = "UPDATE help_cuat SET filename = '$file' WHERE title = '$titulo' AND content='$contenido'";
           $conn->query($update);
         }

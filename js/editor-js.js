@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function jsSave() {
   let titulo = document.getElementById("input-title").value;
   let contenido = quill.container.firstChild.innerHTML.trim();
+  // contenido = "" + contenido + ""
   // console.log(contenido);
   let hierarchy = document.getElementById("select-hierarchy");
   let selectedHierarchy = hierarchy.options[hierarchy.selectedIndex].value;
@@ -90,23 +91,31 @@ function jsSave() {
       }).then(response => {
         if (response.ok) {
           response.json().then(data => {
-            const indexID = data.indexID;
-            console.log(indexID);
-            console.log('Insertado');
-            Swal.fire(
-              'Creado correctamente',
-              'Puede cerrar esta ventana',
-              'success', {
-              timer: 5000
-            });
-            console.log(selectedHierarchy)
-            if (selectedHierarchy == '0') {
-              primaryToIndex(titulo, _titulo, 'base', indexID);
-              cargarIndiceJS();
-            } else if (selectedHierarchy == 1) {
-              addToIndex(indexID, '1', 'primary', titulo);
-              cargarIndiceJS();
-            } 
+            if (response.status === 409) {
+              Swal.fire(
+                'Error al insertar el registro',
+                data.error,
+                'error'
+              );
+            } else {
+              const indexID = data.indexID;
+              console.log(indexID);
+              console.log('Insertado');
+              Swal.fire(
+                'Creado correctamente',
+                'Puede cerrar esta ventana',
+                'success', {
+                timer: 5000
+              });
+              console.log(selectedHierarchy)
+              if (selectedHierarchy == '0') {
+                primaryToIndex(titulo, _titulo, 'base', indexID);
+                cargarIndiceJS();
+              } else if (selectedHierarchy == 1) {
+                addToIndex(indexID, '1', 'primary', titulo);
+                cargarIndiceJS();
+              }
+            }
           }).catch(error => {
             Swal.fire(
               'Ha ocurrido un error',
@@ -117,9 +126,10 @@ function jsSave() {
           });
         } else {
           response.text().then(text => {
+            text = text.split('"')
             Swal.fire(
               'Ha ocurrido un error',
-              text,
+              text[3],
               'error'
             );
             console.error(text);
@@ -142,31 +152,40 @@ function jsSave() {
         body: `titulo=${titulo}&_titulo=${_titulo}&contenido=${contenido}&hierarchy=${selectedHierarchy}&parent=${selectedParent}`
       }).then(response => {
         if (response.ok) {
-          console.log('Insertado');
-          Swal.fire(
-            'Insertado correctamente',
-            'Puede cerrar esta ventana',
-            'success', {
-            timer: 5000,
-          });
           response.json().then(data => {
-            const indexID = data.indexID;
-            const parentID = data.parentID;
-            console.log(indexID);
-            console.log(parentID);
+            if (data.error == "Este registro ya existe, por favor verificar que el título o contenido sean diferentes.") {
+              Swal.fire(
+                data.error,
+                {
+                  icon: "error",
+                  timer: 5000
+                }
+              )
+            } else {
+              const indexID = data.indexID;
+              const parentID = data.parentID;
+              console.log(indexID);
+              console.log(parentID);
 
-            if (selectedHierarchy == 2) {
-              console.log(indexID, parentID)
-              addToIndex(indexID, parentID, 'secondary', titulo);
-              cargarIndiceJS();
-            } else if (selectedHierarchy == 3) {
-              addToIndex(indexID, parentID, 'terciary', titulo);
-              cargarIndiceJS();
-            } else if (selectedHierarchy == 4) {
-              addToIndex(indexID, parentID, 'quaternary', titulo);
-              cargarIndiceJS();
+              if (selectedHierarchy == 2) {
+                console.log(indexID, parentID)
+                addToIndex(indexID, parentID, 'secondary', titulo);
+                cargarIndiceJS();
+              } else if (selectedHierarchy == 3) {
+                addToIndex(indexID, parentID, 'terciary', titulo);
+                cargarIndiceJS();
+              } else if (selectedHierarchy == 4) {
+                addToIndex(indexID, parentID, 'quaternary', titulo);
+                cargarIndiceJS();
+              }
+              console.log('Insertado');
+              Swal.fire(
+                'Insertado correctamente',
+                'Puede cerrar esta ventana',
+                'success', {
+                timer: 5000,
+              });
             }
-
           }).catch(error => {
             Swal.fire(
               'Ha ocurrido un error',
@@ -367,7 +386,7 @@ function updateCont() {
         }).then(response => {
           if (response.ok) {
             console.log('Editado');
-            
+
             if (selectedHierarchy == "0") {
               id = "z-" + id;
               updateOnIndex(id, titulo)
@@ -417,7 +436,7 @@ function sendImage() {
   const relativeUrl = "img/" + imgName;
   console.log(relativeUrl);
 
-  var imgTag = '<img src="' + relativeUrl + '">';
+  var imgTag = '<img src="' + relativeUrl + '" class="box-img">';
   quill.clipboard.dangerouslyPasteHTML(quill.getLength(), imgTag);
 }
 
@@ -703,7 +722,7 @@ function primaryToIndex(title, _title, category, dataset) {
     document.getElementsByClassName('box-indice')[0].appendChild(ul);
     addScriptToIndex(a.id, "0/" + title + ".html");
     createIndex();
-  } 
+  }
 }
 
 /*
@@ -741,7 +760,7 @@ function addToIndex(indexID, parentID, category, title) {
       template.className = 'nested';
       template.dataset.parent = 'p-' + indexID;
       template.dataset.category = 'secondary';
-      
+
       span.className = 'caret base ola1';
       span.appendChild(a);
       newElement.appendChild(span);

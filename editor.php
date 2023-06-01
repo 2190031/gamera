@@ -8,6 +8,10 @@ include("conn.php");
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Funciones demo</title>
 
   <link href="css/style.css" rel="stylesheet">
@@ -131,10 +135,10 @@ include("conn.php");
 
   <hr>
 
-  <h1 class="h1">Índice - Vista previa</h1>
+  <h1 class="h1 text-center display-6">Índice - Vista previa</h1>
   <div class="row">
-    <div class="col-5">
-      <div class="h-100 flex-column align-items-stretch pe-4 border-end">
+    <div class="col-6 text-center mx-auto">
+      <div class="h-100 flex-column align-items-stretch pe-4">
         <div class='indice'>
           <div id="indice-importado">
 
@@ -145,7 +149,7 @@ include("conn.php");
     </div>
 
 
-    <div class="col-5">
+    <!-- <div class="col-5">
       <div data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
         <p>Resultado</p>
         <div id="parent">
@@ -157,7 +161,7 @@ include("conn.php");
           <div id="contenido"></div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <br><br><br><br><br>
 

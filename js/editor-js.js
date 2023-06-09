@@ -729,6 +729,7 @@ function primaryToIndex(title, _title, category, dataset) {
 Agrega los articulos del resto de categorias al indice, tomando en cuenta su articulo padre
 */
 function addToIndex(indexID, parentID, category, title) {
+  console.log(indexID, parentID);
   let parentElement;
   var parentName;
   if (category == 'primary') {

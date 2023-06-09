@@ -137,7 +137,7 @@ include("conn.php");
 
   <h1 class="h1 text-center display-6">Índice - Vista previa</h1>
   <div class="row">
-    <div class="col-6 text-center mx-auto">
+    <div class="col-6 mx-auto">
       <div class="h-100 flex-column align-items-stretch pe-4">
         <div class='indice'>
           <div id="indice-importado">

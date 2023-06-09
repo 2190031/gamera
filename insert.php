@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     } elseif ($hierarchy === '2') {
-      $verification = "SELECT title, content FROM help_sec WHERE title = $titulo AND content = $contenido";
+      $verification = "SELECT title, content FROM help_sec WHERE title = '$titulo' AND content = '$contenido'";
 
       $verificate = $conn->query($verification);
 
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     } elseif ($hierarchy === '3') {
-      $verification = "SELECT title, content FROM help WHERE title = $titulo AND content = $contenido";
+      $verification = "SELECT title, content FROM help WHERE title = '$titulo AND content = $contenido'";
 
       $verificate = $conn->query($verification);
 
@@ -163,7 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     } elseif ($hierarchy === '4') {
-      $verification = "SELECT title, content FROM help WHERE title = $titulo AND content = $contenido";
+      $verification = "SELECT title, content FROM help WHERE title = '$titulo' AND content = '$contenido'";
 
       $verificate = $conn->query($verification);
 
